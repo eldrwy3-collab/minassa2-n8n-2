@@ -13,7 +13,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             background: #05080f;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -23,7 +22,6 @@
             color: #f8fafc;
             min-height: 100vh;
         }
-
         .aribeth-wrapper {
             max-width: 1400px;
             width: 100%;
@@ -33,13 +31,10 @@
             border: 1px solid #1e293b;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
         }
-
-        /* ===== HEADER ===== */
         .header {
             text-align: center;
             margin-bottom: 44px;
         }
-
         .header-badge {
             display: inline-block;
             background: rgba(16, 185, 129, 0.12);
@@ -53,7 +48,6 @@
             border: 1px solid rgba(16, 185, 129, 0.25);
             margin-bottom: 16px;
         }
-
         .header h1 {
             font-size: 52px;
             font-weight: 900;
@@ -61,11 +55,9 @@
             color: #ffffff;
             margin-bottom: 10px;
         }
-
         .header h1 span {
             color: #f97316;
         }
-
         .header p {
             font-size: 18px;
             color: #94a3b8;
@@ -73,8 +65,6 @@
             margin: 0 auto;
             line-height: 1.7;
         }
-
-        /* ===== GRID: LEFT (Templates) + RIGHT (Form) ===== */
         .control-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -82,14 +72,12 @@
             margin-bottom: 40px;
             align-items: start;
         }
-
         .panel {
             background: rgba(17, 24, 39, 0.65);
             padding: 26px 28px;
             border-radius: 16px;
             border: 1px solid #1f2937;
         }
-
         .panel-label {
             display: block;
             font-weight: 700;
@@ -97,13 +85,11 @@
             font-size: 15px;
             margin-bottom: 14px;
         }
-
         .template-list {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-
         .template-btn {
             padding: 12px 18px;
             border-radius: 8px;
@@ -117,14 +103,12 @@
             font-family: 'Inter', sans-serif;
             text-align: left;
         }
-
         .template-btn:hover {
             background: rgba(16, 185, 129, 0.08);
             border-color: #10b981;
             color: #10b981;
             transform: translateX(4px);
         }
-
         .template-btn.green {
             border-color: #10b981;
             color: #10b981;
@@ -141,7 +125,6 @@
             border-color: #8b5cf6;
             color: #8b5cf6;
         }
-
         .custom-textarea {
             width: 100%;
             height: 110px;
@@ -157,21 +140,17 @@
             transition: border-color 0.2s;
             box-sizing: border-box;
         }
-
         .custom-textarea:focus {
             border-color: #10b981;
         }
-
         .keywords-hint {
             margin-top: 8px;
             font-size: 12px;
             color: #64748b;
         }
-
         .keywords-hint strong {
             color: #94a3b8;
         }
-
         .generate-btn {
             width: 100%;
             margin-top: 14px;
@@ -187,19 +166,15 @@
             font-family: 'Inter', sans-serif;
             box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25);
         }
-
         .generate-btn:hover {
             transform: scale(1.01);
             box-shadow: 0 6px 28px rgba(16, 185, 129, 0.35);
         }
-
         .generate-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
-
-        /* ===== SAVED WORKFLOWS ===== */
         .saved-section {
             background: rgba(17, 24, 39, 0.4);
             border-radius: 12px;
@@ -212,26 +187,21 @@
             flex-wrap: wrap;
             gap: 12px;
         }
-
         .saved-section .saved-label {
             font-size: 13px;
             font-weight: 600;
             color: #94a3b8;
         }
-
         .saved-section .saved-item {
             font-size: 14px;
             color: #e2e8f0;
             font-weight: 500;
         }
-
         .saved-section .saved-item span {
             color: #64748b;
             font-weight: 400;
             font-size: 12px;
         }
-
-        /* ===== CANVAS ===== */
         .canvas-section {
             background: #030712;
             border-radius: 16px;
@@ -240,7 +210,6 @@
             margin-bottom: 28px;
             box-shadow: 0 10px 30px rgba(16, 185, 129, 0.05);
         }
-
         .canvas-header {
             display: flex;
             justify-content: space-between;
@@ -249,14 +218,12 @@
             flex-wrap: wrap;
             gap: 8px;
         }
-
         .canvas-header h3 {
             color: #10b981;
             font-size: 17px;
             font-weight: 800;
             margin: 0;
         }
-
         .canvas-header .badge {
             font-size: 11px;
             background: rgba(16, 185, 129, 0.12);
@@ -267,7 +234,6 @@
             text-transform: uppercase;
             letter-spacing: 0.4px;
         }
-
         #nodesCanvas {
             display: flex;
             align-items: center;
@@ -283,8 +249,6 @@
             min-height: 180px;
             flex-wrap: nowrap;
         }
-
-        /* ===== NODE CARD ===== */
         .node-card {
             background: #111827;
             border: 2px solid #374151;
@@ -297,7 +261,6 @@
             flex-shrink: 0;
             transition: border-color 0.2s;
         }
-
         .node-card.trigger {
             border-color: #f97316;
             background: linear-gradient(145deg, #111827, #1f1711);
@@ -310,7 +273,6 @@
             border-color: #10b981;
             background: linear-gradient(145deg, #111827, #11231c);
         }
-
         .node-number {
             position: absolute;
             top: -10px;
@@ -327,19 +289,16 @@
             justify-content: center;
             border: 2px solid #030712;
         }
-
         .node-icon {
             font-size: 24px;
             margin-bottom: 6px;
         }
-
         .node-title {
             font-weight: 700;
             color: #ffffff;
             font-size: 13px;
             line-height: 1.3;
         }
-
         .node-sub {
             font-size: 10px;
             color: #94a3b8;
@@ -348,7 +307,6 @@
             font-weight: 500;
             letter-spacing: 0.3px;
         }
-
         .node-arrow {
             color: #64748b;
             font-weight: 700;
@@ -356,7 +314,6 @@
             flex-shrink: 0;
             padding: 0 2px;
         }
-
         .loading-placeholder {
             color: #64748b;
             font-size: 14px;
@@ -364,8 +321,6 @@
             text-align: center;
             width: 100%;
         }
-
-        /* ===== ANALYSIS BOX ===== */
         .analysis-section {
             background: #030712;
             border-radius: 16px;
@@ -376,7 +331,6 @@
             font-size: 14px;
             line-height: 1.9;
         }
-
         .analysis-section h3 {
             color: #f97316;
             margin-top: 0;
@@ -384,7 +338,6 @@
             font-size: 19px;
             font-weight: 800;
         }
-
         .alt-box {
             background: rgba(17, 24, 39, 0.7);
             border: 1px solid #374151;
@@ -392,20 +345,17 @@
             padding: 16px 18px;
             margin-top: 16px;
         }
-
         .alt-box h4 {
             color: #38bdf8;
             margin: 0 0 10px 0;
             font-size: 14px;
             font-weight: 700;
         }
-
         .alt-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
             gap: 10px;
         }
-
         .alt-item {
             background: #0b0f19;
             padding: 10px 14px;
@@ -413,7 +363,6 @@
             border: 1px solid #1f2937;
             font-size: 13px;
         }
-
         .alt-item a {
             color: #34d399;
             text-decoration: none;
@@ -422,65 +371,51 @@
             margin-top: 4px;
             font-size: 12px;
         }
-
         .alt-item a:hover {
             text-decoration: underline;
         }
-
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 850px) {
             .control-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-
             .aribeth-wrapper {
                 padding: 28px 18px;
             }
-
             .header h1 {
                 font-size: 34px;
             }
-
             .node-card {
                 width: 155px;
                 min-width: 155px;
                 padding: 10px 12px;
             }
-
             .node-arrow {
                 font-size: 16px;
             }
-
             #nodesCanvas {
                 gap: 8px;
                 padding: 16px 6px;
             }
-
             .analysis-section {
                 padding: 20px 16px;
                 font-size: 13px;
             }
-
             .saved-section {
                 flex-direction: column;
                 align-items: flex-start;
             }
         }
-
         @media (max-width: 480px) {
             .header h1 {
                 font-size: 28px;
             }
-
             .header p {
                 font-size: 15px;
             }
-
             .panel {
                 padding: 18px 16px;
             }
-
             .template-btn {
                 font-size: 12px;
                 padding: 10px 14px;
@@ -492,7 +427,6 @@
 
     <div class="aribeth-wrapper">
 
-        <!-- ===== HEADER ===== -->
         <div class="header">
             <div class="header-badge">⚡ AI-Powered Automation Architecture</div>
             <h1>Aribeth <span>Engine</span> Suite</h1>
@@ -502,32 +436,28 @@
             </p>
         </div>
 
-        <!-- ===== SAVED WORKFLOWS ===== -->
         <div class="saved-section">
             <span class="saved-label">📁 Saved Workflows</span>
             <span class="saved-item">
-                E-commerce Operations Agent — Smart Order Processing &nbsp;<span>9:08:03, 2026/8/24</span>
+                E-Commerce Operations Agent — Smart Order Processing &nbsp;<span>9:08:03, 2026/8/24</span>
             </span>
         </div>
 
-        <!-- ===== CONTROL GRID ===== -->
         <div class="control-grid">
 
-            <!-- LEFT: Templates -->
             <div class="panel">
                 <label class="panel-label">⚡ Automation Domains</label>
                 <div class="template-list">
-                    <button class="template-btn green" data-domain="hr">👥 HR Automation</button>
-                    <button class="template-btn orange" data-domain="sales">📈 Sales &amp; Marketing</button>
-                    <button class="template-btn blue" data-domain="support">🛟 24/7 Technical Support</button>
-                    <button class="template-btn green" data-domain="ecommerce">🛒 E-Commerce Operations</button>
-                    <button class="template-btn purple" data-domain="content">✍️ Content Creation</button>
-                    <button class="template-btn orange" data-domain="it">⚙️ IT &amp; Operations</button>
-                    <button class="template-btn blue" data-domain="realestate">🏢 Real Estate</button>
+                    <button class="template-btn green" data-domain="hr">👥 HR Automation Suite</button>
+                    <button class="template-btn orange" data-domain="sales">📈 Sales &amp; Marketing Automation</button>
+                    <button class="template-btn blue" data-domain="support">🛟 24/7 Support Automation</button>
+                    <button class="template-btn green" data-domain="ecommerce">🛒 E-Commerce Automation</button>
+                    <button class="template-btn purple" data-domain="content">✍️ Content Creation Automation</button>
+                    <button class="template-btn orange" data-domain="it">⚙️ IT &amp; Ops Automation</button>
+                    <button class="template-btn blue" data-domain="realestate">🏢 Real Estate Automation</button>
                 </div>
             </div>
 
-            <!-- RIGHT: Custom Prompt -->
             <div class="panel">
                 <label class="panel-label">✍️ Describe Your Automation Goal</label>
                 <textarea id="customPrompt" class="custom-textarea" placeholder="e.g., Automate content creation for YouTube Reels with AI voiceover and auto-publish to Facebook..."></textarea>
@@ -539,7 +469,6 @@
 
         </div>
 
-        <!-- ===== CANVAS: NODE MAP ===== -->
         <div class="canvas-section">
             <div class="canvas-header">
                 <h3>🗺️ Generated Workflow Node Map · n8n Engine</h3>
@@ -550,7 +479,6 @@
             </div>
         </div>
 
-        <!-- ===== ANALYSIS & ALTERNATIVES ===== -->
         <div class="analysis-section" id="analysisBox">
             <h3>🌐 Architecture Breakdown &amp; Free Alternatives</h3>
             <p style="color: #94a3b8; font-size: 14px;">
@@ -570,13 +498,8 @@
             const customInput = document.getElementById('customPrompt');
             const generateBtn = document.getElementById('generateBtn');
 
-            // ============================================================
-            //  DOMAIN DATA — each domain has nodes + analysis + alternatives
-            // ============================================================
             const domains = {
-
                 hr: {
-                    label: 'HR Automation',
                     nodes: [
                         { number: 1, icon: '📥', title: 'Google Forms', sub: 'Applicant Trigger', type: 'trigger' },
                         { number: 2, icon: '🤖', title: 'OpenAI GPT-4o', sub: 'Resume Parser', type: 'logic' },
@@ -585,7 +508,7 @@
                         { number: 5, icon: '💬', title: 'Slack Webhook', sub: 'Notify HR', type: 'action' }
                     ],
                     analysis: `
-                        <h3>👥 HR Automation — Architecture Breakdown</h3>
+                        <h3>👥 HR Automation Suite — Architecture Breakdown</h3>
                         <p><b>1. Google Forms Trigger:</b> Captures new job applications and candidate data.</p>
                         <p><b>2. OpenAI GPT-4o:</b> Parses CVs, extracts skills, and scores candidates.</p>
                         <p><b>3. Airtable:</b> Stores candidate records with status tracking.</p>
@@ -603,9 +526,7 @@
                         </div>
                     `
                 },
-
                 sales: {
-                    label: 'Sales & Marketing',
                     nodes: [
                         { number: 1, icon: '🎯', title: 'Facebook Ads', sub: 'Lead Trigger', type: 'trigger' },
                         { number: 2, icon: '📊', title: 'Google Sheets', sub: 'Store Leads', type: 'logic' },
@@ -614,7 +535,7 @@
                         { number: 5, icon: '📈', title: 'HubSpot CRM', sub: 'Create Deal', type: 'action' }
                     ],
                     analysis: `
-                        <h3>📈 Sales &amp; Marketing — Architecture Breakdown</h3>
+                        <h3>📈 Sales &amp; Marketing Automation — Architecture Breakdown</h3>
                         <p><b>1. Facebook Ads Trigger:</b> Captures leads from instant forms and ad clicks.</p>
                         <p><b>2. Google Sheets:</b> Stores raw lead data for auditing and backup.</p>
                         <p><b>3. OpenAI GPT-4o:</b> Generates personalized sales messages and follow‑ups.</p>
@@ -632,17 +553,15 @@
                         </div>
                     `
                 },
-
                 support: {
-                    label: '24/7 Technical Support',
                     nodes: [
                         { number: 1, icon: '📧', title: 'Email / Form', sub: 'Ticket Trigger', type: 'trigger' },
-                        { number: 2, icon: '🤖', title: 'OpenAI GPT-4o', sub: 'Classify &amp; Reply', type: 'logic' },
+                        { number: 2, icon: '🤖', title: 'OpenAI GPT-4o', sub: 'Classify & Reply', type: 'logic' },
                         { number: 3, icon: '🗄️', title: 'Jira / Trello', sub: 'Create Ticket', type: 'logic' },
                         { number: 4, icon: '🔔', title: 'Slack / Email', sub: 'Escalate Urgent', type: 'action' }
                     ],
                     analysis: `
-                        <h3>🛟 24/7 Technical Support — Architecture Breakdown</h3>
+                        <h3>🛟 24/7 Support Automation — Architecture Breakdown</h3>
                         <p><b>1. Email / Form Trigger:</b> Captures customer inquiries from multiple channels.</p>
                         <p><b>2. OpenAI GPT-4o:</b> Classifies urgency, drafts contextual replies, and extracts key info.</p>
                         <p><b>3. Jira / Trello:</b> Creates a support ticket automatically with full context.</p>
@@ -658,9 +577,7 @@
                         </div>
                     `
                 },
-
                 ecommerce: {
-                    label: 'E-Commerce Operations',
                     nodes: [
                         { number: 1, icon: '🛒', title: 'Shopify Webhook', sub: 'Order Created', type: 'trigger' },
                         { number: 2, icon: '📊', title: 'Google Sheets', sub: 'Append Order', type: 'logic' },
@@ -668,7 +585,7 @@
                         { number: 4, icon: '💬', title: 'Slack Webhook', sub: 'Sales Alert', type: 'action' }
                     ],
                     analysis: `
-                        <h3>🛒 E-Commerce Operations — Architecture Breakdown</h3>
+                        <h3>🛒 E-Commerce Automation — Architecture Breakdown</h3>
                         <p><b>1. Shopify Webhook:</b> Triggers instantly when a new order is placed.</p>
                         <p><b>2. Google Sheets:</b> Appends order details (customer, items, total) to a spreadsheet.</p>
                         <p><b>3. Gmail / SMTP:</b> Sends an automated invoice or confirmation email to the customer.</p>
@@ -684,9 +601,7 @@
                         </div>
                     `
                 },
-
                 content: {
-                    label: 'Content Creation',
                     nodes: [
                         { number: 1, icon: '🎬', title: 'YouTube / RSS', sub: 'Content Watcher', type: 'trigger' },
                         { number: 2, icon: '🤖', title: 'OpenAI GPT-4o', sub: 'Generate Script', type: 'logic' },
@@ -696,7 +611,7 @@
                         { number: 6, icon: '📢', title: 'Telegram Bot', sub: 'Notify Success', type: 'action' }
                     ],
                     analysis: `
-                        <h3>✍️ Content Creation — Architecture Breakdown</h3>
+                        <h3>✍️ Content Creation Automation — Architecture Breakdown</h3>
                         <p><b>1. YouTube / RSS Watcher:</b> Monitors channels and feeds for new content ideas.</p>
                         <p><b>2. OpenAI GPT-4o:</b> Generates video scripts, captions, and hooks for Reels.</p>
                         <p><b>3. DALL-E / API:</b> Creates visual assets and thumbnails for the video.</p>
@@ -715,9 +630,7 @@
                         </div>
                     `
                 },
-
                 it: {
-                    label: 'IT & Operations',
                     nodes: [
                         { number: 1, icon: '🖥️', title: 'Uptime Monitor', sub: 'Server Check', type: 'trigger' },
                         { number: 2, icon: '🔍', title: 'Data Filter', sub: 'Validate Status', type: 'logic' },
@@ -725,7 +638,7 @@
                         { number: 4, icon: '🔔', title: 'Slack / Email', sub: 'Alert Incident', type: 'action' }
                     ],
                     analysis: `
-                        <h3>⚙️ IT &amp; Operations — Architecture Breakdown</h3>
+                        <h3>⚙️ IT &amp; Ops Automation — Architecture Breakdown</h3>
                         <p><b>1. Uptime Monitor:</b> Periodically checks server health and service availability.</p>
                         <p><b>2. Data Filter:</b> Validates responses and flags errors or timeouts.</p>
                         <p><b>3. Code Node (JS):</b> Parses error logs and extracts meaningful insights.</p>
@@ -740,9 +653,7 @@
                         </div>
                     `
                 },
-
                 realestate: {
-                    label: 'Real Estate',
                     nodes: [
                         { number: 1, icon: '🏢', title: 'Webhook / Form', sub: 'Lead Trigger', type: 'trigger' },
                         { number: 2, icon: '📊', title: 'Google Sheets', sub: 'Store Inquiry', type: 'logic' },
@@ -751,7 +662,7 @@
                         { number: 5, icon: '💬', title: 'WhatsApp API', sub: 'Follow‑up', type: 'action' }
                     ],
                     analysis: `
-                        <h3>🏢 Real Estate — Architecture Breakdown</h3>
+                        <h3>🏢 Real Estate Automation — Architecture Breakdown</h3>
                         <p><b>1. Webhook / Form Trigger:</b> Captures buyer inquiries and property requests.</p>
                         <p><b>2. Google Sheets:</b> Stores lead details and property preferences.</p>
                         <p><b>3. OpenAI GPT-4o:</b> Matches leads with available properties based on criteria.</p>
@@ -764,4 +675,15 @@
                                 <div class="alt-item"><b>Airtable</b><br><a href="https://airtable.com" target="_blank">🔗 Visit Official Site</a></div>
                                 <div class="alt-item"><b>Claude AI</b><br><a href="https://claude.ai" target="_blank">🔗 Visit Official Site</a></div>
                                 <div class="alt-item"><b>Mailgun API</b><br><a href="https://www.mailgun.com" target="_blank">🔗 Visit Official Site</a></div>
-                                <div class="alt-item"><b>Meta WhatsApp API</
+                                <div class="alt-item"><b>Meta WhatsApp API</b><br><a href="https://developers.facebook.com" target="_blank">🔗 Visit Official Site</a></div>
+                            </div>
+                        </div>
+                    `
+                }
+            };
+
+            function renderWorkflow(domainKey, customText = '') {
+                let data = domains[domainKey];
+                if (!data) {
+                    const lower = customText.toLowerCase();
+                    if
