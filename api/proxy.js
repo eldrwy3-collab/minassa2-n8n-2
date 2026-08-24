@@ -1,4 +1,5 @@
 export default async function handler(req, res) {
+    // Allow CORS
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -14,6 +15,7 @@ export default async function handler(req, res) {
     try {
         const { text } = req.body;
 
+        // Send to n8n
         const response = await fetch('https://xenonled.app.n8n.cloud/webhook/netregent', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
