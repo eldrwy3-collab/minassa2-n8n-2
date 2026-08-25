@@ -3,47 +3,39 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aribeth Engine Suite · AI Automation Architecture</title>
+    <title>Aribeth Engine Suite</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{background:#05080f;font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:24px 20px;color:#f8fafc;min-height:100vh}
-        .wrapper{max-width:1600px;width:100%;background:linear-gradient(165deg,#0a0f1e,#070b16);border-radius:32px;padding:44px 48px;border:1px solid rgba(30,41,59,0.6)}
-        .header{text-align:center;margin-bottom:30px}
-        .header-badge{display:inline-block;background:rgba(16,185,129,0.10);color:#10b981;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;padding:6px 22px;border-radius:40px;border:1px solid rgba(16,185,129,0.20);margin-bottom:18px}
-        .header h1{font-size:56px;font-weight:900;letter-spacing:-2px;background:linear-gradient(135deg,#fff 40%,#94a3b8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .header h1 span{background:linear-gradient(135deg,#f97316,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .header p{font-size:18px;color:#94a3b8;max-width:780px;margin:0 auto;line-height:1.8}
-        .nav-bar{display:flex;justify-content:center;gap:8px;margin-bottom:24px}
-        .nav-btn{background:rgba(17,24,39,0.4);border:1px solid rgba(31,41,55,0.3);border-radius:10px;padding:8px 20px;color:#94a3b8;font-size:13px;font-weight:600;cursor:pointer}
-        .nav-btn.active{background:rgba(16,185,129,0.10);border-color:#10b981;color:#10b981}
-        .grid{display:grid;grid-template-columns:380px 1fr;gap:30px;margin-bottom:36px}
-        .panel{background:rgba(17,24,39,0.5);padding:24px 26px;border-radius:18px;border:1px solid rgba(31,41,55,0.5)}
-        .panel-label{display:block;font-weight:700;color:#fff;font-size:15px;margin-bottom:14px}
-        .domain-list{display:flex;flex-direction:column;gap:5px;max-height:300px;overflow-y:auto;padding-right:4px}
-        .domain-list::-webkit-scrollbar{width:4px}
-        .domain-list::-webkit-scrollbar-thumb{background:#10b981;border-radius:10px}
-        .domain-btn{padding:11px 16px;border-radius:10px;border:1px solid rgba(55,65,81,0.5);background:rgba(255,255,255,0.02);color:#e2e8f0;font-weight:600;font-size:13px;cursor:pointer;text-align:left;width:100%}
-        .domain-btn:hover{background:rgba(16,185,129,0.07);border-color:#10b981;color:#10b981}
-        .domain-btn.selected{background:rgba(16,185,129,0.12);border-color:#10b981;color:#10b981}
-        .domain-btn .count{float:right;font-size:11px;color:#64748b}
-        .media-list{display:flex;flex-direction:column;gap:5px;max-height:300px;overflow-y:auto;padding-right:4px;margin-bottom:20px;border-top:1px solid rgba(55,65,81,0.3);padding-top:16px}
-        .media-btn{padding:8px 14px;border-radius:8px;border:1px solid rgba(55,65,81,0.4);background:rgba(255,255,255,0.02);color:#94a3b8;font-weight:600;font-size:12px;cursor:pointer;text-align:left;width:100%}
-        .media-btn:hover{background:rgba(59,130,246,0.07);border-color:#3b82f6;color:#3b82f6}
-        .generate-btn{width:100%;margin-top:14px;padding:16px;background:linear-gradient(135deg,#10b981,#059669);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:16px;cursor:pointer}
-        .canvas-section{background:rgba(3,7,18,0.6);border-radius:18px;padding:30px 28px;border:2px solid rgba(16,185,129,0.15);margin-bottom:28px;min-height:400px}
-        #nodesCanvas{display:flex;align-items:center;justify-content:flex-start;gap:14px;padding:30px 20px;background:rgba(8,12,23,0.6);border-radius:14px;min-height:300px;overflow-x:auto}
-        .node-card{background:linear-gradient(145deg,#111827,#0d1422);border:2px solid rgba(55,65,81,0.5);border-radius:14px;padding:16px 18px;width:190px;min-width:180px;text-align:center;position:relative;flex-shrink:0}
-        .node-card.trigger{border-color:#f97316;background:linear-gradient(145deg,#1f1711,#16100b)}
-        .node-card.logic{border-color:#3b82f6;background:linear-gradient(145deg,#111d2e,#0d1728)}
-        .node-card.action{border-color:#10b981;background:linear-gradient(145deg,#11231c,#0d1d17)}
-        .node-icon{font-size:28px;margin-bottom:6px;display:block}
-        .node-title{font-weight:700;color:#fff;font-size:13px}
+        body{background:#05080f;font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:24px;color:#f8fafc}
+        .wrapper{max-width:1500px;width:100%;background:linear-gradient(165deg,#0a0f1e,#070b16);border-radius:32px;padding:44px;border:1px solid rgba(30,41,59,0.6)}
+        .header{text-align:center;margin-bottom:24px}
+        .header-badge{display:inline-block;background:rgba(16,185,129,0.10);color:#10b981;font-size:11px;font-weight:700;padding:6px 20px;border-radius:30px;margin-bottom:14px}
+        .header h1{font-size:42px;font-weight:900;color:#fff;margin-bottom:8px}
+        .header h1 span{color:#f97316}
+        .header p{color:#94a3b8;font-size:16px}
+        .grid{display:grid;grid-template-columns:350px 1fr;gap:24px}
+        .panel{background:rgba(17,24,39,0.5);padding:22px;border-radius:16px;border:1px solid rgba(31,41,55,0.5)}
+        .panel-label{display:block;color:#fff;font-weight:700;font-size:15px;margin-bottom:12px}
+        .domain-list,.media-list{max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+        .domain-list::-webkit-scrollbar,.media-list::-webkit-scrollbar{width:5px}
+        .domain-list::-webkit-scrollbar-thumb,.media-list::-webkit-scrollbar-thumb{background:#10b981;border-radius:10px}
+        .domain-btn,.media-btn{padding:10px 14px;border-radius:10px;border:1px solid rgba(55,65,81,0.5);background:rgba(255,255,255,0.03);color:#e2e8f0;font-size:13px;font-weight:600;text-align:left;cursor:pointer;width:100%}
+        .domain-btn:hover,.media-btn:hover{border-color:#10b981;color:#10b981}
+        .domain-btn.selected,.media-btn.selected{background:rgba(16,185,129,0.12);border-color:#10b981;color:#10b981}
+        .count{float:right;color:#64748b;font-size:11px}
+        .generate-btn{width:100%;padding:16px;background:linear-gradient(135deg,#10b981,#059669);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:16px;cursor:pointer;margin-top:16px}
+        .canvas-section{border:1px solid rgba(55,65,81,0.3);padding:24px;border-radius:14px;min-height:320px;overflow-x:auto;margin-bottom:20px}
+        #nodesCanvas{display:flex;align-items:center;gap:20px;min-height:260px}
+        .node-card{background:linear-gradient(145deg,#111827,#0d1422);border:2px solid #334155;border-radius:14px;padding:16px;width:170px;text-align:center;flex-shrink:0}
+        .node-card.trigger{border-color:#f97316}.node-card.logic{border-color:#3b82f6}.node-card.action{border-color:#10b981}
+        .node-icon{font-size:26px;margin-bottom:6px}
+        .node-title{font-weight:700;font-size:12px;color:#fff;word-break:break-word}
         .node-sub{font-size:10px;color:#94a3b8;margin-top:4px}
-        .node-arrow{color:#64748b;font-weight:700;font-size:22px;flex-shrink:0}
-        .result-links{margin-bottom:16px;background:rgba(17,24,39,0.4);padding:16px;border-radius:12px;border:1px solid rgba(31,41,55,0.4)}
-        .result-links a{display:block;color:#10b981;text-decoration:none;margin-bottom:8px;font-size:14px;font-weight:600}
+        .node-arrow{color:#64748b;font-size:24px}
+        .result-links{background:rgba(17,24,39,0.4);border:1px solid rgba(31,41,55,0.3);border-radius:12px;padding:16px;margin-top:16px}
+        .result-links a{display:block;color:#10b981;text-decoration:none;font-size:14px;font-weight:600;margin-bottom:8px}
         .result-links a:hover{text-decoration:underline}
+        .loading{color:#64748b;font-size:14px;text-align:center;padding:20px;width:100%}
     </style>
 </head>
 <body>
@@ -51,99 +43,77 @@
         <header class="header">
             <div class="header-badge">⚡ AI-Powered Automation Architecture</div>
             <h1>Aribeth <span>Engine</span> Suite</h1>
-            <p>Select a domain, choose your media type, and get a real production workflow.</p>
+            <p>Select a domain, choose media type, and get real workflows.</p>
         </header>
 
-        <div class="page active" id="page-home">
-            <div class="grid">
-                <div class="panel">
-                    <label class="panel-label">📂 Select Automation Domain</label>
-                    <div class="domain-list" id="domainList">
-                        <div style="color:#64748b; font-size:13px;">Loading domains...</div>
-                    </div>
+        <div class="grid">
+            <div class="panel">
+                <label class="panel-label">📂 Select Domain</label>
+                <div class="domain-list" id="domainList"><div class="loading">Loading...</div></div>
 
-                    <label class="panel-label" style="margin-top:20px; color:#3b82f6;">🎬 Select Media Type</label>
-                    <div class="media-list" id="mediaList">
-                        <div style="color:#64748b; font-size:13px;">Select a domain first</div>
-                    </div>
+                <label class="panel-label" style="color:#3b82f6;">🎬 Select Media</label>
+                <div class="media-list" id="mediaList"><div class="loading">Select a domain first</div></div>
 
-                    <button class="generate-btn" id="generateBtn">🚀 Generate Automation Workflow</button>
-                </div>
+                <button class="generate-btn" id="generateBtn">🚀 Generate</button>
+            </div>
 
-                <div class="panel">
-                    <label class="panel-label">🗺️ Generated Workflow Node Map</label>
-                    <div class="canvas-section" style="padding:0; border:none; min-height:auto;">
-                        <div id="nodesCanvas"><div class="loading-placeholder">Waiting for your selection...</div></div>
-                    </div>
+            <div class="panel">
+                <label class="panel-label">🗺️ Node Map</label>
+                <div class="canvas-section" id="canvasSection"><div id="nodesCanvas"><div class="loading">Waiting...</div></div></div>
 
-                    <div id="analysisBox" class="result-links" style="border:none; padding:0; margin-top:20px;">
-                        <label class="panel-label" style="margin-bottom:8px;">🔗 Top Templates Found:</label>
-                        <div id="templateLinks">Nothing to show yet.</div>
-                    </div>
+                <div class="result-links">
+                    <label class="panel-label" style="font-size:13px;">🔗 Top Templates:</label>
+                    <div id="templateLinks">No templates selected yet.</div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // هذا الكود يتصل بـ Vercel API (api/proxy.js) وليس مباشرة بـ n8n
-        const apiURL = "/api/proxy"; 
+        // ⚠️ ضع هنا رابط n8n Webhook الخاص بك (الذي أنشأته في n8n)
+        const webhookURL = "https://XENONLED2.APP.N8N.CLOUD/WEBHOOK/...."; 
 
-        let globalData = {
-            domains: [],
-            media: [],
-            results: []
-        };
-
-        let selectedDomain = null;
-        let selectedMedia = null;
+        let globalData = { domains: [], media: [], results: [], workflow: [] };
+        let currentDomain = null;
+        let currentMedia = null;
 
         async function fetchData() {
             try {
-                const response = await fetch(apiURL, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({})
-                });
+                const response = await fetch(webhookURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
                 const data = await response.json();
                 
                 globalData.domains = data.all_domains_menu || [];
                 globalData.media = data.all_media_types_menu || [];
                 globalData.results = data.top_results || [];
+                globalData.workflow = data.generated_workflow || {};
 
                 renderDomains();
             } catch (error) {
-                document.getElementById('domainList').innerHTML = 
-                    `<div style="color:#f87171;">Error connecting. Check proxy.js</div>`;
+                document.getElementById('domainList').innerHTML = '<div style="color:#f87171;">Error connecting to n8n. Check URL/CORS.</div>';
             }
         }
 
         function renderDomains() {
-            const domainList = document.getElementById('domainList');
-            domainList.innerHTML = '';
-            
-            globalData.domains.forEach(domain => {
+            const list = document.getElementById('domainList');
+            list.innerHTML = '';
+            globalData.domains.forEach(d => {
                 const btn = document.createElement('button');
                 btn.className = 'domain-btn';
-                btn.innerHTML = `${domain.domain_name} <span class="count">(${domain.total_templates})</span>`;
-                btn.onclick = () => selectDomain(domain.domain_name);
-                domainList.appendChild(btn);
+                btn.innerHTML = `${d.domain_name} <span class="count">(${d.total_templates})</span>`;
+                btn.onclick = () => selectDomain(d.domain_name);
+                list.appendChild(btn);
             });
         }
 
-        function selectDomain(domainName) {
-            selectedDomain = domainName;
-            selectedMedia = null;
-            
-            document.querySelectorAll('.domain-btn').forEach(btn => {
-                btn.classList.remove('selected');
-                if(btn.textContent.includes(domainName)) btn.classList.add('selected');
-            });
+        function selectDomain(name) {
+            currentDomain = name;
+            currentMedia = null;
+            document.querySelectorAll('.domain-btn').forEach(b => b.classList.toggle('selected', b.textContent.includes(name)));
 
-            const mediaData = globalData.media.find(m => m.domain === domainName);
+            // إظهار الوسائط الخاصة بالمجال المحدد
             const mediaList = document.getElementById('mediaList');
             mediaList.innerHTML = '';
-
+            const mediaData = globalData.media.find(m => m.domain === name);
             if (mediaData && mediaData.media.length > 0) {
                 mediaData.media.forEach(m => {
                     const btn = document.createElement('button');
@@ -153,97 +123,69 @@
                     mediaList.appendChild(btn);
                 });
             } else {
-                mediaList.innerHTML = '<div style="color:#64748b; font-size:13px;">No media found.</div>';
+                mediaList.innerHTML = '<div class="loading">No media types found.</div>';
             }
         }
 
-        function selectMedia(mediaName) {
-            selectedMedia = mediaName;
-            
-            document.querySelectorAll('.media-btn').forEach(btn => {
-                btn.style.borderColor = '#3b82f6';
-                btn.style.color = '#3b82f6';
-                if(btn.textContent.includes(mediaName)) {
-                    btn.style.borderColor = '#10b981';
-                    btn.style.color = '#10b981';
-                }
-            });
-
+        function selectMedia(name) {
+            currentMedia = name;
+            document.querySelectorAll('.media-btn').forEach(b => b.classList.toggle('selected', b.textContent.includes(name)));
             renderResults();
         }
 
         function renderResults() {
-            const templateLinks = document.getElementById('templateLinks');
-            templateLinks.innerHTML = '';
-
+            const links = document.getElementById('templateLinks');
+            links.innerHTML = '';
+            
             if (globalData.results.length > 0) {
-                globalData.results.forEach(template => {
+                globalData.results.forEach(t => {
                     const a = document.createElement('a');
-                    a.href = template.url;
+                    a.href = t.url;
                     a.target = "_blank";
-                    a.textContent = `🔗 ${template.title}`;
-                    templateLinks.appendChild(a);
+                    a.textContent = `🔗 ${t.title}`;
+                    links.appendChild(a);
                 });
             } else {
-                templateLinks.innerHTML = '<span style="color:#64748b;">No templates found.</span>';
+                links.innerHTML = '<span style="color:#64748b;">No results found for this domain. Try another.</span>';
             }
 
-            renderMap(globalData.generated_workflow);
-        }
-
-        function renderMap(workflow) {
+            // رسم الخريطة
             const canvas = document.getElementById('nodesCanvas');
-            if (!workflow || !workflow.nodes) {
-                canvas.innerHTML = '<div class="loading-placeholder">Workflow structure not received.</div>';
+            if (!globalData.workflow.nodes || globalData.workflow.nodes.length === 0) {
+                canvas.innerHTML = '<div class="loading">Workflow not generated yet.</div>';
                 return;
             }
-
+            
             let html = '';
-            workflow.nodes.forEach((node, index) => {
-                let icon = '⚙️';
-                let type = 'action';
-                if (node.type.includes('webhook')) { icon = '⚡'; type = 'trigger'; }
-                if (node.type.includes('if') || node.type.includes('switch')) { icon = '🔀'; type = 'logic'; }
-
-                html += `<div class="node-card ${type}">
-                            <span class="node-icon">${icon}</span>
-                            <div class="node-title">${node.name}</div>
-                            <div class="node-sub">${node.type}</div>
-                        </div>`;
+            globalData.workflow.nodes.forEach((n, i) => {
+                let icon = '⚙️', type = 'action';
+                if (n.type.includes('webhook')) { icon = '⚡'; type = 'trigger'; }
+                if (n.type.includes('if') || n.type.includes('switch')) { icon = '🔀'; type = 'logic'; }
                 
-                if (index < workflow.nodes.length - 1) {
-                    html += `<span class="node-arrow">➔</span>`;
-                }
+                html += `<div class="node-card ${type}"><span class="node-icon">${icon}</span><div class="node-title">${n.name}</div><div class="node-sub">${n.type}</div></div>`;
+                if (i < globalData.workflow.nodes.length - 1) html += `<span class="node-arrow">➔</span>`;
             });
-
             canvas.innerHTML = html;
         }
 
         document.getElementById('generateBtn').onclick = async () => {
-            if (!selectedDomain || !selectedMedia) {
-                alert("Please select a Domain and a Media Type.");
+            if (!currentDomain || !currentMedia) {
+                alert("Please select Domain and Media.");
                 return;
             }
-
+            
             document.getElementById('generateBtn').textContent = '⏳ Generating...';
-
             try {
-                const response = await fetch(apiURL, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ domain: selectedDomain, media: selectedMedia })
-                });
+                const response = await fetch(webhookURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ domain: currentDomain, media: currentMedia }) });
                 const data = await response.json();
                 
                 globalData.results = data.top_results || [];
-                globalData.generated_workflow = data.generated_workflow;
-                
+                globalData.workflow = data.generated_workflow || {};
                 renderResults();
-                document.getElementById('generateBtn').textContent = '🚀 Generate Automation Workflow';
+                document.getElementById('generateBtn').textContent = '🚀 Generate';
             } catch (error) {
-                console.error(error);
-                alert("Error generating workflow.");
-                document.getElementById('generateBtn').textContent = '🚀 Generate Automation Workflow';
+                alert("Error generating.");
+                document.getElementById('generateBtn').textContent = '🚀 Generate';
             }
         };
 
