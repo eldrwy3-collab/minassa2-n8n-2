@@ -2,8 +2,7 @@
 // Vercel Serverless Function to securely connect to n8n
 
 const handler = async (req, res) => {
-  // REPLACE THIS WITH YOUR ACTUAL n8n WEBHOOK URL
-  const n8nURL = "https://https://xenonled.app.n8n.cloud/webhook/netregent"; 
+  const n8nURL = "https://xenonled.app.n8n.cloud/webhook/netregent";
 
   try {
     const response = await fetch(n8nURL, {
