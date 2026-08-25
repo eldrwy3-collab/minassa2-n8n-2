@@ -41,28 +41,28 @@
 <body>
     <div class="wrapper">
         <header class="header">
-            <div class="header-badge">⚡ AI-Powered Automation Architecture</div>
+            <div class="header-badge">&#9889; AI-Powered Automation Architecture</div>
             <h1>Aribeth <span>Engine</span> Suite</h1>
             <p>Select a domain, choose media type, and get real workflows.</p>
         </header>
 
         <div class="grid">
             <div class="panel">
-                <label class="panel-label">📂 Select Domain</label>
+                <label class="panel-label">&#128194; Select Domain</label>
                 <div class="domain-list" id="domainList"><div class="loading">Loading...</div></div>
 
-                <label class="panel-label" style="color:#3b82f6;">🎬 Select Media</label>
+                <label class="panel-label" style="color:#3b82f6;">&#127916; Select Media</label>
                 <div class="media-list" id="mediaList"><div class="loading">Select a domain first</div></div>
 
-                <button class="generate-btn" id="generateBtn">🚀 Generate</button>
+                <button class="generate-btn" id="generateBtn">&#128640; Generate</button>
             </div>
 
             <div class="panel">
-                <label class="panel-label">🗺️ Node Map</label>
+                <label class="panel-label">&#128506;&#65039; Node Map</label>
                 <div class="canvas-section" id="canvasSection"><div id="nodesCanvas"><div class="loading">Waiting...</div></div></div>
 
                 <div class="result-links">
-                    <label class="panel-label" style="font-size:13px;">🔗 Top Templates:</label>
+                    <label class="panel-label" style="font-size:13px;">&#128279; Top Templates:</label>
                     <div id="templateLinks">No templates selected yet.</div>
                 </div>
             </div>
@@ -70,8 +70,8 @@
     </div>
 
     <script>
-        // ⚠️ ضع هنا رابط n8n Webhook الخاص بك (الذي أنشأته في n8n)
-        const webhookURL = "https://XENONLED2.APP.N8N.CLOUD/WEBHOOK/...."; 
+        // Connects to Vercel API (api/proxy.js) to avoid CORS issues
+        const apiURL = "/api/proxy"; 
 
         let globalData = { domains: [], media: [], results: [], workflow: [] };
         let currentDomain = null;
@@ -79,7 +79,7 @@
 
         async function fetchData() {
             try {
-                const response = await fetch(webhookURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
+                const response = await fetch(apiURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
                 const data = await response.json();
                 
                 globalData.domains = data.all_domains_menu || [];
@@ -89,7 +89,7 @@
 
                 renderDomains();
             } catch (error) {
-                document.getElementById('domainList').innerHTML = '<div style="color:#f87171;">Error connecting to n8n. Check URL/CORS.</div>';
+                document.getElementById('domainList').innerHTML = '<div style="color:#f87171;">Failed to connect to n8n via Vercel.</div>';
             }
         }
 
@@ -110,7 +110,6 @@
             currentMedia = null;
             document.querySelectorAll('.domain-btn').forEach(b => b.classList.toggle('selected', b.textContent.includes(name)));
 
-            // إظهار الوسائط الخاصة بالمجال المحدد
             const mediaList = document.getElementById('mediaList');
             mediaList.innerHTML = '';
             const mediaData = globalData.media.find(m => m.domain === name);
@@ -142,14 +141,13 @@
                     const a = document.createElement('a');
                     a.href = t.url;
                     a.target = "_blank";
-                    a.textContent = `🔗 ${t.title}`;
+                    a.textContent = `&#128279; ${t.title}`;
                     links.appendChild(a);
                 });
             } else {
-                links.innerHTML = '<span style="color:#64748b;">No results found for this domain. Try another.</span>';
+                links.innerHTML = '<span style="color:#64748b;">No results found.</span>';
             }
 
-            // رسم الخريطة
             const canvas = document.getElementById('nodesCanvas');
             if (!globalData.workflow.nodes || globalData.workflow.nodes.length === 0) {
                 canvas.innerHTML = '<div class="loading">Workflow not generated yet.</div>';
@@ -158,12 +156,12 @@
             
             let html = '';
             globalData.workflow.nodes.forEach((n, i) => {
-                let icon = '⚙️', type = 'action';
-                if (n.type.includes('webhook')) { icon = '⚡'; type = 'trigger'; }
-                if (n.type.includes('if') || n.type.includes('switch')) { icon = '🔀'; type = 'logic'; }
+                let icon = '&#9881;&#65039;', type = 'action';
+                if (n.type.includes('webhook')) { icon = '&#9889;'; type = 'trigger'; }
+                if (n.type.includes('if') || n.type.includes('switch')) { icon = '&#128257;'; type = 'logic'; }
                 
                 html += `<div class="node-card ${type}"><span class="node-icon">${icon}</span><div class="node-title">${n.name}</div><div class="node-sub">${n.type}</div></div>`;
-                if (i < globalData.workflow.nodes.length - 1) html += `<span class="node-arrow">➔</span>`;
+                if (i < globalData.workflow.nodes.length - 1) html += `<span class="node-arrow">&#10132;</span>`;
             });
             canvas.innerHTML = html;
         }
@@ -174,18 +172,18 @@
                 return;
             }
             
-            document.getElementById('generateBtn').textContent = '⏳ Generating...';
+            document.getElementById('generateBtn').textContent = 'Generating...';
             try {
-                const response = await fetch(webhookURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ domain: currentDomain, media: currentMedia }) });
+                const response = await fetch(apiURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ domain: currentDomain, media: currentMedia }) });
                 const data = await response.json();
                 
                 globalData.results = data.top_results || [];
                 globalData.workflow = data.generated_workflow || {};
                 renderResults();
-                document.getElementById('generateBtn').textContent = '🚀 Generate';
+                document.getElementById('generateBtn').textContent = '&#128640; Generate';
             } catch (error) {
                 alert("Error generating.");
-                document.getElementById('generateBtn').textContent = '🚀 Generate';
+                document.getElementById('generateBtn').textContent = '&#128640; Generate';
             }
         };
 
