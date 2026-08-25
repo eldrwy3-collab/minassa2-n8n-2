@@ -7,13 +7,5 @@
   "routes": [
     { "src": "/api/proxy", "dest": "/api/proxy.js" },
     { "src": "/(.*)", "dest": "/index.html" }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "index, follow" }
-      ]
-    }
   ]
 }
