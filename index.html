@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aribeth Engine Suite · 70+ Automation Templates</title>
+    <title>Aribeth Engine Suite</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{background:#05080f;font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:20px;color:#f8fafc;min-height:100vh}
-        .wrapper{max-width:1500px;width:100%;background:linear-gradient(145deg,#0b1120,#05080f);border-radius:28px;padding:40px;border:1px solid #1e293b;box-shadow:0 30px 60px rgba(0,0,0,0.8)}
+        .wrapper{max-width:1400px;width:100%;background:linear-gradient(145deg,#0b1120,#05080f);border-radius:28px;padding:40px;border:1px solid #1e293b;box-shadow:0 30px 60px rgba(0,0,0,0.8)}
         .header{text-align:center;margin-bottom:35px}
         .header-badge{display:inline-block;background:rgba(16,185,129,0.12);color:#10b981;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;padding:6px 20px;border-radius:40px;border:1px solid rgba(16,185,129,0.25);margin-bottom:16px}
         .header h1{font-size:48px;font-weight:900;letter-spacing:-1.5px;color:#fff;margin-bottom:8px}
@@ -17,20 +17,16 @@
         .grid{display:grid;grid-template-columns:350px 1fr;gap:30px;margin-bottom:35px;align-items:start}
         .panel{background:rgba(17,24,39,0.65);padding:22px 24px;border-radius:16px;border:1px solid #1f2937}
         .panel-label{display:block;font-weight:700;color:#fff;font-size:14px;margin-bottom:12px}
-        .template-list{display:flex;flex-direction:column;gap:4px;max-height:600px;overflow-y:auto}
+        .template-list{display:flex;flex-direction:column;gap:6px;max-height:500px;overflow-y:auto}
         .template-list::-webkit-scrollbar{width:4px}
         .template-list::-webkit-scrollbar-track{background:#0b1120}
         .template-list::-webkit-scrollbar-thumb{background:#10b981;border-radius:10px}
-        .template-btn{padding:10px 16px;border-radius:8px;border:1px solid #374151;background:rgba(255,255,255,0.02);color:#e2e8f0;font-weight:600;font-size:12px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;text-align:left;width:100%}
+        .template-btn{padding:12px 16px;border-radius:8px;border:1px solid #374151;background:rgba(255,255,255,0.02);color:#e2e8f0;font-weight:600;font-size:13px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;text-align:left;width:100%}
         .template-btn:hover{background:rgba(16,185,129,0.08);border-color:#10b981;color:#10b981}
         .template-btn.green{border-color:#10b981;color:#10b981}
         .template-btn.orange{border-color:#f97316;color:#f97316}
         .template-btn.blue{border-color:#3b82f6;color:#3b82f6}
         .template-btn.purple{border-color:#8b5cf6;color:#8b5cf6}
-        .template-btn.small{padding:6px 12px;font-size:11px;margin-left:16px;border-color:#2d3748;background:rgba(255,255,255,0.01)}
-        .template-btn.small:hover{background:rgba(16,185,129,0.05)}
-        .sub-templates{display:none;margin-left:8px;border-left:1px solid #1f2937;padding-left:8px}
-        .badge-count{font-size:10px;background:#1f2937;padding:1px 8px;border-radius:10px;margin-left:8px;color:#94a3b8}
         .custom-textarea{width:100%;height:100px;padding:14px 16px;border-radius:10px;background:#030712;border:1px solid #374151;color:#f1f5f9;font-size:14px;font-family:'Inter',sans-serif;resize:vertical;outline:none;transition:border-color .2s;box-sizing:border-box}
         .custom-textarea:focus{border-color:#10b981}
         .keywords-hint{margin-top:8px;font-size:11px;color:#64748b}
@@ -42,20 +38,19 @@
         .saved-section .saved-label{font-size:12px;font-weight:600;color:#94a3b8}
         .saved-section .saved-item{font-size:13px;color:#e2e8f0;font-weight:500}
         .saved-section .saved-item span{color:#64748b;font-weight:400;font-size:11px}
-        .canvas-section{background:#030712;border-radius:16px;padding:24px;border:2px solid #10b981;margin-bottom:24px;box-shadow:0 10px 30px rgba(16,185,129,0.05);min-height:300px;position:relative;overflow-x:auto}
+        .canvas-section{background:#030712;border-radius:16px;padding:24px;border:2px solid #10b981;margin-bottom:24px;box-shadow:0 10px 30px rgba(16,185,129,0.05);min-height:200px;overflow-x:auto}
         .canvas-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px}
         .canvas-header h3{color:#10b981;font-size:16px;font-weight:800;margin:0}
         .canvas-header .badge{font-size:10px;background:rgba(16,185,129,0.12);color:#10b981;padding:3px 14px;border-radius:20px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
-        #nodesCanvas{display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:20px 12px;background:radial-gradient(circle,#1f2937 1px,transparent 1px);background-size:24px 24px;background-color:#080c17;border-radius:10px;border:1px solid #1a2236;min-height:160px;flex-wrap:nowrap;overflow-x:auto}
-        .node-card{background:#111827;border:2px solid #374151;border-radius:12px;padding:12px 14px;width:170px;min-width:170px;text-align:center;position:relative;flex-shrink:0;transition:border-color .2s}
+        #nodesCanvas{display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:20px 12px;background:radial-gradient(circle,#1f2937 1px,transparent 1px);background-size:24px 24px;background-color:#080c17;border-radius:10px;border:1px solid #1a2236;min-height:120px;flex-wrap:nowrap;overflow-x:auto}
+        .node-card{background:#111827;border:2px solid #374151;border-radius:12px;padding:12px 14px;width:170px;min-width:170px;text-align:center;position:relative;flex-shrink:0}
         .node-card.trigger{border-color:#f97316;background:linear-gradient(145deg,#111827,#1f1711)}
         .node-card.logic{border-color:#3b82f6;background:linear-gradient(145deg,#111827,#111d2e)}
         .node-card.action{border-color:#10b981;background:linear-gradient(145deg,#111827,#11231c)}
-        .node-card.branch{background:linear-gradient(145deg,#111827,#1a1a2e);border-color:#8b5cf6}
         .node-number{position:absolute;top:-10px;right:-10px;background:#f97316;color:#fff;width:22px;height:22px;border-radius:50%;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid #030712}
         .node-icon{font-size:22px;margin-bottom:4px}
         .node-title{font-weight:700;color:#fff;font-size:12px;line-height:1.3}
-        .node-sub{font-size:9px;color:#94a3b8;margin-top:3px;text-transform:uppercase;font-weight:500;letter-spacing:.3px}
+        .node-sub{font-size:9px;color:#94a3b8;margin-top:3px;text-transform:uppercase;font-weight:500}
         .node-arrow{color:#64748b;font-weight:700;font-size:18px;flex-shrink:0;padding:0 2px}
         .loading-placeholder{color:#64748b;font-size:13px;padding:20px;text-align:center;width:100%}
         .analysis-section{background:#030712;border-radius:16px;padding:28px;border:2px solid #f97316;box-shadow:0 10px 30px rgba(249,115,22,0.05);color:#e2e8f0;font-size:13px;line-height:1.8;max-height:600px;overflow-y:auto}
@@ -67,345 +62,203 @@
         .alt-item{background:#0b0f19;padding:8px 12px;border-radius:8px;border:1px solid #1f2937;font-size:12px}
         .alt-item a{color:#34d399;text-decoration:none;font-weight:600;display:inline-block;margin-top:3px;font-size:11px}
         .alt-item a:hover{text-decoration:underline}
-        .n8n-response{background:#030712;border:1px solid #10b981;border-radius:10px;padding:16px;margin-top:14px;white-space:pre-wrap;color:#e2e8f0;font-size:13px;line-height:1.8;max-height:300px;overflow-y:auto}
-        .node-branch-label{font-size:9px;color:#94a3b8;background:#1f2937;padding:1px 8px;border-radius:8px;display:inline-block;margin-top:4px}
-        @media(max-width:850px){.grid{grid-template-columns:1fr;gap:20px}.wrapper{padding:20px}.header h1{font-size:32px}.node-card{width:145px;min-width:145px;padding:10px}.node-arrow{font-size:14px}#nodesCanvas{gap:6px;padding:12px 6px}.analysis-section{padding:16px;font-size:12px}.saved-section{flex-direction:column;align-items:flex-start}.template-list{max-height:400px}}
-        @media(max-width:480px){.header h1{font-size:26px}.header p{font-size:14px}.panel{padding:14px}.template-btn{font-size:11px;padding:8px 12px}}
+        .n8n-response{background:#030712;border:1px solid #10b981;border-radius:10px;padding:16px;margin-top:14px;white-space:pre-wrap;color:#e2e8f0;font-size:13px;line-height:1.8;max-height:400px;overflow-y:auto}
+        @media(max-width:850px){.grid{grid-template-columns:1fr;gap:20px}.wrapper{padding:20px}.header h1{font-size:32px}.node-card{width:145px;min-width:145px;padding:10px}.node-arrow{font-size:14px}#nodesCanvas{gap:6px;padding:12px 6px}.analysis-section{padding:16px;font-size:12px}.saved-section{flex-direction:column;align-items:flex-start}}
+        @media(max-width:480px){.header h1{font-size:26px}.header p{font-size:14px}.panel{padding:14px}.template-btn{font-size:12px;padding:10px 14px}}
         .loading-spinner{color:#10b981;text-align:center;padding:20px;font-size:14px}
-        .small-text{font-size:11px;color:#64748b}
     </style>
 </head>
 <body>
 <div class="wrapper">
-    <!-- HEADER -->
     <div class="header">
         <div class="header-badge">⚡ Enterprise Automation Architecture</div>
         <h1>Aribeth <span>Engine</span> Suite</h1>
-        <p>70+ production-ready automation templates with detailed node maps, real platform names, tools, and free alternatives.</p>
+        <p>Select a domain below or describe your goal — AI will generate a complete production-ready workflow with real platforms, tools, and free alternatives.</p>
     </div>
 
-    <!-- SAVED WORKFLOWS -->
     <div class="saved-section">
         <span class="saved-label">📁 Saved Workflows</span>
         <span class="saved-item">Enterprise E-Commerce Operations — Smart Order Processing <span>9:08:03, 2026/8/24</span></span>
     </div>
 
-    <!-- GRID -->
     <div class="grid">
-        <!-- LEFT: Templates -->
         <div class="panel">
-            <label class="panel-label">⚡ 70+ Automation Templates</label>
-            <div class="template-list" id="templateList"></div>
+            <label class="panel-label">⚡ 10 Automation Domains</label>
+            <div class="template-list">
+                <button class="template-btn green" data-domain="HR Automation">👥 HR Automation</button>
+                <button class="template-btn orange" data-domain="Sales & Marketing Automation">📈 Sales &amp; Marketing Automation</button>
+                <button class="template-btn blue" data-domain="24/7 Support Automation">🛟 24/7 Support Automation</button>
+                <button class="template-btn green" data-domain="E-Commerce Automation">🛒 E-Commerce Automation</button>
+                <button class="template-btn purple" data-domain="Content Creation Automation">✍️ Content Creation Automation</button>
+                <button class="template-btn orange" data-domain="IT & Ops Automation">⚙️ IT &amp; Ops Automation</button>
+                <button class="template-btn blue" data-domain="Real Estate Automation">🏢 Real Estate Automation</button>
+                <button class="template-btn purple" data-domain="Finance & Accounting Automation">💰 Finance &amp; Accounting Automation</button>
+                <button class="template-btn green" data-domain="Healthcare & Medical Automation">🏥 Healthcare &amp; Medical Automation</button>
+                <button class="template-btn orange" data-domain="Education & E-Learning Automation">🎓 Education &amp; E-Learning Automation</button>
+            </div>
         </div>
 
-        <!-- RIGHT: Custom Input -->
         <div class="panel">
             <label class="panel-label">✍️ Custom Automation Goal</label>
-            <textarea id="customPrompt" class="custom-textarea" placeholder="Describe your automation workflow in detail, or select a template above..."></textarea>
+            <textarea id="customPrompt" class="custom-textarea" placeholder="Select a domain above or describe your automation workflow in detail..."></textarea>
             <div class="keywords-hint"><strong>Keywords:</strong> MCP, AI Agent, RAG, CRM, Slack, Jira, n8n, Zapier, Make</div>
             <button class="generate-btn" id="generateBtn">🚀 Generate n8n Workflow Map</button>
         </div>
     </div>
 
-    <!-- CANVAS -->
     <div class="canvas-section">
         <div class="canvas-header">
             <h3>🗺️ Generated Workflow Node Map · n8n Engine</h3>
             <span class="badge">Production Ready</span>
         </div>
-        <div id="nodesCanvas"><div class="loading-placeholder">Select a template or describe your project to generate a node map…</div></div>
+        <div id="nodesCanvas"><div class="loading-placeholder">Select a domain or describe your project to generate a node map…</div></div>
     </div>
 
-    <!-- ANALYSIS -->
     <div class="analysis-section" id="analysisBox">
         <h3>🌐 Architecture Breakdown &amp; Free Alternatives</h3>
-        <p style="color:#94a3b8;font-size:13px;">Select a template to see detailed node structure, tools, and alternatives.</p>
+        <p style="color:#94a3b8;font-size:13px;">Select a domain to see detailed node structure, tools, and alternatives.</p>
     </div>
 </div>
 
 <script>
-// ============================================================
-// 70+ TEMPLATES DATA - Complete JSON Structure
-// ============================================================
-const TEMPLATES = {
-    // ==================== SALES & MARKETING ====================
-    'sales-1': {
-        domain: 'sales',
-        label: 'Lead Generation Funnel',
-        description: 'Capture leads from multiple sources, qualify them, and route to sales team',
-        nodes: [
-            { id:1, icon:'📥', title:'Facebook Ads Lead', sub:'Lead Trigger', type:'trigger' },
-            { id:2, icon:'📥', title:'Google Ads Lead', sub:'Lead Trigger', type:'trigger' },
-            { id:3, icon:'📥', title:'Webhook Form', sub:'Lead Trigger', type:'trigger' },
-            { id:4, icon:'🔍', title:'Data Deduplicator', sub:'Remove Duplicates', type:'logic' },
-            { id:5, icon:'🤖', title:'Lead Scorer', sub:'AI Scoring', type:'logic' },
-            { id:6, icon:'📊', title:'Google Sheets', sub:'Store Leads', type:'logic' },
-            { id:7, icon:'🟢', title:'Evolution API', sub:'WhatsApp Send', type:'action' },
-            { id:8, icon:'📧', title:'Gmail / SMTP', sub:'Email Follow-up', type:'action' },
-            { id:9, icon:'📈', title:'HubSpot CRM', sub:'Create Deal', type:'action' },
-            { id:10, icon:'🔔', title:'Slack Webhook', sub:'Notify Team', type:'action' }
-        ],
-        connections: [
-            { from:1, to:4 }, { from:2, to:4 }, { from:3, to:4 },
-            { from:4, to:5 }, { from:5, to:6 },
-            { from:6, to:7, label:'WhatsApp' },
-            { from:6, to:8, label:'Email' },
-            { from:6, to:9, label:'CRM' },
-            { from:9, to:10 }
-        ],
-        tools: ['Facebook Ads API', 'Google Ads API', 'OpenAI GPT-4o', 'Google Sheets', 'Evolution API', 'HubSpot CRM', 'Slack'],
-        alternatives: [
-            { name: 'Make.com', url: 'https://www.make.com' },
-            { name: 'Zapier', url: 'https://zapier.com' },
-            { name: 'Pipedream', url: 'https://pipedream.com' }
-        ],
-        cost_estimate: '$49/month (commercial) vs $0 (open-source)',
-        api_keys: ['Facebook App ID', 'Google Ads API Key', 'HubSpot API Key', 'Evolution API Key', 'Slack Webhook URL']
-    },
+    const canvas = document.getElementById('nodesCanvas');
+    const analysis = document.getElementById('analysisBox');
+    const customInput = document.getElementById('customPrompt');
+    const generateBtn = document.getElementById('generateBtn');
 
-    'sales-2': {
-        domain: 'sales',
-        label: 'Abandoned Cart Recovery',
-        description: 'Track abandoned carts and send automated recovery sequences',
-        nodes: [
-            { id:1, icon:'🛒', title:'Shopify Webhook', sub:'Cart Abandoned', type:'trigger' },
-            { id:2, icon:'🛒', title:'WooCommerce Webhook', sub:'Cart Abandoned', type:'trigger' },
-            { id:3, icon:'⏰', title:'Wait Node', sub:'2 Hours Delay', type:'logic' },
-            { id:4, icon:'🤖', title:'OpenAI GPT-4o', sub:'Generate Message', type:'logic' },
-            { id:5, icon:'📧', title:'SendGrid / SMTP', sub:'Email 1', type:'action' },
-            { id:6, icon:'⏰', title:'Wait Node', sub:'24 Hours Delay', type:'logic' },
-            { id:7, icon:'🤖', title:'OpenAI GPT-4o', sub:'Discount Message', type:'logic' },
-            { id:8, icon:'📧', title:'SendGrid / SMTP', sub:'Email 2', type:'action' },
-            { id:9, icon:'🟢', title:'WhatsApp API', sub:'SMS Reminder', type:'action' },
-            { id:10, icon:'📊', title:'Google Sheets', sub:'Recovery Stats', type:'action' }
-        ],
-        connections: [
-            { from:1, to:3 }, { from:2, to:3 },
-            { from:3, to:4 }, { from:4, to:5 },
-            { from:5, to:6 }, { from:6, to:7 },
-            { from:7, to:8 }, { from:7, to:9, label:'SMS' },
-            { from:8, to:10 }, { from:9, to:10 }
-        ],
-        tools: ['Shopify', 'WooCommerce', 'OpenAI GPT-4o', 'SendGrid', 'WhatsApp API', 'Google Sheets'],
-        alternatives: [
-            { name: 'Mailgun', url: 'https://www.mailgun.com' },
-            { name: 'Twilio', url: 'https://www.twilio.com' },
-            { name: 'Airtable', url: 'https://airtable.com' }
-        ],
-        cost_estimate: '$29/month',
-        api_keys: ['Shopify API Key', 'OpenAI API Key', 'SendGrid API Key', 'WhatsApp API Key']
-    },
+    // ============================================================
+    // DOMAIN BUTTONS - Send detailed prompt to n8n
+    // ============================================================
+    document.querySelectorAll('.template-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const domain = this.dataset.domain;
+            
+            // بناء طلب مفصل جداً للذكاء الاصطناعي
+            const detailedPrompt = `Generate a complete, production-ready "${domain}" automation workflow for n8n with 10-25 interconnected nodes.
 
-    'sales-3': {
-        domain: 'sales',
-        label: 'Email Drip Campaign',
-        description: 'Automated email sequences for lead nurturing',
-        nodes: [
-            { id:1, icon:'📥', title:'CRM Webhook', sub:'New Lead', type:'trigger' },
-            { id:2, icon:'🔍', title:'Data Filter', sub:'Validate Email', type:'logic' },
-            { id:3, icon:'📧', title:'SendGrid / SMTP', sub:'Welcome Email', type:'action' },
-            { id:4, icon:'⏰', title:'Wait Node', sub:'3 Days Delay', type:'logic' },
-            { id:5, icon:'🤖', title:'OpenAI GPT-4o', sub:'Generate Content', type:'logic' },
-            { id:6, icon:'📧', title:'SendGrid / SMTP', sub:'Educational Email', type:'action' },
-            { id:7, icon:'⏰', title:'Wait Node', sub:'5 Days Delay', type:'logic' },
-            { id:8, icon:'📧', title:'SendGrid / SMTP', sub:'Offer Email', type:'action' },
-            { id:9, icon:'📊', title:'Google Sheets', sub:'Campaign Log', type:'action' }
-        ],
-        connections: [
-            { from:1, to:2 }, { from:2, to:3 },
-            { from:3, to:4 }, { from:4, to:5 },
-            { from:5, to:6 }, { from:6, to:7 },
-            { from:7, to:8 }, { from:8, to:9 }
-        ],
-        tools: ['CRM', 'SendGrid', 'OpenAI GPT-4o', 'Google Sheets'],
-        alternatives: [
-            { name: 'Mailchimp API', url: 'https://mailchimp.com' },
-            { name: 'ConvertKit', url: 'https://convertkit.com' },
-            { name: 'Brevo', url: 'https://brevo.com' }
-        ],
-        cost_estimate: '$39/month',
-        api_keys: ['CRM API Key', 'SendGrid API Key', 'OpenAI API Key']
-    },
+Please include:
 
-    'sales-4': {
-        domain: 'sales',
-        label: 'Social Media Scheduling',
-        description: 'Schedule and publish content across multiple social platforms',
-        nodes: [
-            { id:1, icon:'📅', title:'Cron Trigger', sub:'Daily Schedule', type:'trigger' },
-            { id:2, icon:'📊', title:'Google Sheets', sub:'Fetch Content', type:'logic' },
-            { id:3, icon:'🤖', title:'OpenAI GPT-4o', sub:'Optimize Caption', type:'logic' },
-            { id:4, icon:'📘', title:'Facebook Graph API', sub:'Post to Facebook', type:'action' },
-            { id:5, icon:'📸', title:'Instagram API', sub:'Post to Instagram', type:'action' },
-            { id:6, icon:'🐦', title:'Twitter API', sub:'Post to Twitter', type:'action' },
-            { id:7, icon:'💼', title:'LinkedIn API', sub:'Post to LinkedIn', type:'action' },
-            { id:8, icon:'📊', title:'Google Sheets', sub:'Log Published', type:'action' }
-        ],
-        connections: [
-            { from:1, to:2 }, { from:2, to:3 },
-            { from:3, to:4, label:'Facebook' },
-            { from:3, to:5, label:'Instagram' },
-            { from:3, to:6, label:'Twitter' },
-            { from:3, to:7, label:'LinkedIn' },
-            { from:4, to:8 }, { from:5, to:8 }, { from:6, to:8 }, { from:7, to:8 }
-        ],
-        tools: ['Google Sheets', 'OpenAI GPT-4o', 'Facebook API', 'Instagram API', 'Twitter API', 'LinkedIn API'],
-        alternatives: [
-            { name: 'Buffer API', url: 'https://buffer.com' },
-            { name: 'Hootsuite API', url: 'https://hootsuite.com' },
-            { name: 'Later API', url: 'https://later.com' }
-        ],
-        cost_estimate: '$49/month',
-        api_keys: ['Facebook App ID', 'Instagram Access Token', 'Twitter API Key', 'LinkedIn API Key']
-    },
+1. 🗺️ COMPLETE NODE MAP:
+   - List EVERY node with real platform names (e.g., OpenAI GPT-4o, ElevenLabs, DALL-E, Facebook Graph API, Telegram Bot, Slack, Google Sheets, Airtable, HubSpot CRM, Shopify, WooCommerce, SendGrid, Twilio, WhatsApp API, Instagram API, Twitter API, LinkedIn API, Discord, Mailgun, Stripe, PayPal, Typeform, Zoom, Calendly, Jira, Trello, Notion, Supabase, Firebase, PostgreSQL, MySQL, Redis, AWS S3, Google Drive, Dropbox, etc.)
+   - Each node must show: platform name, purpose, API key needed, and cost
 
-    'sales-5': {
-        domain: 'sales',
-        label: 'Lead Scoring & Routing',
-        description: 'AI-powered lead scoring with intelligent routing to sales reps',
-        nodes: [
-            { id:1, icon:'📥', title:'Webhook Trigger', sub:'New Lead', type:'trigger' },
-            { id:2, icon:'🤖', title:'OpenAI GPT-4o', sub:'Lead Scoring', type:'logic' },
-            { id:3, icon:'🔍', title:'Switch Node', sub:'Score ≥ 80', type:'logic' },
-            { id:4, icon:'🔍', title:'Switch Node', sub:'Score 50-79', type:'logic' },
-            { id:5, icon:'🔍', title:'Switch Node', sub:'Score < 50', type:'logic' },
-            { id:6, icon:'📈', title:'HubSpot CRM', sub:'High-Priority Deal', type:'action' },
-            { id:7, icon:'📧', title:'Gmail / SMTP', sub:'Nurture Campaign', type:'action' },
-            { id:8, icon:'📊', title:'Google Sheets', sub:'Log Low Score', type:'action' },
-            { id:9, icon:'🔔', title:'Slack Webhook', sub:'Alert Sales Team', type:'action' },
-            { id:10, icon:'🟢', title:'Evolution API', sub:'WhatsApp Follow-up', type:'action' }
-        ],
-        connections: [
-            { from:1, to:2 }, { from:2, to:3 },
-            { from:3, to:6, label:'High' },
-            { from:3, to:4, label:'Medium' },
-            { from:4, to:7, label:'Nurture' },
-            { from:4, to:9, label:'Alert' },
-            { from:5, to:8, label:'Low' },
-            { from:6, to:9 }, { from:6, to:10 },
-            { from:7, to:9 }
-        ],
-        tools: ['OpenAI GPT-4o', 'HubSpot CRM', 'Gmail', 'Google Sheets', 'Slack', 'Evolution API'],
-        alternatives: [
-            { name: 'Zoho CRM', url: 'https://www.zoho.com' },
-            { name: 'Salesforce', url: 'https://www.salesforce.com' },
-            { name: 'Pipedrive', url: 'https://www.pipedrive.com' }
-        ],
-        cost_estimate: '$79/month',
-        api_keys: ['OpenAI API Key', 'HubSpot API Key', 'Slack Webhook URL', 'Evolution API Key']
-    },
+2. 🛠️ TOOLS PER NODE:
+   - For EACH node: platform name, what it does, API key required, cost (free/paid)
 
-    'sales-6': {
-        domain: 'sales',
-        label: 'Webinar & Event Automation',
-        description: 'Automated webinar registration, reminders, and follow-up',
-        nodes: [
-            { id:1, icon:'📝', title:'Typeform / Tally', sub:'Registration', type:'trigger' },
-            { id:2, icon:'📊', title:'Google Sheets', sub:'Store Registrants', type:'logic' },
-            { id:3, icon:'📧', title:'SendGrid / SMTP', sub:'Confirmation Email', type:'action' },
-            { id:4, icon:'⏰', title:'Wait Node', sub:'1 Day Before', type:'logic' },
-            { id:5, icon:'📧', title:'SendGrid / SMTP', sub:'Reminder Email', type:'action' },
-            { id:6, icon:'⏰', title:'Wait Node', sub:'1 Hour Before', type:'logic' },
-            { id:7, icon:'🟢', title:'WhatsApp API', sub:'SMS Reminder', type:'action' },
-            { id:8, icon:'🔔', title:'Slack Webhook', sub:'Event Starting', type:'action' },
-            { id:9, icon:'📝', title:'Google Forms', sub:'Post-Event Survey', type:'action' },
-            { id:10, icon:'📊', title:'Google Sheets', sub:'Attendance Log', type:'action' }
-        ],
-        connections: [
-            { from:1, to:2 }, { from:2, to:3 },
-            { from:3, to:4 }, { from:4, to:5 },
-            { from:5, to:6 }, { from:6, to:7 },
-            { from:7, to:8 }, { from:8, to:9 },
-            { from:9, to:10 }
-        ],
-        tools: ['Typeform', 'Google Sheets', 'SendGrid', 'WhatsApp API', 'Slack', 'Google Forms'],
-        alternatives: [
-            { name: 'Eventbrite API', url: 'https://eventbrite.com' },
-            { name: 'Zoom API', url: 'https://zoom.us' },
-            { name: 'Calendly API', url: 'https://calendly.com' }
-        ],
-        cost_estimate: '$29/month',
-        api_keys: ['Typeform API Key', 'SendGrid API Key', 'WhatsApp API Key', 'Slack Webhook URL']
-    },
+3. 💡 FREE ALTERNATIVES:
+   - For each commercial tool, provide 2-3 FREE alternatives with:
+     - Tool name
+     - Official website link
+     - Brief description of what it does
 
-    'sales-7': {
-        domain: 'sales',
-        label: 'Referral Program Automation',
-        description: 'Track referrals, award bonuses, and notify referrers',
-        nodes: [
-            { id:1, icon:'🔗', title:'Webhook Trigger', sub:'Referral Code', type:'trigger' },
-            { id:2, icon:'🔍', title:'Data Filter', sub:'Validate Code', type:'logic' },
-            { id:3, icon:'📊', title:'Google Sheets', sub:'Log Referral', type:'logic' },
-            { id:4, icon:'🤖', title:'OpenAI GPT-4o', sub:'Generate Reward', type:'logic' },
-            { id:5, icon:'📧', title:'Gmail / SMTP', sub:'Referral Email', type:'action' },
-            { id:6, icon:'🟢', title:'Evolution API', sub:'WhatsApp Alert', type:'action' },
-            { id:7, icon:'🔔', title:'Slack Webhook', sub:'Notify Team', type:'action' },
-            { id:8, icon:'📊', title:'Google Sheets', sub:'Update Stats', type:'action' }
-        ],
-        connections: [
-            { from:1, to:2 }, { from:2, to:3 },
-            { from:3, to:4 }, { from:4, to:5 },
-            { from:5, to:6 }, { from:6, to:7 },
-            { from:7, to:8 }
-        ],
-        tools: ['Google Sheets', 'OpenAI GPT-4o', 'Gmail', 'Evolution API', 'Slack'],
-        alternatives: [
-            { name: 'ReferralCandy', url: 'https://referralcandy.com' },
-            { name: 'Yotpo', url: 'https://yotpo.com' },
-            { name: 'Gleam', url: 'https://gleam.io' }
-        ],
-        cost_estimate: '$49/month',
-        api_keys: ['OpenAI API Key', 'Evolution API Key', 'Slack Webhook URL']
-    },
+4. 🔑 API KEYS SUMMARY:
+   - List ALL API keys needed with links to get them
 
-    'sales-8': {
-        domain: 'sales',
-        label: 'Customer Journey Mapping',
-        description: 'Track and analyze customer journey from first visit to purchase',
-        nodes: [
-            { id:1, icon:'🌐', title:'Website Analytics', sub:'Page View', type:'trigger' },
-            { id:2, icon:'🔍', title:'Data Filter', sub:'Identify User', type:'logic' },
-            { id:3, icon:'📊', title:'Google Sheets', sub:'Log Step', type:'logic' },
-            { id:4, icon:'🤖', title:'OpenAI GPT-4o', sub:'Analyze Journey', type:'logic' },
-            { id:5, icon:'📈', title:'HubSpot CRM', sub:'Update Contact', type:'action' },
-            { id:6, icon:'📧', title:'Gmail / SMTP', sub:'Personalized Email', type:'action' },
-            { id:7, icon:'🔔', title:'Slack Webhook', sub:'Milestone Alert', type:'action' },
-            { id:8, icon:'📊', title:'Google Sheets', sub:'Journey Report', type:'action' }
-        ],
-        connections: [
-            { from:1, to:2 }, { from:2, to:3 },
-            { from:3, to:4 }, { from:4, to:5 },
-            { from:5, to:6 }, { from:6, to:7 },
-            { from:7, to:8 }
-        ],
-        tools: ['Website Analytics', 'Google Sheets', 'OpenAI GPT-4o', 'HubSpot CRM', 'Gmail', 'Slack'],
-        alternatives: [
-            { name: 'Google Analytics 4', url: 'https://analytics.google.com' },
-            { name: 'Mixpanel', url: 'https://mixpanel.com' },
-            { name: 'Amplitude', url: 'https://amplitude.com' }
-        ],
-        cost_estimate: '$99/month',
-        api_keys: ['Analytics API Key', 'HubSpot API Key', 'OpenAI API Key']
-    },
+5. 📊 COST ESTIMATE:
+   - Total monthly cost estimate for commercial vs free alternatives
 
-    'sales-9': {
-        domain: 'sales',
-        label: 'Review & Testimonial Collection',
-        description: 'Automated review requests and testimonial collection',
-        nodes: [
-            { id:1, icon:'🛒', title:'Shopify Webhook', sub:'Order Completed', type:'trigger' },
-            { id:2, icon:'🛒', title:'WooCommerce Webhook', sub:'Order Completed', type:'trigger' },
-            { id:3, icon:'⏰', title:'Wait Node', sub:'7 Days Later', type:'logic' },
-            { id:4, icon:'🤖', title:'OpenAI GPT-4o', sub:'Generate Review Request', type:'logic' },
-            { id:5, icon:'📧', title:'Gmail / SMTP', sub:'Review Email', type:'action' },
-            { id:6, icon:'🟢', title:'Evolution API', sub:'WhatsApp Review', type:'action' },
-            { id:7, icon:'📊', title:'Google Sheets', sub:'Store Review', type:'logic' },
-            { id:8, icon:'🔔', title:'Slack Webhook', sub:'New Review Alert', type:'action' }
-        ],
-        connections: [
-            { from:1, to:3 }, { from:2, to:3 },
-            { from:3, to:4 }, { from:4, to:5 },
-            { from:5, to:7 }, { from:6, to:7 },
-            { from:7, to:8 }
-        ],
-        tools
+6. ⚡ DEPLOYMENT STEPS:
+   - Step-by-step instructions for deploying this workflow in n8n
+
+7. 🔧 ERROR HANDLING:
+   - Include error handling nodes and data validation nodes
+
+The workflow must be enterprise-grade, production-ready, and include real platform names with working URLs for alternatives.
+
+Domain: ${domain}`;
+
+            customInput.value = detailedPrompt;
+            generateBtn.click();
+        });
+    });
+
+    // ============================================================
+    // GENERATE - Send to n8n via Proxy
+    // ============================================================
+    generateBtn.addEventListener('click', async function() {
+        const text = customInput.value.trim();
+        if (!text) return;
+
+        generateBtn.textContent = '⏳ AI is designing your workflow...';
+        generateBtn.disabled = true;
+        analysis.innerHTML = `<div class="loading-spinner">⏳ Generating complete workflow architecture...</div>`;
+        canvas.innerHTML = `<div class="loading-placeholder">⏳ Building node map...</div>`;
+
+        try {
+            const response = await fetch('/api/proxy', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text })
+            });
+
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            const data = await response.json();
+            console.log('✅ n8n response:', data);
+
+            const result = data.automation_result || data.message || JSON.stringify(data, null, 2);
+
+            // عرض الرد في صندوق التحليل
+            analysis.innerHTML = `
+                <h3>🤖 AI-Generated Workflow</h3>
+                <div class="n8n-response">${result.replace(/\n/g, '<br>')}</div>
+                <div style="margin-top:16px;padding:12px;background:rgba(17,24,39,0.5);border-radius:8px;border:1px solid #1f2937;font-size:12px;color:#94a3b8;">
+                    <b>💡 Tip:</b> Copy this workflow structure into n8n to build your automation.
+                </div>
+            `;
+
+            // عرض خريطة مبسطة في الـ Canvas
+            const lines = result.split('\n').filter(line => line.includes('➔') || line.includes('→') || line.includes('|'));
+            if (lines.length > 0) {
+                let nodeHtml = '';
+                const nodes = lines.slice(0, 8).map((line, i) => {
+                    const parts = line.split(/[➔→|]/).map(s => s.trim()).filter(Boolean);
+                    return parts.map(p => ({
+                        id: i + 1,
+                        icon: '⚙️',
+                        title: p.substring(0, 20),
+                        sub: 'Node',
+                        type: i % 3 === 0 ? 'trigger' : i % 3 === 1 ? 'logic' : 'action'
+                    }));
+                }).flat().slice(0, 8);
+
+                nodes.forEach((n, i) => {
+                    nodeHtml += `<div class="node-card ${n.type}"><span class="node-number">${i + 1}</span><div class="node-icon">${n.icon}</div><div class="node-title">${n.title}</div><div class="node-sub">${n.sub}</div></div>`;
+                    if (i < nodes.length - 1) nodeHtml += `<span class="node-arrow">➔</span>`;
+                });
+                canvas.innerHTML = nodeHtml;
+            } else {
+                canvas.innerHTML = `<div class="loading-placeholder">✅ Workflow generated! See details below.</div>`;
+            }
+
+        } catch (error) {
+            console.error('❌ Error:', error);
+            analysis.innerHTML = `
+                <h3 style="color:#f97316;">⚠️ Connection Error</h3>
+                <div class="n8n-response" style="border-color:#f97316;color:#f87171;">
+                    Could not reach n8n. Please check:<br>
+                    • n8n workflow is <b>Active</b><br>
+                    • Webhook URL is correct<br>
+                    • Try again in a few seconds
+                    <br><br>
+                    <b>Error:</b> ${error.message}
+                </div>
+            `;
+        } finally {
+            generateBtn.textContent = '🚀 Generate n8n Workflow Map';
+            generateBtn.disabled = false;
+        }
+    });
+
+    // ============================================================
+    // CTRL+ENTER
+    // ============================================================
+    customInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && e.ctrlKey) {
+            e.preventDefault();
+            generateBtn.click();
+        }
+    });
+</script>
+</body>
+</html>
