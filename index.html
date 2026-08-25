@@ -6,7 +6,6 @@
     <title>Aribeth Engine Suite · AI Automation Architecture</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
-        /* الأنماط الأساسية (حافظت على تصاميمك لكن أضفت تعديلات للقوائم الجديدة) */
         *{margin:0;padding:0;box-sizing:border-box}
         body{background:#05080f;font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:24px 20px;color:#f8fafc;min-height:100vh}
         .wrapper{max-width:1600px;width:100%;background:linear-gradient(165deg,#0a0f1e,#070b16);border-radius:32px;padding:44px 48px;border:1px solid rgba(30,41,59,0.6)}
@@ -18,15 +17,9 @@
         .nav-bar{display:flex;justify-content:center;gap:8px;margin-bottom:24px}
         .nav-btn{background:rgba(17,24,39,0.4);border:1px solid rgba(31,41,55,0.3);border-radius:10px;padding:8px 20px;color:#94a3b8;font-size:13px;font-weight:600;cursor:pointer}
         .nav-btn.active{background:rgba(16,185,129,0.10);border-color:#10b981;color:#10b981}
-        .user-bar{display:flex;justify-content:space-between;align-items:center;padding:12px 24px;background:rgba(17,24,39,0.4);border-radius:14px;border:1px solid rgba(31,41,55,0.3);margin-bottom:24px}
-        .user-details{display:flex;flex-direction:column}
-        .user-details .name{font-weight:700;color:#fff;font-size:15px}
-        .user-details .email{font-size:12px;color:#94a3b8}
         .grid{display:grid;grid-template-columns:380px 1fr;gap:30px;margin-bottom:36px}
         .panel{background:rgba(17,24,39,0.5);padding:24px 26px;border-radius:18px;border:1px solid rgba(31,41,55,0.5)}
         .panel-label{display:block;font-weight:700;color:#fff;font-size:15px;margin-bottom:14px}
-        
-        /* قائمة المجالات الجديدة (بدلاً من 10 أزرار) */
         .domain-list{display:flex;flex-direction:column;gap:5px;max-height:300px;overflow-y:auto;padding-right:4px}
         .domain-list::-webkit-scrollbar{width:4px}
         .domain-list::-webkit-scrollbar-thumb{background:#10b981;border-radius:10px}
@@ -34,15 +27,10 @@
         .domain-btn:hover{background:rgba(16,185,129,0.07);border-color:#10b981;color:#10b981}
         .domain-btn.selected{background:rgba(16,185,129,0.12);border-color:#10b981;color:#10b981}
         .domain-btn .count{float:right;font-size:11px;color:#64748b}
-
-        /* قائمة الوسائط (الجديدة) */
         .media-list{display:flex;flex-direction:column;gap:5px;max-height:300px;overflow-y:auto;padding-right:4px;margin-bottom:20px;border-top:1px solid rgba(55,65,81,0.3);padding-top:16px}
         .media-btn{padding:8px 14px;border-radius:8px;border:1px solid rgba(55,65,81,0.4);background:rgba(255,255,255,0.02);color:#94a3b8;font-weight:600;font-size:12px;cursor:pointer;text-align:left;width:100%}
         .media-btn:hover{background:rgba(59,130,246,0.07);border-color:#3b82f6;color:#3b82f6}
-
         .generate-btn{width:100%;margin-top:14px;padding:16px;background:linear-gradient(135deg,#10b981,#059669);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:16px;cursor:pointer}
-        
-        /* عرض الخريطة والنتائج */
         .canvas-section{background:rgba(3,7,18,0.6);border-radius:18px;padding:30px 28px;border:2px solid rgba(16,185,129,0.15);margin-bottom:28px;min-height:400px}
         #nodesCanvas{display:flex;align-items:center;justify-content:flex-start;gap:14px;padding:30px 20px;background:rgba(8,12,23,0.6);border-radius:14px;min-height:300px;overflow-x:auto}
         .node-card{background:linear-gradient(145deg,#111827,#0d1422);border:2px solid rgba(55,65,81,0.5);border-radius:14px;padding:16px 18px;width:190px;min-width:180px;text-align:center;position:relative;flex-shrink:0}
@@ -66,23 +54,12 @@
             <p>Select a domain, choose your media type, and get a real production workflow.</p>
         </header>
 
-        <div class="user-bar">
-            <div class="user-details">
-                <span class="name" id="userName">Guest</span>
-                <span class="email" id="userEmail">Not signed in</span>
-            </div>
-            <button class="nav-btn" id="logoutBtn" style="display:none;color:#f87171;">Logout</button>
-        </div>
-
-        <!-- ===== الصفحة الرئيسية ===== -->
         <div class="page active" id="page-home">
             <div class="grid">
-                
-                <!-- اللوحة اليسرى: المجالات والوسائط -->
                 <div class="panel">
                     <label class="panel-label">📂 Select Automation Domain</label>
                     <div class="domain-list" id="domainList">
-                        <div style="color:#64748b; font-size:13px;">Loading domains from database...</div>
+                        <div style="color:#64748b; font-size:13px;">Loading domains...</div>
                     </div>
 
                     <label class="panel-label" style="margin-top:20px; color:#3b82f6;">🎬 Select Media Type</label>
@@ -93,7 +70,6 @@
                     <button class="generate-btn" id="generateBtn">🚀 Generate Automation Workflow</button>
                 </div>
 
-                <!-- اللوحة اليمنى: العرض -->
                 <div class="panel">
                     <label class="panel-label">🗺️ Generated Workflow Node Map</label>
                     <div class="canvas-section" style="padding:0; border:none; min-height:auto;">
@@ -110,8 +86,8 @@
     </div>
 
     <script>
-        // ⚠️ ضع رابط n8n Webhook هنا (الرابط الذي يبدأ بـ https://...app.n8n.cloud/webhook/...)
-        const webhookURL = "https://your-n8n-instance.app.n8n.cloud/webhook/YOUR_WEBHOOK_ID"; 
+        // هذا الكود يتصل بـ Vercel API (api/proxy.js) وليس مباشرة بـ n8n
+        const apiURL = "/api/proxy"; 
 
         let globalData = {
             domains: [],
@@ -122,10 +98,9 @@
         let selectedDomain = null;
         let selectedMedia = null;
 
-        // 1. جلب البيانات من n8n عند فتح الصفحة
         async function fetchData() {
             try {
-                const response = await fetch(webhookURL, {
+                const response = await fetch(apiURL, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({})
@@ -139,12 +114,10 @@
                 renderDomains();
             } catch (error) {
                 document.getElementById('domainList').innerHTML = 
-                    `<div style="color:#f87171;">Error connecting to n8n. Check your Webhook URL.</div>`;
-                console.error(error);
+                    `<div style="color:#f87171;">Error connecting. Check proxy.js</div>`;
             }
         }
 
-        // 2. عرض قائمة المجالات
         function renderDomains() {
             const domainList = document.getElementById('domainList');
             domainList.innerHTML = '';
@@ -158,18 +131,15 @@
             });
         }
 
-        // 3. عند اختيار مجال، عرض الوسائط المتاحة له
         function selectDomain(domainName) {
             selectedDomain = domainName;
             selectedMedia = null;
             
-            // تمييز الزر المختار
             document.querySelectorAll('.domain-btn').forEach(btn => {
                 btn.classList.remove('selected');
                 if(btn.textContent.includes(domainName)) btn.classList.add('selected');
             });
 
-            // إيجاد الوسائط الخاصة بهذا المجال
             const mediaData = globalData.media.find(m => m.domain === domainName);
             const mediaList = document.getElementById('mediaList');
             mediaList.innerHTML = '';
@@ -183,16 +153,14 @@
                     mediaList.appendChild(btn);
                 });
             } else {
-                mediaList.innerHTML = '<div style="color:#64748b; font-size:13px;">No specific media tools found for this domain.</div>';
+                mediaList.innerHTML = '<div style="color:#64748b; font-size:13px;">No media found.</div>';
             }
         }
 
-        // 4. عند اختيار وسيط
         function selectMedia(mediaName) {
             selectedMedia = mediaName;
             
             document.querySelectorAll('.media-btn').forEach(btn => {
-                btn.classList.remove('selected');
                 btn.style.borderColor = '#3b82f6';
                 btn.style.color = '#3b82f6';
                 if(btn.textContent.includes(mediaName)) {
@@ -201,16 +169,13 @@
                 }
             });
 
-            // 5. عرض القوالب المطابقة
             renderResults();
         }
 
-        // 6. عرض القوالب المطابقة (روابط)
         function renderResults() {
             const templateLinks = document.getElementById('templateLinks');
             templateLinks.innerHTML = '';
 
-            // نستخدم النتائج التي تم جلبها مسبقاً من n8n
             if (globalData.results.length > 0) {
                 globalData.results.forEach(template => {
                     const a = document.createElement('a');
@@ -220,14 +185,12 @@
                     templateLinks.appendChild(a);
                 });
             } else {
-                templateLinks.innerHTML = '<span style="color:#64748b;">No templates found for your selection. Check n8n data.</span>';
+                templateLinks.innerHTML = '<span style="color:#64748b;">No templates found.</span>';
             }
 
-            // 7. عرض الخريطة المتفرعة (المستقبلة من n8n)
             renderMap(globalData.generated_workflow);
         }
 
-        // 8. عرض الخريطة (الأسهم والعقد)
         function renderMap(workflow) {
             const canvas = document.getElementById('nodesCanvas');
             if (!workflow || !workflow.nodes) {
@@ -237,7 +200,6 @@
 
             let html = '';
             workflow.nodes.forEach((node, index) => {
-                // تحديد أيقونة ونوع افتراضي
                 let icon = '⚙️';
                 let type = 'action';
                 if (node.type.includes('webhook')) { icon = '⚡'; type = 'trigger'; }
@@ -249,7 +211,6 @@
                             <div class="node-sub">${node.type}</div>
                         </div>`;
                 
-                // إضافة سهم بين العقد
                 if (index < workflow.nodes.length - 1) {
                     html += `<span class="node-arrow">➔</span>`;
                 }
@@ -258,7 +219,6 @@
             canvas.innerHTML = html;
         }
 
-        // 9. زر التوليد (سيقوم بتمرير الاختيار للـ Webhook)
         document.getElementById('generateBtn').onclick = async () => {
             if (!selectedDomain || !selectedMedia) {
                 alert("Please select a Domain and a Media Type.");
@@ -268,17 +228,13 @@
             document.getElementById('generateBtn').textContent = '⏳ Generating...';
 
             try {
-                const response = await fetch(webhookURL, {
+                const response = await fetch(apiURL, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        domain: selectedDomain,
-                        media: selectedMedia
-                    })
+                    body: JSON.stringify({ domain: selectedDomain, media: selectedMedia })
                 });
                 const data = await response.json();
                 
-                // تحديث النتائج والخريطة
                 globalData.results = data.top_results || [];
                 globalData.generated_workflow = data.generated_workflow;
                 
@@ -291,7 +247,6 @@
             }
         };
 
-        // تشغيل عند فتح الصفحة
         fetchData();
     </script>
 </body>
