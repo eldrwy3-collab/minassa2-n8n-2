@@ -6,19 +6,36 @@
     <title>Aribeth Engine Suite · Enterprise Automation</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
     <style>
+        /* ===== RESET & BASE ===== */
         *{margin:0;padding:0;box-sizing:border-box}
         body{background:#05080f;font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:24px 20px;color:#f8fafc;min-height:100vh}
         .wrapper{max-width:1600px;width:100%;background:linear-gradient(165deg,#0a0f1e,#070b16);border-radius:32px;padding:44px 48px;border:1px solid rgba(30,41,59,0.6);box-shadow:0 40px 80px rgba(0,0,0,0.8);position:relative;overflow:hidden}
+        
+        /* ===== HEADER ===== */
         .header{text-align:center;margin-bottom:30px;position:relative;z-index:1}
         .header-badge{display:inline-block;background:rgba(16,185,129,0.10);color:#10b981;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;padding:6px 22px;border-radius:40px;border:1px solid rgba(16,185,129,0.20);margin-bottom:18px}
         .header h1{font-size:56px;font-weight:900;letter-spacing:-2px;color:#fff;margin-bottom:10px;background:linear-gradient(135deg,#fff 40%,#94a3b8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
         .header h1 span{background:linear-gradient(135deg,#f97316,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
         .header p{font-size:18px;color:#94a3b8;max-width:780px;margin:0 auto;line-height:1.8}
+        
+        /* ===== NAVIGATION ===== */
+        .nav-bar{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:24px;position:relative;z-index:1}
+        .nav-btn{background:rgba(17,24,39,0.4);border:1px solid rgba(31,41,55,0.3);border-radius:10px;padding:8px 20px;color:#94a3b8;font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;font-family:'Inter',sans-serif}
+        .nav-btn:hover{background:rgba(16,185,129,0.08);border-color:#10b981;color:#10b981}
+        .nav-btn.active{background:rgba(16,185,129,0.10);border-color:#10b981;color:#10b981}
+        
+        /* ===== PAGES ===== */
+        .page{display:none;animation:fadeIn .4s ease}
+        .page.active{display:block}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+        
+        /* ===== USER BAR ===== */
         .user-bar{display:flex;justify-content:space-between;align-items:center;padding:12px 24px;background:rgba(17,24,39,0.4);border-radius:14px;border:1px solid rgba(31,41,55,0.3);margin-bottom:24px;flex-wrap:wrap;gap:12px;position:relative;z-index:1}
         .user-bar .user-info{display:flex;align-items:center;gap:14px}
         .user-bar .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#10b981,#059669);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#fff;flex-shrink:0}
         .user-bar .user-details{display:flex;flex-direction:column}
         .user-bar .user-details .name{font-weight:700;color:#fff;font-size:15px}
+        .user-bar .user-details .email{font-size:12px;color:#94a3b8}
         .user-bar .user-details .plan{font-size:11px;color:#10b981;background:rgba(16,185,129,0.10);padding:2px 12px;border-radius:20px;border:1px solid rgba(16,185,129,0.15);display:inline-block;width:fit-content}
         .user-bar .user-details .plan.free{color:#94a3b8;border-color:rgba(55,65,81,0.3);background:rgba(55,65,81,0.1)}
         .auth-btn{padding:8px 22px;border-radius:10px;border:none;font-weight:600;font-size:13px;cursor:pointer;transition:all .25s;font-family:'Inter',sans-serif}
@@ -29,9 +46,11 @@
         .auth-btn.logout{background:rgba(239,68,68,0.10);color:#f87171;border:1px solid rgba(239,68,68,0.20)}
         .auth-btn.logout:hover{background:rgba(239,68,68,0.20)}
         .auth-btn.logout.hidden{display:none}
+        
+        /* ===== AUTH MODAL ===== */
         .auth-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);z-index:1000;justify-content:center;align-items:center;padding:20px}
         .auth-modal.active{display:flex}
-        .auth-modal .modal-box{background:linear-gradient(145deg,#111827,#0d1422);border-radius:24px;padding:40px 44px;max-width:440px;width:100%;border:1px solid rgba(31,41,55,0.4);box-shadow:0 40px 80px rgba(0,0,0,0.6);position:relative}
+        .auth-modal .modal-box{background:linear-gradient(145deg,#111827,#0d1422);border-radius:24px;padding:40px 44px;max-width:460px;width:100%;border:1px solid rgba(31,41,55,0.4);box-shadow:0 40px 80px rgba(0,0,0,0.6);position:relative}
         .auth-modal .modal-box .close-btn{position:absolute;top:16px;right:20px;background:none;border:none;color:#64748b;font-size:24px;cursor:pointer;transition:color .2s;font-family:'Inter',sans-serif}
         .auth-modal .modal-box .close-btn:hover{color:#fff}
         .auth-modal .modal-box h2{font-size:26px;font-weight:800;color:#fff;margin-bottom:6px}
@@ -49,15 +68,14 @@
         .auth-modal .modal-box .switch-mode a:hover{text-decoration:underline}
         .auth-modal .modal-box .error-msg{background:rgba(239,68,68,0.10);border:1px solid rgba(239,68,68,0.20);border-radius:8px;padding:10px 14px;color:#f87171;font-size:13px;margin-bottom:16px;display:none}
         .auth-modal .modal-box .error-msg.show{display:block}
+        
+        /* ===== PLATFORM BADGES ===== */
         .platform-badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:18px 0 28px;position:relative;z-index:1}
         .platform-badge{background:rgba(17,24,39,0.6);border:1px solid rgba(31,41,55,0.6);border-radius:40px;padding:8px 22px;font-size:13px;font-weight:600;color:#94a3b8;display:flex;align-items:center;gap:8px;transition:all .25s;cursor:pointer}
         .platform-badge:hover{border-color:rgba(16,185,129,0.3);color:#e2e8f0}
         .platform-badge.active{background:rgba(16,185,129,0.12);border-color:#10b981;color:#10b981}
-        .saved-section{background:rgba(17,24,39,0.35);border-radius:14px;padding:14px 22px;border:1px solid rgba(31,41,55,0.5);margin-bottom:30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;position:relative;z-index:1}
-        .saved-section .saved-label{font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.6px}
-        .saved-section .saved-item{font-size:14px;color:#e2e8f0;font-weight:500}
-        .saved-section .saved-item span{color:#64748b;font-weight:400;font-size:12px;margin-left:8px}
-        .saved-section .saved-item .empty{color:#64748b;font-weight:400}
+        
+        /* ===== GRID ===== */
         .grid{display:grid;grid-template-columns:320px 1fr;gap:30px;margin-bottom:36px;align-items:start;position:relative;z-index:1}
         .panel{background:rgba(17,24,39,0.5);padding:24px 26px;border-radius:18px;border:1px solid rgba(31,41,55,0.5)}
         .panel-label{display:block;font-weight:700;color:#fff;font-size:15px;margin-bottom:14px}
@@ -71,10 +89,23 @@
         .template-btn.orange{border-color:rgba(249,115,22,0.3);color:#f97316}
         .template-btn.blue{border-color:rgba(59,130,246,0.3);color:#3b82f6}
         .template-btn.purple{border-color:rgba(139,92,246,0.3);color:#8b5cf6}
+        .template-btn.selected{background:rgba(16,185,129,0.12);border-color:#10b981;color:#10b981}
+        
+        /* ===== STEP INDICATOR ===== */
+        .step-indicator{display:flex;justify-content:center;align-items:center;gap:12px;margin-bottom:20px;padding:10px;background:rgba(17,24,39,0.3);border-radius:12px;border:1px solid rgba(31,41,55,0.3)}
+        .step-dot{width:10px;height:10px;border-radius:50%;background:#1f2937;transition:all .3s}
+        .step-dot.active{background:#10b981;box-shadow:0 0 20px rgba(16,185,129,0.3)}
+        .step-dot.done{background:#10b981}
+        .step-label{font-size:11px;color:#94a3b8;font-weight:500}
+        .step-label.active{color:#10b981}
+        
+        /* ===== PLATFORM SELECTOR ===== */
         .platform-selector{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
         .platform-opt{padding:6px 14px;border-radius:20px;border:1px solid rgba(55,65,81,0.4);background:rgba(255,255,255,0.02);color:#94a3b8;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
         .platform-opt:hover{border-color:rgba(16,185,129,0.3);color:#e2e8f0}
         .platform-opt.active{background:rgba(16,185,129,0.12);border-color:#10b981;color:#10b981}
+        
+        /* ===== CUSTOM INPUT ===== */
         .custom-textarea{width:100%;height:110px;padding:14px 18px;border-radius:12px;background:rgba(3,7,18,0.8);border:1px solid rgba(55,65,81,0.4);color:#f1f5f9;font-size:14px;font-family:'Inter',sans-serif;resize:vertical;outline:none;transition:border-color .25s;box-sizing:border-box;line-height:1.6}
         .custom-textarea:focus{border-color:#10b981}
         .keywords-hint{margin-top:10px;font-size:11px;color:#64748b;display:flex;flex-wrap:wrap;gap:4px}
@@ -83,6 +114,8 @@
         .generate-btn{width:100%;margin-top:14px;padding:16px;background:linear-gradient(135deg,#10b981,#059669);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:16px;cursor:pointer;transition:all .25s;font-family:'Inter',sans-serif;box-shadow:0 4px 24px rgba(16,185,129,0.20)}
         .generate-btn:hover{transform:scale(1.01);box-shadow:0 6px 32px rgba(16,185,129,0.30)}
         .generate-btn:disabled{opacity:.6;cursor:not-allowed}
+        
+        /* ===== CANVAS ===== */
         .canvas-section{background:rgba(3,7,18,0.6);border-radius:18px;padding:30px 28px;border:2px solid rgba(16,185,129,0.15);margin-bottom:28px;min-height:400px;position:relative;z-index:1}
         .canvas-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px}
         .canvas-header h3{color:#10b981;font-size:17px;font-weight:800}
@@ -99,38 +132,78 @@
         .node-sub{font-size:10px;color:#94a3b8;margin-top:4px;text-transform:uppercase;font-weight:500}
         .node-arrow{color:#64748b;font-weight:700;font-size:22px;flex-shrink:0}
         .loading-placeholder{color:#64748b;font-size:14px;padding:30px;text-align:center;width:100%}
+        
+        /* ===== ANALYSIS ===== */
         .analysis-section{background:rgba(3,7,18,0.6);border-radius:18px;padding:32px 34px;border:2px solid rgba(249,115,22,0.12);color:#e2e8f0;font-size:14px;line-height:1.9;max-height:700px;overflow-y:auto;position:relative;z-index:1}
         .analysis-section::-webkit-scrollbar{width:5px}
         .analysis-section::-webkit-scrollbar-track{background:rgba(11,17,32,0.3);border-radius:10px}
         .analysis-section::-webkit-scrollbar-thumb{background:#f97316;border-radius:10px}
         .analysis-section h3{color:#f97316;margin-top:0;margin-bottom:16px;font-size:20px;font-weight:800}
-        .analysis-section h4{color:#10b981;margin:16px 0 8px;font-size:15px;font-weight:700}
         .n8n-response{background:rgba(3,7,18,0.5);border:1px solid rgba(16,185,129,0.12);border-radius:12px;padding:20px 24px;margin-top:16px;white-space:pre-wrap;color:#e2e8f0;font-size:13px;line-height:1.9;max-height:450px;overflow-y:auto}
         .n8n-response::-webkit-scrollbar{width:4px}
         .n8n-response::-webkit-scrollbar-track{background:rgba(11,17,32,0.3);border-radius:10px}
         .n8n-response::-webkit-scrollbar-thumb{background:#10b981;border-radius:10px}
         .loading-spinner{color:#10b981;text-align:center;padding:30px;font-size:15px;font-weight:500}
         .loading-spinner::before{content:'⏳';margin-right:10px}
+        
+        /* ===== CONTACT / ABOUT / GUIDE PAGES ===== */
+        .info-page{max-width:800px;margin:0 auto;padding:20px 0}
+        .info-page h2{font-size:32px;font-weight:800;color:#fff;margin-bottom:16px}
+        .info-page h2 span{color:#10b981}
+        .info-page p{color:#94a3b8;font-size:16px;line-height:1.8;margin-bottom:16px}
+        .info-page .highlight-box{background:rgba(17,24,39,0.5);border:1px solid rgba(31,41,55,0.3);border-radius:14px;padding:20px 24px;margin:16px 0}
+        .info-page .highlight-box h4{color:#10b981;font-size:15px;margin-bottom:8px}
+        .info-page .highlight-box p{color:#e2e8f0;font-size:14px;margin-bottom:4px}
+        .info-page .contact-item{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid rgba(31,41,55,0.2)}
+        .info-page .contact-item:last-child{border-bottom:none}
+        .info-page .contact-item .icon{font-size:20px;width:40px;text-align:center}
+        .info-page .contact-item .text{color:#e2e8f0;font-size:14px}
+        .info-page .contact-item .text a{color:#10b981;text-decoration:none}
+        .info-page .contact-item .text a:hover{text-decoration:underline}
+        .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:16px 0}
+        .info-grid .card{background:rgba(17,24,39,0.4);border:1px solid rgba(31,41,55,0.3);border-radius:12px;padding:16px 20px;text-align:center}
+        .info-grid .card .icon{font-size:32px;margin-bottom:8px;display:block}
+        .info-grid .card h5{color:#fff;font-size:14px;margin-bottom:4px}
+        .info-grid .card p{color:#94a3b8;font-size:12px}
+        .step-list{list-style:none;padding:0}
+        .step-list li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(31,41,55,0.1)}
+        .step-list li:last-child{border-bottom:none}
+        .step-list li .num{background:linear-gradient(135deg,#10b981,#059669);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0}
+        .step-list li .content{color:#e2e8f0;font-size:14px;line-height:1.6}
+        .step-list li .content strong{color:#10b981}
+        
+        /* ===== RESPONSIVE ===== */
         @media(max-width:1024px){.wrapper{padding:32px 28px}.grid{grid-template-columns:1fr;gap:24px}.header h1{font-size:42px}}
-        @media(max-width:768px){.wrapper{padding:24px 16px;border-radius:20px}.header h1{font-size:32px}.user-bar{flex-direction:column;align-items:stretch;text-align:center}.user-bar .user-info{justify-content:center}.auth-buttons{justify-content:center}.auth-btn{width:100%;text-align:center}.auth-modal .modal-box{padding:28px 20px;margin:0 16px}.node-card{width:160px;min-width:150px;padding:12px 14px}.canvas-section{padding:20px 16px;min-height:300px}#nodesCanvas{min-height:220px;padding:20px 12px}.analysis-section{padding:20px 16px;max-height:500px}}
-        @media(max-width:480px){.header h1{font-size:26px}.header p{font-size:14px}.platform-badge{font-size:10px;padding:4px 12px}.node-card{width:140px;min-width:130px;padding:10px 12px}.node-title{font-size:11px}}
+        @media(max-width:768px){.wrapper{padding:24px 16px;border-radius:20px}.header h1{font-size:32px}.user-bar{flex-direction:column;align-items:stretch;text-align:center}.user-bar .user-info{justify-content:center}.auth-buttons{justify-content:center}.auth-btn{width:100%;text-align:center}.auth-modal .modal-box{padding:28px 20px;margin:0 16px}.node-card{width:160px;min-width:150px;padding:12px 14px}.canvas-section{padding:20px 16px;min-height:300px}#nodesCanvas{min-height:220px;padding:20px 12px}.analysis-section{padding:20px 16px;max-height:500px}.nav-bar{gap:4px}.nav-btn{font-size:11px;padding:6px 14px}}
+        @media(max-width:480px){.header h1{font-size:26px}.header p{font-size:14px}.platform-badge{font-size:10px;padding:4px 12px}.node-card{width:140px;min-width:130px;padding:10px 12px}.node-title{font-size:11px}.info-page h2{font-size:24px}}
     </style>
 </head>
 <body>
 
     <div class="wrapper">
 
+        <!-- ===== HEADER ===== -->
         <header class="header">
             <div class="header-badge">⚡ AI-Powered Automation Architecture</div>
             <h1>Aribeth <span>Engine</span> Suite</h1>
             <p>Design production-ready automation workflows across any platform. Select your preferred automation tool and domain — AI generates complete node maps with real platforms, tools, and free alternatives.</p>
         </header>
 
+        <!-- ===== NAVIGATION ===== -->
+        <nav class="nav-bar">
+            <button class="nav-btn active" data-page="home">🏠 Home</button>
+            <button class="nav-btn" data-page="guide">📖 Guide</button>
+            <button class="nav-btn" data-page="about">ℹ️ About</button>
+            <button class="nav-btn" data-page="contact">📧 Contact</button>
+        </nav>
+
+        <!-- ===== USER BAR ===== -->
         <div class="user-bar" id="userBar">
             <div class="user-info" id="userInfo">
                 <div class="avatar" id="userAvatar">G</div>
                 <div class="user-details">
                     <span class="name" id="userName">Guest</span>
+                    <span class="email" id="userEmail">Not signed in</span>
                     <span class="plan free" id="userPlan">Free Account</span>
                 </div>
             </div>
@@ -141,71 +214,195 @@
             </div>
         </div>
 
-        <div class="platform-badges">
-            <span class="platform-badge active" data-platform="n8n">🤖 n8n</span>
-            <span class="platform-badge" data-platform="make">⚡ Make.com</span>
-            <span class="platform-badge" data-platform="zapier">🔗 Zapier</span>
-            <span class="platform-badge" data-platform="pipedream">🧩 Pipedream</span>
-            <span class="platform-badge" data-platform="nodered">🔄 Node-RED</span>
-            <span class="platform-badge" data-platform="powerautomate">🏢 Power Automate</span>
+        <!-- ==========================================================
+        PAGE: HOME
+        ========================================================== -->
+        <div class="page active" id="page-home">
+
+            <!-- STEP INDICATOR -->
+            <div class="step-indicator">
+                <span class="step-label active" id="stepLabel1">1. Select Domain</span>
+                <span class="step-dot active" id="stepDot1"></span>
+                <span class="step-label" id="stepLabel2">2. Select Platform</span>
+                <span class="step-dot" id="stepDot2"></span>
+                <span class="step-label" id="stepLabel3">3. Generate</span>
+                <span class="step-dot" id="stepDot3"></span>
+            </div>
+
+            <!-- PLATFORM BADGES -->
+            <div class="platform-badges">
+                <span class="platform-badge" data-platform="n8n">🤖 n8n</span>
+                <span class="platform-badge" data-platform="make">⚡ Make.com</span>
+                <span class="platform-badge" data-platform="zapier">🔗 Zapier</span>
+                <span class="platform-badge" data-platform="pipedream">🧩 Pipedream</span>
+                <span class="platform-badge" data-platform="nodered">🔄 Node-RED</span>
+                <span class="platform-badge" data-platform="powerautomate">🏢 Power Automate</span>
+            </div>
+
+            <!-- SAVED WORKFLOWS -->
+            <div class="saved-section">
+                <span class="saved-label">📁 Saved Workflows</span>
+                <span class="saved-item" id="savedWorkflowDisplay"><span class="empty">No saved workflows yet</span><span>— create your first automation</span></span>
+            </div>
+
+            <!-- GRID -->
+            <div class="grid">
+
+                <div class="panel">
+                    <label class="panel-label">⚡ 10 Automation Domains</label>
+                    <div class="template-list">
+                        <button class="template-btn green" data-domain="HR Automation">👥 HR Automation</button>
+                        <button class="template-btn orange" data-domain="Sales & Marketing Automation">📈 Sales &amp; Marketing</button>
+                        <button class="template-btn blue" data-domain="24/7 Support Automation">🛟 24/7 Support</button>
+                        <button class="template-btn green" data-domain="E-Commerce Automation">🛒 E-Commerce</button>
+                        <button class="template-btn purple" data-domain="Content Creation Automation">✍️ Content Creation</button>
+                        <button class="template-btn orange" data-domain="IT & Ops Automation">⚙️ IT &amp; Ops</button>
+                        <button class="template-btn blue" data-domain="Real Estate Automation">🏢 Real Estate</button>
+                        <button class="template-btn purple" data-domain="Finance & Accounting Automation">💰 Finance &amp; Accounting</button>
+                        <button class="template-btn green" data-domain="Healthcare & Medical Automation">🏥 Healthcare &amp; Medical</button>
+                        <button class="template-btn orange" data-domain="Education & E-Learning Automation">🎓 Education &amp; E-Learning</button>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <label class="panel-label">✍️ Custom Automation Goal</label>
+                    <div class="platform-selector" id="platformSelector">
+                        <button class="platform-opt" data-platform="n8n">🤖 n8n</button>
+                        <button class="platform-opt" data-platform="make">⚡ Make</button>
+                        <button class="platform-opt" data-platform="zapier">🔗 Zapier</button>
+                        <button class="platform-opt" data-platform="pipedream">🧩 Pipedream</button>
+                        <button class="platform-opt" data-platform="nodered">🔄 Node-RED</button>
+                        <button class="platform-opt" data-platform="powerautomate">🏢 Power Auto</button>
+                    </div>
+                    <textarea id="customPrompt" class="custom-textarea" placeholder="Select a domain above or describe your automation workflow in detail..."></textarea>
+                    <div class="keywords-hint"><strong>Keywords:</strong><span class="tag">MCP</span><span class="tag">AI Agent</span><span class="tag">RAG</span><span class="tag">CRM</span><span class="tag">Slack</span><span class="tag">Jira</span><span class="tag">n8n</span><span class="tag">Zapier</span><span class="tag">Make</span></div>
+                    <button class="generate-btn" id="generateBtn">🚀 Generate Automation Workflow</button>
+                </div>
+
+            </div>
+
+            <!-- CANVAS -->
+            <div class="canvas-section">
+                <div class="canvas-header">
+                    <h3>🗺️ Generated Workflow Node Map</h3>
+                    <span class="badge" id="platformBadge">Select Platform</span>
+                </div>
+                <div id="nodesCanvas"><div class="loading-placeholder">Select a domain and platform to generate a workflow map…</div></div>
+            </div>
+
+            <!-- ANALYSIS -->
+            <div class="analysis-section" id="analysisBox">
+                <h3>🌐 Architecture Breakdown &amp; Free Alternatives</h3>
+                <p style="color:#94a3b8;font-size:14px;">Select a domain to see detailed node structure, real platform names, tools, free alternatives, API keys, and deployment steps.</p>
+            </div>
+
         </div>
 
-        <div class="saved-section">
-            <span class="saved-label">📁 Saved Workflows</span>
-            <span class="saved-item" id="savedWorkflowDisplay"><span class="empty">No saved workflows yet</span><span>— create your first automation</span></span>
-        </div>
+        <!-- ==========================================================
+        PAGE: GUIDE
+        ========================================================== -->
+        <div class="page" id="page-guide">
+            <div class="info-page">
+                <h2>📖 <span>User Guide</span></h2>
+                <p>Learn how to use Aribeth Engine Suite to generate professional automation workflows.</p>
 
-        <div class="grid">
+                <div class="highlight-box">
+                    <h4>🚀 Quick Start</h4>
+                    <ol class="step-list">
+                        <li><span class="num">1</span><div class="content"><strong>Select a Domain</strong> — Choose from 10 automation domains (HR, Sales, E-Commerce, etc.)</div></li>
+                        <li><span class="num">2</span><div class="content"><strong>Select a Platform</strong> — Choose your preferred automation tool (n8n, Make, Zapier, etc.)</div></li>
+                        <li><span class="num">3</span><div class="content"><strong>Generate</strong> — Click "Generate" and get a complete workflow with 15-25 nodes</div></li>
+                        <li><span class="num">4</span><div class="content"><strong>Copy &amp; Deploy</strong> — Copy the workflow structure into your automation platform</div></li>
+                    </ol>
+                </div>
 
-            <div class="panel">
-                <label class="panel-label">⚡ 10 Automation Domains</label>
-                <div class="template-list">
-                    <button class="template-btn green" data-domain="HR Automation">👥 HR Automation</button>
-                    <button class="template-btn orange" data-domain="Sales & Marketing Automation">📈 Sales &amp; Marketing</button>
-                    <button class="template-btn blue" data-domain="24/7 Support Automation">🛟 24/7 Support</button>
-                    <button class="template-btn green" data-domain="E-Commerce Automation">🛒 E-Commerce</button>
-                    <button class="template-btn purple" data-domain="Content Creation Automation">✍️ Content Creation</button>
-                    <button class="template-btn orange" data-domain="IT & Ops Automation">⚙️ IT &amp; Ops</button>
-                    <button class="template-btn blue" data-domain="Real Estate Automation">🏢 Real Estate</button>
-                    <button class="template-btn purple" data-domain="Finance & Accounting Automation">💰 Finance &amp; Accounting</button>
-                    <button class="template-btn green" data-domain="Healthcare & Medical Automation">🏥 Healthcare &amp; Medical</button>
-                    <button class="template-btn orange" data-domain="Education & E-Learning Automation">🎓 Education &amp; E-Learning</button>
+                <div class="info-grid">
+                    <div class="card"><span class="icon">🎯</span><h5>10 Domains</h5><p>HR, Sales, Support, E-Commerce, Content, IT, Real Estate, Finance, Healthcare, Education</p></div>
+                    <div class="card"><span class="icon">⚡</span><h5>6 Platforms</h5><p>n8n, Make, Zapier, Pipedream, Node-RED, Power Automate</p></div>
+                    <div class="card"><span class="icon">🧠</span><h5>AI-Powered</h5><p>Advanced AI generates production-ready workflows with real platform names</p></div>
+                    <div class="card"><span class="icon">🆓</span><h5>Free Alternatives</h5><p>Every commercial tool includes 2-3 open-source alternatives with links</p></div>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>🔑 Pro Tips</h4>
+                    <p>✅ <strong>Be Specific:</strong> The more detail you provide, the better the workflow</p>
+                    <p>✅ <strong>Save Workflows:</strong> Create a free account to save your workflows</p>
+                    <p>✅ <strong>Export:</strong> Copy the generated workflow directly into n8n or your preferred platform</p>
+                    <p>✅ <strong>Alternatives:</strong> Check the free alternatives section to reduce costs</p>
                 </div>
             </div>
+        </div>
 
-            <div class="panel">
-                <label class="panel-label">✍️ Custom Automation Goal</label>
-                <div class="platform-selector">
-                    <button class="platform-opt active" data-platform="n8n">🤖 n8n</button>
-                    <button class="platform-opt" data-platform="make">⚡ Make</button>
-                    <button class="platform-opt" data-platform="zapier">🔗 Zapier</button>
-                    <button class="platform-opt" data-platform="pipedream">🧩 Pipedream</button>
-                    <button class="platform-opt" data-platform="nodered">🔄 Node-RED</button>
-                    <button class="platform-opt" data-platform="powerautomate">🏢 Power Auto</button>
+        <!-- ==========================================================
+        PAGE: ABOUT
+        ========================================================== -->
+        <div class="page" id="page-about">
+            <div class="info-page">
+                <h2>ℹ️ <span>About Aribeth</span></h2>
+                <p><strong>Aribeth Engine Suite</strong> is an AI-powered automation architecture platform designed to help businesses and developers design production-ready workflows.</p>
+
+                <div class="highlight-box">
+                    <h4>🏢 Company Information</h4>
+                    <p><strong>📍 Location:</strong> Toronto, Ontario, Canada</p>
+                    <p><strong>📧 Email:</strong> <a href="mailto:swazr.brend@gmail.com" style="color:#10b981;">swazr.brend@gmail.com</a></p>
+                    <p><strong>🌐 Founded:</strong> 2024</p>
                 </div>
-                <textarea id="customPrompt" class="custom-textarea" placeholder="Select a domain above or describe your automation workflow in detail..."></textarea>
-                <div class="keywords-hint"><strong>Keywords:</strong><span class="tag">MCP</span><span class="tag">AI Agent</span><span class="tag">RAG</span><span class="tag">CRM</span><span class="tag">Slack</span><span class="tag">Jira</span><span class="tag">n8n</span><span class="tag">Zapier</span><span class="tag">Make</span></div>
-                <button class="generate-btn" id="generateBtn">🚀 Generate Automation Workflow</button>
-            </div>
 
+                <div class="highlight-box">
+                    <h4>🎯 Our Mission</h4>
+                    <p>To democratize automation by providing free, AI-powered workflow design tools that save time and reduce costs for businesses of all sizes.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>✨ What We Offer</h4>
+                    <p>✅ <strong>70+ Automation Templates</strong> across 10 domains</p>
+                    <p>✅ <strong>6 Platform Support</strong> (n8n, Make, Zapier, Pipedream, Node-RED, Power Automate)</p>
+                    <p>✅ <strong>Free Alternatives</strong> with official links for every commercial tool</p>
+                    <p>✅ <strong>User Accounts</strong> to save and manage your workflows</p>
+                    <p>✅ <strong>Production-Ready</strong> workflows with 15-25 interconnected nodes</p>
+                </div>
+            </div>
         </div>
 
-        <div class="canvas-section">
-            <div class="canvas-header">
-                <h3>🗺️ Generated Workflow Node Map</h3>
-                <span class="badge" id="platformBadge">n8n Engine</span>
-            </div>
-            <div id="nodesCanvas"><div class="loading-placeholder">Select a domain or describe your project to generate a workflow map…</div></div>
-        </div>
+        <!-- ==========================================================
+        PAGE: CONTACT
+        ========================================================== -->
+        <div class="page" id="page-contact">
+            <div class="info-page">
+                <h2>📧 <span>Contact Us</span></h2>
+                <p>Have questions, feedback, or need assistance? Reach out to us!</p>
 
-        <div class="analysis-section" id="analysisBox">
-            <h3>🌐 Architecture Breakdown &amp; Free Alternatives</h3>
-            <p style="color:#94a3b8;font-size:14px;">Select a domain to see detailed node structure, real platform names, tools, free alternatives, API keys, and deployment steps.</p>
+                <div class="highlight-box">
+                    <h4>📍 Office Location</h4>
+                    <p><strong>Toronto, Ontario</strong><br>Canada</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>📧 Email</h4>
+                    <p><a href="mailto:swazr.brend@gmail.com" style="color:#10b981;font-size:16px;">swazr.brend@gmail.com</a></p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>🕐 Support Hours</h4>
+                    <p>Monday – Friday: 9:00 AM – 6:00 PM (EST)</p>
+                    <p>Saturday – Sunday: 10:00 AM – 4:00 PM (EST)</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>📝 Send a Message</h4>
+                    <p style="color:#94a3b8;font-size:14px;">For quick support, email us directly at <a href="mailto:swazr.brend@gmail.com" style="color:#10b981;">swazr.brend@gmail.com</a></p>
+                </div>
+
+                <div class="highlight-box" style="border-color:#10b981;">
+                    <h4 style="color:#10b981;">🔄 Connect with Us</h4>
+                    <p>We're always looking to improve. Share your feedback and suggestions!</p>
+                </div>
+            </div>
         </div>
 
     </div>
 
-    <!-- AUTH MODAL -->
+    <!-- ===== AUTH MODAL ===== -->
     <div class="auth-modal" id="authModal">
         <div class="modal-box">
             <button class="close-btn" id="closeAuthModal">✕</button>
@@ -215,11 +412,15 @@
             <form id="authForm">
                 <div class="form-group">
                     <label for="authUsername">Username</label>
-                    <input type="text" id="authUsername" placeholder="Enter your username" required>
+                    <input type="text" id="authUsername" placeholder="Choose a username" required>
+                </div>
+                <div class="form-group">
+                    <label for="authEmail">Email Address</label>
+                    <input type="email" id="authEmail" placeholder="Enter your email" required>
                 </div>
                 <div class="form-group">
                     <label for="authPassword">Password</label>
-                    <input type="password" id="authPassword" placeholder="Enter your password" required>
+                    <input type="password" id="authPassword" placeholder="Create a password" required>
                 </div>
                 <button type="submit" class="submit-btn" id="authSubmitBtn">Sign In</button>
             </form>
@@ -233,6 +434,19 @@
     <script>
         (function() {
             'use strict';
+
+            // ============================================================
+            // NAVIGATION
+            // ============================================================
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const page = this.dataset.page;
+                    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                    document.getElementById('page-' + page).classList.add('active');
+                });
+            });
 
             // ============================================================
             // USER MANAGEMENT
@@ -264,6 +478,7 @@
             function updateUI() {
                 const avatar = document.getElementById('userAvatar');
                 const name = document.getElementById('userName');
+                const email = document.getElementById('userEmail');
                 const plan = document.getElementById('userPlan');
                 const loginBtn = document.getElementById('loginBtn');
                 const signupBtn = document.getElementById('signupBtn');
@@ -272,6 +487,7 @@
                 if (currentUser) {
                     avatar.textContent = currentUser.username.charAt(0).toUpperCase();
                     name.textContent = currentUser.username;
+                    email.textContent = currentUser.email || 'No email';
                     plan.textContent = 'Free Account';
                     plan.className = 'plan';
                     loginBtn.style.display = 'none';
@@ -280,6 +496,7 @@
                 } else {
                     avatar.textContent = 'G';
                     name.textContent = 'Guest';
+                    email.textContent = 'Not signed in';
                     plan.textContent = 'Free Account';
                     plan.className = 'plan free';
                     loginBtn.style.display = 'inline-block';
@@ -300,6 +517,7 @@
             const authSwitchLink = document.getElementById('authSwitchLink');
             const authError = document.getElementById('authError');
             const authUsername = document.getElementById('authUsername');
+            const authEmail = document.getElementById('authEmail');
             const authPassword = document.getElementById('authPassword');
 
             let isLoginMode = true;
@@ -309,6 +527,7 @@
                 authError.classList.remove('show');
                 authError.textContent = '';
                 authUsername.value = '';
+                authEmail.value = '';
                 authPassword.value = '';
 
                 if (isLoginMode) {
@@ -317,12 +536,14 @@
                     authSubmitBtn.textContent = 'Sign In';
                     authSwitchText.textContent = "Don't have an account?";
                     authSwitchLink.textContent = 'Sign Up';
+                    document.querySelector('.form-group:nth-child(2)').style.display = 'none';
                 } else {
                     authModalTitle.innerHTML = 'Create <span>Account</span>';
                     authModalDesc.textContent = 'Create your free account to save workflows';
                     authSubmitBtn.textContent = 'Sign Up';
                     authSwitchText.textContent = 'Already have an account?';
                     authSwitchLink.textContent = 'Sign In';
+                    document.querySelector('.form-group:nth-child(2)').style.display = 'block';
                 }
                 authModal.classList.add('active');
             }
@@ -351,56 +572,50 @@
             authForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const username = authUsername.value.trim();
+                const email = authEmail.value.trim();
                 const password = authPassword.value.trim();
 
                 if (!username || !password) {
-                    authError.textContent = 'Please fill in all fields';
+                    authError.textContent = 'Please fill in all required fields';
                     authError.classList.add('show');
                     return;
                 }
-
-                if (username.length < 3) {
-                    authError.textContent = 'Username must be at least 3 characters';
-                    authError.classList.add('show');
-                    return;
-                }
-
-                if (password.length < 4) {
-                    authError.textContent = 'Password must be at least 4 characters';
-                    authError.classList.add('show');
-                    return;
-                }
-
-                const users = JSON.parse(localStorage.getItem('aribeth_users') || '{}');
 
                 if (isLoginMode) {
+                    // Login
+                    const users = JSON.parse(localStorage.getItem('aribeth_users') || '{}');
                     if (!users[username]) {
                         authError.textContent = 'User not found. Please sign up first.';
                         authError.classList.add('show');
                         return;
                     }
-                    if (users[username] !== password) {
+                    if (users[username].password !== password) {
                         authError.textContent = 'Incorrect password. Please try again.';
                         authError.classList.add('show');
                         return;
                     }
-                    saveUser({ username });
+                    saveUser({ username, email: users[username].email });
                     closeAuthModal();
                     updateUI();
-                    // Load saved workflows
                     loadUserWorkflows(username);
                 } else {
+                    // Signup
+                    if (!email || !email.includes('@')) {
+                        authError.textContent = 'Please enter a valid email address.';
+                        authError.classList.add('show');
+                        return;
+                    }
+                    const users = JSON.parse(localStorage.getItem('aribeth_users') || '{}');
                     if (users[username]) {
                         authError.textContent = 'Username already exists. Please choose another.';
                         authError.classList.add('show');
                         return;
                     }
-                    users[username] = password;
+                    users[username] = { password, email };
                     localStorage.setItem('aribeth_users', JSON.stringify(users));
-                    saveUser({ username });
+                    saveUser({ username, email });
                     closeAuthModal();
                     updateUI();
-                    // Initialize empty workflows
                     localStorage.setItem('aribeth_workflows_' + username, JSON.stringify([]));
                 }
             });
@@ -415,8 +630,7 @@
                     display.innerHTML = '<span class="empty">No saved workflows yet</span><span>— create your first automation</span>';
                 } else {
                     const last = workflows[workflows.length - 1];
-                    display.innerHTML =
-                        `${last}<span>— ${new Date().toLocaleDateString()}</span>`;
+                    display.innerHTML = last + '<span>— ' + new Date().toLocaleDateString() + '</span>';
                 }
             }
 
@@ -430,27 +644,66 @@
             }
 
             // ============================================================
-            // PLATFORM SELECTOR
+            // PLATFORM SELECTOR (Sequential)
             // ============================================================
-            let selectedPlatform = 'n8n';
+            let selectedPlatform = null;
+            let selectedDomain = null;
             const platformBadge = document.getElementById('platformBadge');
 
+            // Step 1: Select Domain
+            document.querySelectorAll('.template-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedDomain = this.dataset.domain;
+                    
+                    // Update step indicator
+                    document.getElementById('stepLabel1').classList.add('active');
+                    document.getElementById('stepDot1').classList.add('done');
+                    document.getElementById('stepLabel2').classList.add('active');
+                    document.getElementById('stepDot2').classList.add('active');
+                    
+                    // If platform already selected, generate
+                    if (selectedPlatform) {
+                        generateWorkflow();
+                    } else {
+                        document.getElementById('customPrompt').value = 'Domain selected: ' + selectedDomain + '. Please select a platform.';
+                    }
+                });
+            });
+
+            // Step 2: Select Platform
             document.querySelectorAll('.platform-opt').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.platform-opt').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                     selectedPlatform = this.dataset.platform;
                     platformBadge.textContent = this.textContent.trim() + ' Engine';
+                    
+                    // Update step indicator
+                    document.getElementById('stepLabel2').classList.add('active');
+                    document.getElementById('stepDot2').classList.add('done');
+                    document.getElementById('stepLabel3').classList.add('active');
+                    document.getElementById('stepDot3').classList.add('active');
+                    
+                    // Also update top badges
                     document.querySelectorAll('.platform-badges .platform-badge').forEach(b => {
                         b.classList.toggle('active', b.dataset.platform === selectedPlatform);
                     });
+                    
+                    // If domain already selected, generate
+                    if (selectedDomain) {
+                        generateWorkflow();
+                    } else {
+                        document.getElementById('customPrompt').value = 'Platform selected: ' + selectedPlatform + '. Please select a domain.';
+                    }
                 });
             });
 
+            // Top badges also select platform
             document.querySelectorAll('.platform-badges .platform-badge').forEach(badge => {
                 badge.addEventListener('click', function() {
-                    document.querySelectorAll('.platform-badges .platform-badge').forEach(b => b.classList.remove(
-                    'active'));
+                    document.querySelectorAll('.platform-badges .platform-badge').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                     const platform = this.dataset.platform;
                     selectedPlatform = platform;
@@ -458,19 +711,15 @@
                     document.querySelectorAll('.platform-opt').forEach(opt => {
                         opt.classList.toggle('active', opt.dataset.platform === platform);
                     });
-                });
-            });
-
-            // ============================================================
-            // DOMAIN BUTTONS
-            // ============================================================
-            document.querySelectorAll('.template-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const domain = this.dataset.domain;
-                    const prompt =
-                    `Generate a complete, production-ready "${domain}" automation workflow for ${selectedPlatform} with 15-25 interconnected nodes. Include real platform names (OpenAI, ElevenLabs, DALL-E, Facebook Graph API, Slack, Google Sheets, etc.), tools per node, free alternatives with links, API keys needed, cost estimate, and deployment steps.`;
-                    document.getElementById('customPrompt').value = prompt;
-                    document.getElementById('generateBtn').click();
+                    
+                    document.getElementById('stepLabel2').classList.add('active');
+                    document.getElementById('stepDot2').classList.add('done');
+                    document.getElementById('stepLabel3').classList.add('active');
+                    document.getElementById('stepDot3').classList.add('active');
+                    
+                    if (selectedDomain) {
+                        generateWorkflow();
+                    }
                 });
             });
 
@@ -482,9 +731,50 @@
             const analysis = document.getElementById('analysisBox');
             const customPrompt = document.getElementById('customPrompt');
 
+            function generateWorkflow() {
+                if (!selectedDomain || !selectedPlatform) {
+                    analysis.innerHTML = '<h3 style="color:#f97316;">⚠️ Please select both a domain and a platform</h3>';
+                    return;
+                }
+
+                const prompt = `Generate a COMPLETE, PRODUCTION-READY "${selectedDomain}" automation workflow for ${selectedPlatform} with 20-25 interconnected nodes.
+
+REQUIREMENTS:
+1. Use REAL platform names (OpenAI GPT-4o, ElevenLabs, DALL-E, Facebook Graph API, Telegram Bot, Slack, Google Sheets, Airtable, HubSpot CRM, Shopify, WooCommerce, SendGrid, Twilio, WhatsApp API, Instagram API, Twitter API, LinkedIn API, Discord, Mailgun, Stripe, PayPal, Typeform, Zoom, Calendly, Jira, Trello, Notion, Supabase, Firebase, PostgreSQL, MySQL, Redis, AWS S3, Google Drive, Dropbox)
+
+2. For EACH node include:
+   - Node name
+   - Platform name
+   - What it does
+   - API key needed with link
+   - Cost
+
+3. For EACH commercial tool, provide 2-3 FREE alternatives with official links
+
+4. Include:
+   - Complete list of API keys with links
+   - Total monthly cost estimate
+   - Step-by-step deployment instructions
+
+5. Include error handling, data validation, and notification nodes
+
+6. Format as a structured workflow map with numbered nodes
+
+DO NOT ask for more details. GENERATE THE FULL WORKFLOW NOW.
+
+Domain: ${selectedDomain}
+Platform: ${selectedPlatform}`;
+
+                customPrompt.value = prompt;
+                generateBtn.click();
+            }
+
             generateBtn.addEventListener('click', async function() {
                 const text = customPrompt.value.trim();
-                if (!text) return;
+                if (!text) {
+                    analysis.innerHTML = '<h3 style="color:#f97316;">⚠️ Please select a domain and platform first</h3>';
+                    return;
+                }
 
                 if (!currentUser) {
                     openAuthModal('login');
@@ -509,8 +799,7 @@
                     const result = data.automation_result || data.message || JSON.stringify(data, null, 2);
 
                     // Save workflow
-                    const domain = text.match(/"([^"]+)"/)?.[1] || 'Custom Workflow';
-                    saveWorkflow(domain);
+                    saveWorkflow(selectedDomain + ' — ' + selectedPlatform);
 
                     analysis.innerHTML = `
                         <h3>🤖 AI-Generated Workflow (${selectedPlatform})</h3>
@@ -578,6 +867,14 @@
             // ============================================================
             // INIT
             // ============================================================
+            // Set default platform to n8n
+            selectedPlatform = 'n8n';
+            document.querySelector('.platform-opt[data-platform="n8n"]').classList.add('active');
+            document.querySelector('.platform-badges .platform-badge[data-platform="n8n"]').classList.add('active');
+            platformBadge.textContent = 'n8n Engine';
+            document.getElementById('stepLabel2').classList.add('active');
+            document.getElementById('stepDot2').classList.add('active');
+
             if (loadUser()) {
                 updateUI();
                 loadUserWorkflows(currentUser.username);
