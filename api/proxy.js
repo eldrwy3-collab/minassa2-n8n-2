@@ -1,7 +1,9 @@
 // api/proxy.js
-export default async function handler(req, res) {
-  // ضع هنا رابط n8n Webhook الخاص بك (الذي يبدأ بـ https://...app.n8n.cloud/webhook/...)
-  const n8nURL = "https://XENONLED2.APP.N8N.CLOUD/WEBHOOK/YOUR_WEBHOOK_ID"; 
+// Vercel Serverless Function to securely connect to n8n
+
+const handler = async (req, res) => {
+  // REPLACE THIS WITH YOUR ACTUAL n8n WEBHOOK URL
+  const n8nURL = "https://YOUR_N8N_INSTANCE.app.n8n.cloud/webhook/YOUR_WEBHOOK_ID"; 
 
   try {
     const response = await fetch(n8nURL, {
@@ -11,10 +13,11 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-    
     res.status(200).json(data);
   } catch (error) {
-    console.error(error);
+    console.error("Proxy Error:", error);
     res.status(500).json({ error: 'Failed to reach n8n' });
   }
-}
+};
+
+module.exports = handler;
