@@ -3,7 +3,7 @@
 
 const handler = async (req, res) => {
   // REPLACE THIS WITH YOUR ACTUAL n8n WEBHOOK URL
-  const n8nURL = "https://YOUR_N8N_INSTANCE.app.n8n.cloud/webhook/YOUR_WEBHOOK_ID"; 
+  const n8nURL = "https://https://xenonled.app.n8n.cloud/webhook/netregent"; 
 
   try {
     const response = await fetch(n8nURL, {
