@@ -15,7 +15,8 @@ export default async function handler(req, res) {
     try {
         const { text } = req.body;
 
-        // Send to n8n
+        console.log('📤 Sending to n8n:', text);
+
         const response = await fetch('https://xenonled.app.n8n.cloud/webhook/netregent', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -23,8 +24,11 @@ export default async function handler(req, res) {
         });
 
         const data = await response.json();
+        console.log('📥 n8n response:', data);
+
         res.status(200).json(data);
     } catch (error) {
+        console.error('❌ Proxy error:', error);
         res.status(500).json({ error: error.message });
     }
 }
