@@ -1,312 +1,1800 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aribeth Engine Suite</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>netregent — AI Automation Intelligence</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{background:#f5f5f7;font-family:'Inter',sans-serif;color:#1d1d1f;display:flex;justify-content:center;min-height:100vh}
-        .wrapper{max-width:1200px;width:100%;padding:32px 20px}
-        
-        /* Header */
-        .header{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid #d2d2d7;flex-wrap:wrap;gap:12px}
-        .logo{font-size:15px;font-weight:600;color:#1d1d1f;letter-spacing:-0.3px}
-        .logo .netregent{color:#007aff;font-weight:700}
-        .logo-sub{font-size:12px;color:#86868b;font-weight:400;margin-left:4px}
-        .platforms{display:flex;gap:6px;flex-wrap:wrap}
-        .platform{background:transparent;border:1px solid #d2d2d7;border-radius:20px;padding:4px 14px;font-size:11px;color:#86868b;font-weight:500}
-        .platform .dot{width:5px;height:5px;border-radius:50%;display:inline-block;margin-right:4px}
-        .dot-n8n{background:#10b981}.dot-make{background:#3b82f6}.dot-zapier{background:#8b5cf6}.dot-pipedream{background:#f59e0b}.dot-nodered{background:#ef4444}.dot-power{background:#6366f1}
-        
-        /* Hero - بدون "Design Production-Ready" */
-        .hero{padding:30px 0 20px;text-align:center}
-        .hero-badge{display:inline-block;background:#e8e8ed;color:#86868b;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:4px 14px;border-radius:16px;margin-bottom:8px}
-        .hero p{font-size:16px;color:#86868b;max-width:560px;margin:0 auto;line-height:1.6}
-        
-        /* Search - مكان للذكاء الاصطناعي */
-        .search{max-width:640px;margin:0 auto 24px;display:flex;gap:10px}
-        .search input{flex:1;padding:14px 18px;border-radius:12px;border:1px solid #d2d2d7;background:#fff;color:#1d1d1f;font-size:15px;outline:none;transition:0.2s}
-        .search input:focus{border-color:#1d1d1f;box-shadow:0 0 0 3px rgba(0,0,0,0.05)}
-        .search input::placeholder{color:#aeaeb2}
-        .search button{padding:14px 28px;background:#1d1d1f;border:none;border-radius:12px;color:#fff;font-weight:600;font-size:15px;cursor:pointer;transition:0.2s}
-        .search button:hover{background:#333}
-        
-        /* Suggestions - منظمة ومتناسقة */
-        .suggestions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:20px}
-        .suggestion-wrap{position:relative;display:inline-block}
-        .suggestion{background:#f5f5f7;border:1px solid #d2d2d7;border-radius:20px;padding:6px 16px;font-size:12px;font-weight:500;color:#1d1d1f;cursor:pointer;transition:0.15s;display:block}
-        .suggestion:hover{background:#e8e8ed;border-color:#b0b0b8}
-        
-        .dropdown{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #d2d2d7;border-radius:10px;padding:4px 0;min-width:140px;z-index:10;margin-top:4px;box-shadow:0 8px 30px rgba(0,0,0,0.06)}
-        .suggestion-wrap:hover .dropdown{display:block}
-        .dropdown-item{padding:5px 14px;font-size:12px;color:#1d1d1f;cursor:pointer;transition:0.1s}
-        .dropdown-item:hover{background:#f5f5f7;color:#1d1d1f}
-        
-        /* Grid */
-        .grid{display:grid;grid-template-columns:280px 1fr;gap:24px;margin-top:8px}
-        
-        /* Panels */
-        .panel{background:#fff;border-radius:16px;padding:18px 20px;border:1px solid #d2d2d7}
-        .panel-label{font-weight:600;color:#1d1d1f;font-size:13px;margin-bottom:10px;display:block}
-        
-        .domain-list{max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
-        .domain-list::-webkit-scrollbar{width:3px}
-        .domain-list::-webkit-scrollbar-thumb{background:#d2d2d7;border-radius:4px}
-        .domain-btn{padding:7px 12px;border-radius:8px;border:none;background:transparent;color:#1d1d1f;font-size:12px;font-weight:500;cursor:pointer;text-align:left;width:100%;transition:0.1s}
-        .domain-btn:hover{background:#f5f5f7}
-        .domain-btn.selected{background:#e8e8ed}
-        .domain-btn .count{float:right;font-size:10px;color:#aeaeb2;font-weight:400}
-        
-        .media-list{max-height:140px;overflow-y:auto;display:flex;flex-direction:column;gap:2px;padding-top:10px;margin-top:10px;border-top:1px solid #d2d2d7}
-        .media-btn{padding:5px 12px;border-radius:6px;border:none;background:transparent;color:#86868b;font-size:11px;font-weight:500;cursor:pointer;text-align:left;width:100%;transition:0.1s}
-        .media-btn:hover{background:#f5f5f7;color:#1d1d1f}
-        .media-btn.selected{background:#e8e8ed}
-        
-        .generate-btn{width:100%;margin-top:14px;padding:11px;background:#1d1d1f;border:none;border-radius:10px;color:#fff;font-weight:600;font-size:14px;cursor:pointer;transition:0.2s}
-        .generate-btn:hover{background:#333}
-        
-        /* Canvas */
-        .canvas{background:#fafafc;border-radius:14px;padding:14px;border:1px solid #d2d2d7;min-height:220px;overflow-x:auto}
-        #nodesCanvas{display:flex;align-items:center;gap:8px;min-height:140px}
-        .node-card{background:#fff;border:1px solid #d2d2d7;border-radius:10px;padding:8px 12px;min-width:70px;text-align:center;flex-shrink:0}
-        .node-card.trigger{border-color:#1d1d1f;background:#f5f5f7}
-        .node-card.logic{border-color:#8b5cf6;background:#f5f0ff}
-        .node-card.action{border-color:#10b981;background:#f0faf5}
-        .node-icon{font-size:16px;display:block;margin-bottom:2px}
-        .node-title{font-weight:600;color:#1d1d1f;font-size:10px}
-        .node-sub{font-size:8px;color:#aeaeb2}
-        .node-arrow{color:#d2d2d7;font-size:12px;flex-shrink:0}
-        
-        .result-links{background:#fafafc;border-radius:10px;padding:8px 12px;margin-top:10px;border:1px solid #d2d2d7}
-        .result-links a{display:block;color:#1d1d1f;text-decoration:none;font-size:12px;font-weight:500;padding:2px 0;transition:0.15s}
-        .result-links a:hover{color:#1d1d1f;text-decoration:underline}
-        
-        .loading{color:#aeaeb2;font-size:12px;text-align:center;padding:10px}
-        .error{color:#ff3b30;font-size:12px;text-align:center;padding:10px}
-        
-        .alt-wrap{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
-        .alt-tag{background:#f5f5f7;border:1px solid #d2d2d7;padding:2px 8px;border-radius:4px;font-size:10px;color:#86868b}
-        
-        @media(max-width:1024px){.grid{grid-template-columns:1fr}}
-        @media(max-width:600px){.hero h1{font-size:32px}.search{flex-direction:column}}
+        :root {
+            --bg: #050505;
+            --surface: #0b0b0c;
+            --surface-2: #101011;
+            --surface-3: #151516;
+
+            --border: rgba(255,255,255,.08);
+            --border-hover: rgba(255,255,255,.16);
+
+            --text: #f5f5f5;
+            --muted: #8a8a8f;
+            --muted-2: #5f5f64;
+
+            --accent: #f97316;
+            --accent-hover: #fb923c;
+            --accent-soft: rgba(249,115,22,.10);
+
+            --success: #22c55e;
+
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --radius-sm: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 50% -20%,
+                    rgba(249,115,22,.08),
+                    transparent 42%
+                ),
+                var(--bg);
+
+            color: var(--text);
+            font-family: "Inter", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .app {
+            width: min(1440px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
+            height: 76px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-name {
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: -.7px;
+            color: var(--accent);
+        }
+
+        .platforms {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .platform {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 7px 12px;
+
+            border: 1px solid var(--border);
+            border-radius: 999px;
+
+            color: #a4a4a8;
+            background: rgba(255,255,255,.025);
+
+            font-size: 11px;
+            font-weight: 600;
+
+            transition: .2s ease;
+        }
+
+        .platform:hover {
+            border-color: var(--border-hover);
+            color: var(--text);
+            transform: translateY(-1px);
+        }
+
+        .platform-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #777;
+        }
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 105px 20px 25px;
+
+            text-align: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 7px 13px;
+
+            border: 1px solid rgba(249,115,22,.20);
+            border-radius: 999px;
+
+            background: var(--accent-soft);
+            color: var(--accent);
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent);
+        }
+
+        .hero h1 {
+            margin-top: 25px;
+
+            font-size: clamp(42px, 6vw, 72px);
+            line-height: 1.02;
+            letter-spacing: -3.8px;
+            font-weight: 800;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            max-width: 680px;
+            margin: 22px auto 0;
+
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        /* =====================================================
+           AI REQUEST
+        ===================================================== */
+
+        .request-area {
+            width: min(850px, 100%);
+            margin: 30px auto 0;
+        }
+
+        .request-box {
+            display: flex;
+            align-items: stretch;
+
+            padding: 7px;
+
+            background: var(--surface-2);
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 18px;
+
+            box-shadow:
+                0 25px 80px rgba(0,0,0,.35),
+                0 0 0 1px rgba(249,115,22,.02);
+
+            transition: .25s ease;
+        }
+
+        .request-box:focus-within {
+            border-color: rgba(249,115,22,.45);
+
+            box-shadow:
+                0 25px 90px rgba(0,0,0,.4),
+                0 0 0 4px rgba(249,115,22,.06);
+        }
+
+        .request-input {
+            flex: 1;
+
+            min-width: 0;
+
+            padding: 18px 18px;
+
+            background: transparent;
+            border: 0;
+            outline: 0;
+
+            color: var(--text);
+            font-size: 15px;
+        }
+
+        .request-input::placeholder {
+            color: #5d5d62;
+        }
+
+        .generate {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            padding: 0 24px;
+
+            border: 0;
+            border-radius: 13px;
+
+            background: var(--accent);
+            color: white;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            transition: .2s ease;
+        }
+
+        .generate:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .generate:disabled {
+            opacity: .55;
+            cursor: wait;
+            transform: none;
+        }
+
+        /* =====================================================
+           QUICK START
+        ===================================================== */
+
+        .quick-start {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+
+            margin-top: 18px;
+        }
+
+        .quick {
+            padding: 8px 13px;
+
+            border: 1px solid var(--border);
+            border-radius: 999px;
+
+            background: rgba(255,255,255,.02);
+            color: #858589;
+
+            font-size: 11px;
+            font-weight: 500;
+
+            transition: .2s ease;
+        }
+
+        .quick:hover {
+            color: var(--text);
+            border-color: rgba(249,115,22,.35);
+            background: var(--accent-soft);
+        }
+
+        /* =====================================================
+           RESULT AREA
+        ===================================================== */
+
+        .results {
+            margin-top: 80px;
+            padding-bottom: 80px;
+        }
+
+        .results-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+
+            margin-bottom: 18px;
+        }
+
+        .section-kicker {
+            color: var(--accent);
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .results-header h2 {
+            margin-top: 6px;
+
+            font-size: 25px;
+            letter-spacing: -.8px;
+        }
+
+        .status {
+            color: var(--muted-2);
+            font-size: 12px;
+        }
+
+        /* =====================================================
+           WORKFLOW
+        ===================================================== */
+
+        .workflow-card {
+            padding: 22px;
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(255,255,255,.025),
+                    rgba(255,255,255,.01)
+                );
+
+            overflow: hidden;
+        }
+
+        .workflow-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 22px;
+        }
+
+        .workflow-title {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .workflow-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            color: #777;
+            font-size: 11px;
+        }
+
+        .workflow-status::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--success);
+        }
+
+        .workflow-canvas {
+            min-height: 190px;
+
+            display: flex;
+            align-items: center;
+
+            overflow-x: auto;
+
+            padding: 15px 4px 20px;
+
+            scrollbar-width: thin;
+        }
+
+        .workflow-empty {
+            width: 100%;
+
+            text-align: center;
+            color: #55555a;
+            font-size: 13px;
+        }
+
+        .workflow-node {
+            min-width: 155px;
+
+            padding: 17px 15px;
+
+            border: 1px solid var(--border);
+            border-radius: 14px;
+
+            background: var(--surface-2);
+
+            text-align: center;
+
+            transition: .2s ease;
+        }
+
+        .workflow-node:hover {
+            border-color: rgba(249,115,22,.35);
+            transform: translateY(-2px);
+        }
+
+        .workflow-node-icon {
+            width: 34px;
+            height: 34px;
+
+            margin: 0 auto 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: var(--surface-3);
+            color: var(--accent);
+
+            font-size: 15px;
+        }
+
+        .workflow-node-name {
+            color: #eee;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .workflow-node-type {
+            margin-top: 5px;
+
+            color: #606066;
+            font-size: 9px;
+        }
+
+        .workflow-arrow {
+            flex: 0 0 auto;
+
+            padding: 0 11px;
+
+            color: #46464a;
+            font-size: 17px;
+        }
+
+        /* =====================================================
+           LOWER RESULTS
+        ===================================================== */
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+
+            margin-top: 18px;
+        }
+
+        .result-card {
+            padding: 20px;
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+
+            background: var(--surface);
+        }
+
+        .card-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 16px;
+        }
+
+        .card-heading h3 {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .card-heading span {
+            color: #55555a;
+            font-size: 10px;
+        }
+
+        /* Platforms */
+
+        .recommended-platforms {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .recommended-platform {
+            padding: 9px 12px;
+
+            border: 1px solid var(--border);
+            border-radius: 10px;
+
+            background: rgba(255,255,255,.02);
+
+            color: #aaa;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .recommended-platform.primary {
+            border-color: rgba(249,115,22,.30);
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        /* Templates */
+
+        .template-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .template {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+
+            padding: 11px 12px;
+
+            border: 1px solid rgba(255,255,255,.05);
+            border-radius: 10px;
+
+            color: #aaa;
+            text-decoration: none;
+
+            background: rgba(255,255,255,.018);
+
+            font-size: 11px;
+
+            transition: .2s ease;
+        }
+
+        .template:hover {
+            border-color: rgba(249,115,22,.25);
+            color: white;
+        }
+
+        .template-arrow {
+            color: #555;
+        }
+
+        /* =====================================================
+           DOMAINS - OPTIONAL DISCOVERY
+        ===================================================== */
+
+        .discovery {
+            margin-top: 18px;
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+
+            background: var(--surface);
+
+            overflow: hidden;
+        }
+
+        .discovery-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 16px 20px;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .discovery-header h3 {
+            font-size: 12px;
+        }
+
+        .discovery-header span {
+            color: #555;
+            font-size: 10px;
+        }
+
+        .domain-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+
+            padding: 15px 20px;
+        }
+
+        .domain {
+            padding: 7px 10px;
+
+            border: 1px solid var(--border);
+            border-radius: 8px;
+
+            color: #777;
+            background: rgba(255,255,255,.015);
+
+            font-size: 10px;
+
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .domain:hover {
+            color: var(--text);
+            border-color: rgba(249,115,22,.30);
+        }
+
+        /* =====================================================
+           LOADING / ERROR
+        ===================================================== */
+
+        .loading {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .error {
+            color: #f87171;
+            font-size: 12px;
+        }
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+            padding: 25px 0 35px;
+
+            border-top: 1px solid var(--border);
+
+            color: #45454a;
+            text-align: center;
+
+            font-size: 10px;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .platforms {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 75px;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .app {
+                width: min(100% - 24px, 1440px);
+            }
+
+            .header {
+                height: 65px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .request-box {
+                flex-direction: column;
+                gap: 7px;
+            }
+
+            .generate {
+                min-height: 50px;
+            }
+
+            .workflow-card,
+            .result-card {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
-<body>
-<div class="wrapper">
 
-    <!-- Header -->
+<body>
+
+<div class="app">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
     <header class="header">
-        <div class="logo">
-            <span class="netregent">netregent</span>
-            <span class="logo-sub">Aribeth Engine Suite</span>
+
+        <div class="brand">
+            <div class="brand-name">netregent</div>
         </div>
+
         <div class="platforms">
-            <span class="platform"><span class="dot dot-n8n"></span>n8n</span>
-            <span class="platform"><span class="dot dot-make"></span>Make</span>
-            <span class="platform"><span class="dot dot-zapier"></span>Zapier</span>
-            <span class="platform"><span class="dot dot-pipedream"></span>Pipedream</span>
-            <span class="platform"><span class="dot dot-nodered"></span>Node-RED</span>
-            <span class="platform"><span class="dot dot-power"></span>Power Auto</span>
+
+            <div class="platform">
+                <span class="platform-dot"></span>
+                n8n
+            </div>
+
+            <div class="platform">
+                <span class="platform-dot"></span>
+                Make
+            </div>
+
+            <div class="platform">
+                <span class="platform-dot"></span>
+                Zapier
+            </div>
+
+            <div class="platform">
+                <span class="platform-dot"></span>
+                Pipedream
+            </div>
+
+            <div class="platform">
+                <span class="platform-dot"></span>
+                Node-RED
+            </div>
+
+            <div class="platform">
+                <span class="platform-dot"></span>
+                Power Automate
+            </div>
+
         </div>
+
     </header>
 
-    <!-- Hero -->
-    <div class="hero">
-        <div class="hero-badge">⚡ 11,000+ Workflows</div>
-        <p>Describe your automation goal. AI generates complete node maps with platforms, tools, and free alternatives.</p>
-    </div>
 
-    <!-- Search - AI Input -->
-    <div class="search">
-        <input type="text" id="userInput" placeholder="e.g. WhatsApp chatbot with AI responses" value="WhatsApp chatbot with AI responses" />
-        <button id="generateBtn">Generate</button>
-    </div>
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
 
-    <!-- Suggestions - منظمة ومتناسقة -->
-    <div class="suggestions" id="suggestions"></div>
+    <main>
 
-    <!-- Grid -->
-    <div class="grid">
-        <div class="panel">
-            <label class="panel-label">📂 Select Domain</label>
-            <div class="domain-list" id="domainList"><div class="loading">Loading...</div></div>
+        <section class="hero">
 
-            <label class="panel-label" style="margin-top:10px;color:#86868b;font-size:12px;">🎬 Media Type</label>
-            <div class="media-list" id="mediaList"><div class="loading">Select a domain first</div></div>
-
-            <button class="generate-btn" id="generateBtn2">Generate</button>
-        </div>
-
-        <div class="panel">
-            <label class="panel-label">🗺️ Node Map</label>
-            <div class="canvas"><div id="nodesCanvas"><div class="loading">Enter a request and click Generate...</div></div></div>
-
-            <div class="result-links">
-                <label class="panel-label" style="font-size:11px;margin-bottom:4px;">🔗 Templates</label>
-                <div id="templateLinks"><span class="loading">No templates yet.</span></div>
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                AI Automation Intelligence
             </div>
 
-            <div style="margin-top:10px;">
-                <label class="panel-label" style="font-size:11px;">🔄 Alternatives</label>
-                <div class="alt-wrap" id="alternativesList"><span class="loading">None yet.</span></div>
+            <h1>
+                Turn your idea into<br>
+                <span>an automation.</span>
+            </h1>
+
+            <p>
+                Describe what you want to build.
+                netregent analyzes your goal and finds
+                the right workflow, platforms, tools and alternatives.
+            </p>
+
+
+            <!-- =================================================
+                 AI REQUEST BOX
+            ================================================== -->
+
+            <div class="request-area">
+
+                <div class="request-box">
+
+                    <input
+                        id="userInput"
+                        class="request-input"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="Describe what you want to automate..."
+                    >
+
+                    <button
+                        id="generateBtn"
+                        class="generate"
+                    >
+                        Generate
+                        <span>→</span>
+                    </button>
+
+                </div>
+
             </div>
-        </div>
-    </div>
+
+
+            <!-- =================================================
+                 QUICK START
+            ================================================== -->
+
+            <div
+                id="quickStart"
+                class="quick-start"
+            ></div>
+
+        </section>
+
+
+        <!-- =====================================================
+             RESULTS
+        ====================================================== -->
+
+        <section class="results">
+
+            <div class="results-header">
+
+                <div>
+                    <div class="section-kicker">
+                        AI Result
+                    </div>
+
+                    <h2>
+                        Your automation workflow
+                    </h2>
+                </div>
+
+                <div
+                    id="status"
+                    class="status"
+                >
+                    Ready
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 WORKFLOW MAP
+            ================================================== -->
+
+            <div class="workflow-card">
+
+                <div class="workflow-top">
+
+                    <div class="workflow-title">
+                        Workflow architecture
+                    </div>
+
+                    <div
+                        id="workflowStatus"
+                        class="workflow-status"
+                    >
+                        Waiting for request
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="nodesCanvas"
+                    class="workflow-canvas"
+                >
+
+                    <div class="workflow-empty">
+                        Describe your automation above to generate the workflow.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 LOWER RESULT CARDS
+            ================================================== -->
+
+            <div class="result-grid">
+
+
+                <!-- Recommended Platforms -->
+
+                <div class="result-card">
+
+                    <div class="card-heading">
+
+                        <h3>
+                            Recommended platforms
+                        </h3>
+
+                        <span>
+                            AI selection
+                        </span>
+
+                    </div>
+
+                    <div
+                        id="platformResults"
+                        class="recommended-platforms"
+                    >
+
+                        <div class="recommended-platform primary">
+                            n8n
+                        </div>
+
+                        <div class="recommended-platform">
+                            Make
+                        </div>
+
+                        <div class="recommended-platform">
+                            Zapier
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Templates -->
+
+                <div class="result-card">
+
+                    <div class="card-heading">
+
+                        <h3>
+                            Relevant templates
+                        </h3>
+
+                        <span>
+                            From your library
+                        </span>
+
+                    </div>
+
+                    <div
+                        id="templateLinks"
+                        class="template-list"
+                    >
+
+                        <div class="loading">
+                            Templates will appear after generation.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 OPTIONAL DOMAIN DISCOVERY
+            ================================================== -->
+
+            <div class="discovery">
+
+                <div class="discovery-header">
+
+                    <h3>
+                        Explore automation domains
+                    </h3>
+
+                    <span>
+                        Optional
+                    </span>
+
+                </div>
+
+                <div
+                    id="domainList"
+                    class="domain-list"
+                >
+
+                    <div class="loading">
+                        Loading...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="footer">
+        netregent · AI Automation Intelligence
+    </footer>
+
 </div>
 
+
 <script>
-const apiURL = "/api/proxy";
 
-// --- Projects ---
-const projects = [
-    { name: "AI Video Generation", subs: ["TikTok", "YouTube", "Instagram"] },
-    { name: "WhatsApp Bot", subs: ["Support", "Sales", "Notifications"] },
-    { name: "Email Marketing", subs: ["Automation", "Newsletters", "Drip"] },
-    { name: "Lead Generation", subs: ["CRM Sync", "Scraping", "Enrichment"] },
-    { name: "Document Extraction", subs: ["Invoices", "Contracts", "PDF"] },
-    { name: "E-commerce", subs: ["Inventory", "Orders", "Products"] },
-    { name: "Social Media", subs: ["Content", "Scheduling", "Analytics"] },
-    { name: "HR Automation", subs: ["Recruitment", "Onboarding", "Payroll"] },
-    { name: "IT & Cloud", subs: ["Monitoring", "Deployment", "Security"] },
-    { name: "Financial Reporting", subs: ["Invoicing", "Expenses", "Forecasting"] }
-];
+    /*
+     * ==========================================================
+     * CONFIGURATION
+     * ==========================================================
+     */
 
-// --- Global ---
-let globalData = { domains: [], results: [], workflow: [], alternatives: [] };
+    const API_URL = "/api/proxy";
 
-// --- Suggestions ---
-function renderSuggestions() {
-    const container = document.getElementById('suggestions');
-    container.innerHTML = projects.map(p => `
-        <div class="suggestion-wrap">
-            <span class="suggestion">${p.name}</span>
-            <div class="dropdown">
-                ${p.subs.map(s => `<div class="dropdown-item" onclick="setProject('${p.name} ${s}')">${s}</div>`).join('')}
+
+    /*
+     * ==========================================================
+     * STATE
+     * ==========================================================
+     */
+
+    const state = {
+        results: [],
+        workflow: {},
+        alternatives: [],
+        domains: [],
+        media: []
+    };
+
+
+    /*
+     * ==========================================================
+     * QUICK START EXAMPLES
+     * ==========================================================
+     */
+
+    const quickProjects = [
+
+        "AI video generation and publishing",
+
+        "WhatsApp customer support with AI",
+
+        "Generate and publish social media content",
+
+        "Lead generation and CRM automation",
+
+        "Extract data from documents with AI",
+
+        "Automate e-commerce operations"
+
+    ];
+
+
+    /*
+     * ==========================================================
+     * DOM
+     * ==========================================================
+     */
+
+    const userInput =
+        document.getElementById("userInput");
+
+    const generateBtn =
+        document.getElementById("generateBtn");
+
+    const nodesCanvas =
+        document.getElementById("nodesCanvas");
+
+    const templateLinks =
+        document.getElementById("templateLinks");
+
+    const domainList =
+        document.getElementById("domainList");
+
+    const platformResults =
+        document.getElementById("platformResults");
+
+    const status =
+        document.getElementById("status");
+
+    const workflowStatus =
+        document.getElementById("workflowStatus");
+
+    const quickStart =
+        document.getElementById("quickStart");
+
+
+    /*
+     * ==========================================================
+     * QUICK BUTTONS
+     * ==========================================================
+     */
+
+    function renderQuickStart() {
+
+        quickStart.innerHTML = "";
+
+        quickProjects.forEach(project => {
+
+            const button =
+                document.createElement("button");
+
+            button.className = "quick";
+
+            button.textContent = project;
+
+            button.addEventListener("click", () => {
+
+                userInput.value = project;
+
+                userInput.focus();
+
+            });
+
+            quickStart.appendChild(button);
+
+        });
+
+    }
+
+
+    /*
+     * ==========================================================
+     * GENERATE
+     * ==========================================================
+     */
+
+    async function generateWorkflow() {
+
+        const query =
+            userInput.value.trim();
+
+        if (!query) {
+
+            userInput.focus();
+
+            return;
+
+        }
+
+
+        generateBtn.disabled = true;
+
+        generateBtn.innerHTML =
+            "Analyzing <span>...</span>";
+
+        status.textContent =
+            "Analyzing your request...";
+
+        workflowStatus.textContent =
+            "Generating workflow";
+
+
+        nodesCanvas.innerHTML = `
+            <div class="workflow-empty">
+                AI is analyzing your automation goal...
             </div>
-        </div>
-    `).join('');
-}
+        `;
 
-function setProject(name) {
-    document.getElementById('userInput').value = name;
-    generateWorkflow();
-}
+        templateLinks.innerHTML = `
+            <div class="loading">
+                Finding relevant templates...
+            </div>
+        `;
 
-// --- Generate ---
-async function generateWorkflow() {
-    const userInput = document.getElementById('userInput').value.trim();
-    if (!userInput) { alert('Please describe your automation goal.'); return; }
 
-    document.getElementById('nodesCanvas').innerHTML = '<div class="loading">Generating...</div>';
-    document.getElementById('templateLinks').innerHTML = '<span class="loading">Loading...</span>';
-    document.getElementById('alternativesList').innerHTML = '<span class="loading">Loading...</span>';
+        try {
 
-    try {
-        const response = await fetch(apiURL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user_input: userInput })
+            const response =
+                await fetch(API_URL, {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        user_input: query
+                    })
+
+                });
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    `Request failed (${response.status})`
+                );
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            state.results =
+                data.top_results || [];
+
+            state.workflow =
+                data.generated_workflow || {};
+
+            state.alternatives =
+                data.alternative_tools || [];
+
+            state.domains =
+                data.all_domains_menu || [];
+
+            state.media =
+                data.all_media_types_menu || [];
+
+
+            renderWorkflow();
+
+            renderTemplates();
+
+            renderPlatforms();
+
+            renderDomains();
+
+
+            status.textContent =
+                "Workflow generated";
+
+            workflowStatus.textContent =
+                "Ready";
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            nodesCanvas.innerHTML = `
+                <div class="error">
+                    Unable to connect to the automation engine.
+                </div>
+            `;
+
+            status.textContent =
+                "Connection error";
+
+            workflowStatus.textContent =
+                "Failed";
+
+        }
+
+        finally {
+
+            generateBtn.disabled = false;
+
+            generateBtn.innerHTML =
+                "Generate <span>→</span>";
+
+        }
+
+    }
+
+
+    /*
+     * ==========================================================
+     * WORKFLOW RENDER
+     * ==========================================================
+     */
+
+    function renderWorkflow() {
+
+        const workflow =
+            state.workflow || {};
+
+        const nodes =
+            Array.isArray(workflow.nodes)
+                ? workflow.nodes
+                : [];
+
+
+        if (!nodes.length) {
+
+            nodesCanvas.innerHTML = `
+                <div class="workflow-empty">
+                    No workflow nodes were returned.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        nodesCanvas.innerHTML = "";
+
+
+        nodes.forEach((node, index) => {
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "workflow-node";
+
+
+            const icon =
+                document.createElement("div");
+
+            icon.className =
+                "workflow-node-icon";
+
+            icon.textContent =
+                getNodeIcon(node);
+
+
+            const name =
+                document.createElement("div");
+
+            name.className =
+                "workflow-node-name";
+
+            name.textContent =
+                node.name || "Automation step";
+
+
+            const type =
+                document.createElement("div");
+
+            type.className =
+                "workflow-node-type";
+
+            type.textContent =
+                node.type || "Action";
+
+
+            card.appendChild(icon);
+
+            card.appendChild(name);
+
+            card.appendChild(type);
+
+
+            nodesCanvas.appendChild(card);
+
+
+            if (index < nodes.length - 1) {
+
+                const arrow =
+                    document.createElement("div");
+
+                arrow.className =
+                    "workflow-arrow";
+
+                arrow.textContent =
+                    "→";
+
+                nodesCanvas.appendChild(arrow);
+
+            }
+
         });
-        if (!response.ok) throw new Error('Failed to connect');
-        const data = await response.json();
-        
-        globalData.results = data.top_results || [];
-        globalData.workflow = data.generated_workflow || {};
-        globalData.alternatives = data.alternative_tools || [];
-        globalData.domains = data.all_domains_menu || [];
-        
-        renderResults();
-        renderDomains();
-    } catch (error) {
-        document.getElementById('nodesCanvas').innerHTML = `<div class="error">${error.message}</div>`;
-        document.getElementById('templateLinks').innerHTML = `<span class="error">${error.message}</span>`;
-    }
-}
 
-// --- Domains ---
-function renderDomains() {
-    const list = document.getElementById('domainList');
-    list.innerHTML = '';
-    if (!globalData.domains || globalData.domains.length === 0) {
-        list.innerHTML = '<div class="loading">No domains found.</div>';
-        return;
     }
-    globalData.domains.slice(0, 30).forEach(d => {
-        const btn = document.createElement('button');
-        btn.className = 'domain-btn';
-        btn.innerHTML = `${d.domain_name || 'General'} <span class="count">(${d.total_templates || 0})</span>`;
-        btn.onclick = () => { document.querySelectorAll('.domain-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); };
-        list.appendChild(btn);
-    });
-}
 
-// --- Results ---
-function renderResults() {
-    const links = document.getElementById('templateLinks');
-    links.innerHTML = '';
-    if (globalData.results && globalData.results.length > 0) {
-        globalData.results.slice(0, 5).forEach(t => {
-            const a = document.createElement('a');
-            a.href = t.url || '#';
-            a.target = '_blank';
-            a.textContent = t.title || 'Untitled';
-            links.appendChild(a);
+
+    /*
+     * ==========================================================
+     * NODE ICON
+     * ==========================================================
+     */
+
+    function getNodeIcon(node) {
+
+        const type =
+            String(node.type || "").toLowerCase();
+
+        const name =
+            String(node.name || "").toLowerCase();
+
+
+        if (
+            type.includes("webhook") ||
+            type.includes("trigger") ||
+            name.includes("trigger")
+        ) {
+
+            return "⚡";
+
+        }
+
+
+        if (
+            type.includes("ai") ||
+            type.includes("llm") ||
+            name.includes("ai") ||
+            name.includes("openai")
+        ) {
+
+            return "✦";
+
+        }
+
+
+        if (
+            type.includes("if") ||
+            type.includes("switch") ||
+            name.includes("condition")
+        ) {
+
+            return "◇";
+
+        }
+
+
+        if (
+            type.includes("email") ||
+            name.includes("email")
+        ) {
+
+            return "✉";
+
+        }
+
+
+        if (
+            type.includes("database") ||
+            name.includes("database")
+        ) {
+
+            return "▣";
+
+        }
+
+
+        return "•";
+
+    }
+
+
+    /*
+     * ==========================================================
+     * TEMPLATES
+     * ==========================================================
+     */
+
+    function renderTemplates() {
+
+        templateLinks.innerHTML = "";
+
+
+        if (!state.results.length) {
+
+            templateLinks.innerHTML = `
+                <div class="loading">
+                    No matching templates found.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        state.results
+            .slice(0, 5)
+            .forEach(template => {
+
+                const link =
+                    document.createElement("a");
+
+                link.className =
+                    "template";
+
+                link.href =
+                    template.url || "#";
+
+                link.target =
+                    "_blank";
+
+                link.rel =
+                    "noopener noreferrer";
+
+
+                const title =
+                    document.createElement("span");
+
+                title.textContent =
+                    template.title || "Automation template";
+
+
+                const arrow =
+                    document.createElement("span");
+
+                arrow.className =
+                    "template-arrow";
+
+                arrow.textContent =
+                    "↗";
+
+
+                link.appendChild(title);
+
+                link.appendChild(arrow);
+
+                templateLinks.appendChild(link);
+
+            });
+
+    }
+
+
+    /*
+     * ==========================================================
+     * PLATFORMS
+     * ==========================================================
+     */
+
+    function renderPlatforms() {
+
+        platformResults.innerHTML = "";
+
+
+        const platforms = [
+
+            "n8n",
+            "Make",
+            "Zapier",
+            "Pipedream",
+            "Node-RED",
+            "Power Automate"
+
+        ];
+
+
+        const alternatives =
+            state.alternatives || [];
+
+
+        let selected =
+            [];
+
+
+        alternatives.forEach(item => {
+
+            const name =
+                typeof item === "string"
+                    ? item
+                    : item.platform;
+
+            if (name) {
+
+                selected.push(name);
+
+            }
+
         });
-    } else {
-        links.innerHTML = '<span style="color:#aeaeb2;">No templates found.</span>';
+
+
+        if (!selected.length) {
+
+            selected =
+                platforms.slice(0, 3);
+
+        }
+
+
+        selected
+            .slice(0, 6)
+            .forEach((platform, index) => {
+
+                const item =
+                    document.createElement("div");
+
+                item.className =
+                    "recommended-platform";
+
+                if (index === 0) {
+
+                    item.classList.add("primary");
+
+                }
+
+                item.textContent =
+                    platform;
+
+                platformResults.appendChild(item);
+
+            });
+
     }
 
-    const altList = document.getElementById('alternativesList');
-    altList.innerHTML = '';
-    if (globalData.alternatives && globalData.alternatives.length > 0) {
-        globalData.alternatives.slice(0, 8).forEach(t => {
-            const span = document.createElement('span');
-            span.className = 'alt-tag';
-            span.textContent = t.platform || t;
-            altList.appendChild(span);
-        });
-    } else {
-        altList.innerHTML = '<span style="color:#aeaeb2;">No alternatives.</span>';
+
+    /*
+     * ==========================================================
+     * DOMAINS
+     * ==========================================================
+     */
+
+    function renderDomains() {
+
+        domainList.innerHTML = "";
+
+
+        if (!state.domains.length) {
+
+            domainList.innerHTML = `
+                <div class="loading">
+                    No domains available.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        state.domains
+            .slice(0, 20)
+            .forEach(domain => {
+
+                const button =
+                    document.createElement("button");
+
+                button.className =
+                    "domain";
+
+
+                const name =
+                    domain.domain_name ||
+                    domain.name ||
+                    domain.domain ||
+                    "Automation";
+
+
+                const count =
+                    domain.total_templates;
+
+
+                button.textContent =
+                    count
+                        ? `${name} · ${count}`
+                        : name;
+
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        userInput.value =
+                            `Automation for ${name}`;
+
+                        userInput.focus();
+
+                    }
+                );
+
+
+                domainList.appendChild(button);
+
+            });
+
     }
 
-    const canvas = document.getElementById('nodesCanvas');
-    const workflow = globalData.workflow || {};
-    if (!workflow.nodes || workflow.nodes.length === 0) {
-        canvas.innerHTML = '<div class="loading">No workflow generated.</div>';
-        return;
+
+    /*
+     * ==========================================================
+     * INITIAL DATA
+     * ==========================================================
+     */
+
+    async function loadInitialData() {
+
+        try {
+
+            const response =
+                await fetch(API_URL, {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({})
+
+                });
+
+
+            if (!response.ok) {
+
+                return;
+
+            }
+
+
+            const data =
+                await response.json();
+
+
+            state.domains =
+                data.all_domains_menu || [];
+
+            state.media =
+                data.all_media_types_menu || [];
+
+
+            renderDomains();
+
+        }
+
+        catch (error) {
+
+            console.warn(
+                "Initial data unavailable:",
+                error
+            );
+
+        }
+
     }
-    let html = '';
-    workflow.nodes.slice(0, 25).forEach((n, i) => {
-        let icon = '⚙️', type = 'action';
-        if (n.type && n.type.includes('webhook')) { icon = '⚡'; type = 'trigger'; }
-        if (n.type && (n.type.includes('if') || n.type.includes('switch'))) { icon = '🔀'; type = 'logic'; }
-        if (n.type && (n.type.includes('ai') || n.type.includes('llm'))) { icon = '🧠'; type = 'action'; }
-        html += `<div class="node-card ${type}"><span class="node-icon">${icon}</span><div class="node-title">${n.name || 'Node'}</div><div class="node-sub">${n.type || ''}</div></div>`;
-        if (i < workflow.nodes.length - 1 && i < 24) html += `<span class="node-arrow">➔</span>`;
-    });
-    canvas.innerHTML = html;
-}
 
-// --- Events ---
-document.getElementById('generateBtn').onclick = generateWorkflow;
-document.getElementById('generateBtn2').onclick = generateWorkflow;
-document.getElementById('userInput').onkeydown = (e) => { if (e.key === 'Enter') generateWorkflow(); };
 
-// --- Init ---
-renderSuggestions();
+    /*
+     * ==========================================================
+     * EVENTS
+     * ==========================================================
+     */
 
-async function init() {
-    try {
-        const response = await fetch(apiURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
-        const data = await response.json();
-        globalData.domains = data.all_domains_menu || [];
-        renderDomains();
-    } catch (e) { console.error('Init error:', e); }
-}
-init();
-setTimeout(generateWorkflow, 600);
+    generateBtn.addEventListener(
+        "click",
+        generateWorkflow
+    );
+
+
+    userInput.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                generateWorkflow();
+
+            }
+
+        }
+    );
+
+
+    /*
+     * ==========================================================
+     * START
+     * ==========================================================
+     */
+
+    renderQuickStart();
+
+    loadInitialData();
+
 </script>
+
 </body>
 </html>
