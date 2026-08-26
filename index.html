@@ -3,117 +3,124 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aribeth Engine Suite · AI Automation Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+    <title>Aribeth Engine Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        body{background:#05080f;font-family:'Inter',sans-serif;color:#f8fafc;min-height:100vh;display:flex;justify-content:center;padding:20px}
-        .wrapper{max-width:1440px;width:100%;background:linear-gradient(165deg,#0a0f1e,#070b16);border-radius:32px;padding:36px 44px;border:1px solid rgba(249,115,22,0.15);position:relative;overflow:hidden}
-        .wrapper::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(249,115,22,0.04),transparent 70%);pointer-events:none}
-
-        /* Header with Logo */
-        .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:wrap;gap:16px}
-        .logo-area{display:flex;align-items:center;gap:14px}
-        .logo-icon{width:44px;height:44px;background:linear-gradient(135deg,#f97316,#fb923c);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;color:#fff;box-shadow:0 0 40px rgba(249,115,22,0.25)}
-        .logo-text{font-size:24px;font-weight:800;letter-spacing:-0.5px}
-        .logo-text span{color:#f97316}
-        .logo-sub{font-size:11px;color:#64748b;font-weight:400;letter-spacing:0.5px;display:block;margin-top:-2px}
-
-        .platform-badges{display:flex;gap:12px;flex-wrap:wrap}
-        .platform-badge{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:6px 14px;font-size:11px;color:#94a3b8;display:flex;align-items:center;gap:6px;font-weight:600;transition:all 0.2s}
-        .platform-badge:hover{border-color:#f97316;color:#f97316;background:rgba(249,115,22,0.05)}
-        .platform-badge .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+        body{background:#000;font-family:'Inter',sans-serif;color:#f5f5f7;display:flex;justify-content:center;padding:0;min-height:100vh}
+        
+        .wrapper{max-width:1440px;width:100%;padding:32px 40px;position:relative}
+        
+        /* Header - Apple style */
+        .header{display:flex;justify-content:space-between;align-items:center;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,0.06);flex-wrap:wrap;gap:16px}
+        .logo-area{display:flex;align-items:center;gap:12px}
+        .logo-icon{font-size:28px;font-weight:700;color:#fff;letter-spacing:-1px}
+        .logo-icon span{color:#007aff}
+        .logo-sub{font-size:12px;color:#86868b;font-weight:400;margin-left:4px}
+        
+        .platform-badges{display:flex;gap:10px;flex-wrap:wrap}
+        .platform-badge{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:4px 14px;font-size:11px;color:#86868b;font-weight:500;transition:all 0.2s;cursor:default}
+        .platform-badge:hover{background:rgba(255,255,255,0.08);color:#fff}
+        .platform-badge .dot{width:5px;height:5px;border-radius:50%;display:inline-block;margin-right:4px}
         .dot-n8n{background:#10b981}.dot-make{background:#3b82f6}.dot-zapier{background:#8b5cf6}.dot-pipedream{background:#f59e0b}.dot-nodered{background:#ef4444}.dot-power{background:#6366f1}
-
-        /* Hero */
-        .hero{text-align:center;padding:40px 20px 32px;position:relative}
-        .hero-badge{display:inline-block;background:rgba(249,115,22,0.10);color:#f97316;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;padding:6px 22px;border-radius:40px;border:1px solid rgba(249,115,22,0.15);margin-bottom:16px}
-        .hero h1{font-size:52px;font-weight:900;letter-spacing:-2px;line-height:1.1}
-        .hero h1 span{background:linear-gradient(135deg,#f97316,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .hero p{font-size:18px;color:#94a3b8;max-width:680px;margin:12px auto 0;line-height:1.8}
-
-        /* Search */
-        .search-section{max-width:780px;margin:24px auto 32px;display:flex;gap:12px}
-        .search-section input{flex:1;padding:16px 22px;border-radius:14px;border:1px solid rgba(55,65,81,0.5);background:rgba(255,255,255,0.04);color:#fff;font-size:15px;font-weight:400;transition:all 0.3s}
-        .search-section input:focus{outline:none;border-color:#f97316;box-shadow:0 0 0 3px rgba(249,115,22,0.15)}
-        .search-section input::placeholder{color:#475569}
-        .search-section button{padding:16px 36px;background:linear-gradient(135deg,#f97316,#ea580c);border:none;border-radius:14px;color:#fff;font-weight:700;font-size:15px;cursor:pointer;transition:all 0.3s;white-space:nowrap}
-        .search-section button:hover{transform:scale(1.02);box-shadow:0 0 40px rgba(249,115,22,0.3)}
-
-        /* Project Suggestions */
-        .suggestions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:32px}
-        .suggestion-btn{background:rgba(255,255,255,0.03);border:1px solid rgba(55,65,81,0.3);border-radius:20px;padding:6px 16px;font-size:12px;color:#94a3b8;cursor:pointer;transition:all 0.2s}
-        .suggestion-btn:hover{border-color:#f97316;color:#f97316;background:rgba(249,115,22,0.05)}
-
+        
+        /* Hero - Apple style */
+        .hero{padding:48px 0 32px;text-align:center}
+        .hero-badge{display:inline-block;background:rgba(0,122,255,0.10);color:#007aff;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;padding:4px 16px;border-radius:20px;border:1px solid rgba(0,122,255,0.15);margin-bottom:12px}
+        .hero h1{font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1.1;color:#fff}
+        .hero h1 span{color:#007aff}
+        .hero p{font-size:18px;color:#86868b;max-width:600px;margin:12px auto 0;line-height:1.7;font-weight:400}
+        
+        /* Search - Apple style */
+        .search-section{max-width:720px;margin:16px auto 28px;display:flex;gap:10px}
+        .search-section input{flex:1;padding:14px 20px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#fff;font-size:15px;font-weight:400;transition:all 0.3s;outline:none}
+        .search-section input:focus{border-color:#007aff;box-shadow:0 0 0 3px rgba(0,122,255,0.15);background:rgba(255,255,255,0.06)}
+        .search-section input::placeholder{color:#636366}
+        .search-section button{padding:14px 32px;background:#007aff;border:none;border-radius:12px;color:#fff;font-weight:600;font-size:15px;cursor:pointer;transition:all 0.3s;white-space:nowrap}
+        .search-section button:hover{background:#0066d9;transform:scale(1.01)}
+        
+        /* Suggestions - Apple style with hover dropdown */
+        .suggestions-wrap{position:relative;margin-bottom:32px}
+        .suggestions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+        .suggestion-btn{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:6px 16px;font-size:12px;color:#86868b;cursor:pointer;transition:all 0.2s;font-weight:500}
+        .suggestion-btn:hover{background:rgba(255,255,255,0.08);border-color:#007aff;color:#007aff}
+        
+        /* Sub-suggestions (dropdown on hover) */
+        .suggestion-dropdown{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:rgba(30,30,35,0.95);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:12px 16px;min-width:200px;z-index:100;margin-top:4px}
+        .suggestion-btn:hover + .suggestion-dropdown,
+        .suggestion-dropdown:hover{display:block}
+        .suggestion-dropdown .sub-item{padding:6px 12px;font-size:12px;color:#86868b;cursor:pointer;border-radius:6px;transition:all 0.15s}
+        .suggestion-dropdown .sub-item:hover{background:rgba(255,255,255,0.05);color:#fff}
+        
         /* Main Grid */
-        .grid{display:grid;grid-template-columns:340px 1fr;gap:28px}
-
-        /* Left Panel */
-        .panel{background:rgba(17,24,39,0.5);padding:22px 24px;border-radius:18px;border:1px solid rgba(55,65,81,0.3);backdrop-filter:blur(8px)}
-        .panel-label{display:block;font-weight:700;color:#fff;font-size:14px;margin-bottom:12px;letter-spacing:0.3px}
-        .panel-label .accent{color:#f97316}
-
-        .domain-list{max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;padding-right:4px}
-        .domain-list::-webkit-scrollbar{width:4px}
-        .domain-list::-webkit-scrollbar-thumb{background:#f97316;border-radius:8px}
-        .domain-btn{padding:10px 14px;border-radius:10px;border:1px solid rgba(55,65,81,0.3);background:rgba(255,255,255,0.02);color:#e2e8f0;font-weight:600;font-size:13px;cursor:pointer;text-align:left;width:100%;transition:all 0.2s}
-        .domain-btn:hover{border-color:#f97316;color:#f97316;background:rgba(249,115,22,0.05)}
-        .domain-btn.selected{border-color:#f97316;color:#f97316;background:rgba(249,115,22,0.08)}
-        .domain-btn .count{float:right;font-size:10px;color:#64748b;font-weight:400}
-
-        .media-list{max-height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;padding-right:4px;margin-top:8px;border-top:1px solid rgba(55,65,81,0.2);padding-top:12px}
-        .media-list::-webkit-scrollbar{width:4px}
-        .media-list::-webkit-scrollbar-thumb{background:#3b82f6;border-radius:8px}
-        .media-btn{padding:7px 12px;border-radius:8px;border:1px solid rgba(55,65,81,0.25);background:rgba(255,255,255,0.02);color:#94a3b8;font-weight:500;font-size:12px;cursor:pointer;text-align:left;width:100%;transition:all 0.2s}
-        .media-btn:hover{border-color:#3b82f6;color:#3b82f6;background:rgba(59,130,246,0.05)}
-        .media-btn.selected{border-color:#3b82f6;color:#3b82f6;background:rgba(59,130,246,0.08)}
-
-        .generate-btn{width:100%;margin-top:16px;padding:14px;background:linear-gradient(135deg,#f97316,#ea580c);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:15px;cursor:pointer;transition:all 0.3s}
-        .generate-btn:hover{transform:scale(1.01);box-shadow:0 0 30px rgba(249,115,22,0.25)}
-
-        /* Right Panel */
-        .canvas-section{background:rgba(3,7,18,0.4);border-radius:14px;padding:20px 18px;border:1px solid rgba(55,65,81,0.2);min-height:260px;overflow-x:auto}
-        #nodesCanvas{display:flex;align-items:center;gap:12px;min-height:200px;padding:8px 4px}
-        .node-card{background:linear-gradient(145deg,#111827,#0d1422);border:2px solid #334155;border-radius:12px;padding:12px 14px;min-width:130px;text-align:center;flex-shrink:0;transition:all 0.3s}
-        .node-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.4)}
-        .node-card.trigger{border-color:#f97316;background:linear-gradient(145deg,#1f1711,#16100b)}
-        .node-card.logic{border-color:#3b82f6;background:linear-gradient(145deg,#111d2e,#0d1728)}
-        .node-card.action{border-color:#10b981;background:linear-gradient(145deg,#11231c,#0d1d17)}
-        .node-icon{font-size:22px;display:block;margin-bottom:4px}
-        .node-title{font-weight:700;color:#fff;font-size:12px;word-break:break-word}
-        .node-sub{font-size:9px;color:#64748b;margin-top:2px}
-        .node-arrow{color:#475569;font-size:18px;flex-shrink:0}
-
-        .result-links{background:rgba(17,24,39,0.3);border-radius:12px;padding:14px 16px;margin-top:14px;border:1px solid rgba(55,65,81,0.15)}
-        .result-links a{display:block;color:#10b981;text-decoration:none;font-size:13px;font-weight:600;margin-bottom:6px;transition:0.2s}
-        .result-links a:hover{color:#34d399;text-decoration:underline}
-
-        .loading{color:#64748b;font-size:13px;text-align:center;padding:16px;width:100%}
-        .error{color:#f87171;font-size:13px;text-align:center;padding:16px}
-
+        .grid{display:grid;grid-template-columns:320px 1fr;gap:28px}
+        
+        /* Left Panel - Apple style */
+        .panel{background:rgba(255,255,255,0.03);border-radius:16px;padding:20px 22px;border:1px solid rgba(255,255,255,0.05)}
+        .panel-label{display:block;font-weight:600;color:#fff;font-size:13px;margin-bottom:10px;letter-spacing:0.2px}
+        .panel-label .accent{color:#007aff}
+        
+        .domain-list{max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:3px;padding-right:4px}
+        .domain-list::-webkit-scrollbar{width:3px}
+        .domain-list::-webkit-scrollbar-thumb{background:#007aff;border-radius:4px}
+        .domain-btn{padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#e5e5ea;font-weight:500;font-size:12px;cursor:pointer;text-align:left;width:100%;transition:all 0.15s}
+        .domain-btn:hover{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08)}
+        .domain-btn.selected{background:rgba(0,122,255,0.08);border-color:#007aff;color:#007aff}
+        .domain-btn .count{float:right;font-size:10px;color:#636366;font-weight:400}
+        
+        .media-list{max-height:160px;overflow-y:auto;display:flex;flex-direction:column;gap:3px;padding-right:4px;margin-top:10px;border-top:1px solid rgba(255,255,255,0.04);padding-top:10px}
+        .media-list::-webkit-scrollbar{width:3px}
+        .media-list::-webkit-scrollbar-thumb{background:#007aff;border-radius:4px}
+        .media-btn{padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:#86868b;font-weight:500;font-size:11px;cursor:pointer;text-align:left;width:100%;transition:all 0.15s}
+        .media-btn:hover{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.06)}
+        .media-btn.selected{background:rgba(0,122,255,0.06);border-color:#007aff;color:#007aff}
+        
+        .generate-btn{width:100%;margin-top:14px;padding:12px;background:#007aff;border:none;border-radius:10px;color:#fff;font-weight:600;font-size:14px;cursor:pointer;transition:all 0.3s}
+        .generate-btn:hover{background:#0066d9;transform:scale(1.01)}
+        
+        /* Right Panel - Canvas for workflow */
+        .canvas-section{background:rgba(0,0,0,0.3);border-radius:14px;padding:16px;border:1px solid rgba(255,255,255,0.04);min-height:280px;overflow-x:auto}
+        #nodesCanvas{display:flex;align-items:center;gap:10px;min-height:200px;padding:4px}
+        .node-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:10px 12px;min-width:100px;text-align:center;flex-shrink:0;transition:all 0.2s}
+        .node-card:hover{background:rgba(255,255,255,0.06);transform:translateY(-2px)}
+        .node-card.trigger{border-color:#007aff;background:rgba(0,122,255,0.06)}
+        .node-card.logic{border-color:#8b5cf6;background:rgba(139,92,246,0.06)}
+        .node-card.action{border-color:#10b981;background:rgba(16,185,129,0.06)}
+        .node-icon{font-size:18px;display:block;margin-bottom:2px}
+        .node-title{font-weight:600;color:#fff;font-size:11px}
+        .node-sub{font-size:9px;color:#636366;margin-top:1px}
+        .node-arrow{color:#636366;font-size:14px;flex-shrink:0}
+        
+        .result-links{background:rgba(255,255,255,0.02);border-radius:10px;padding:12px 14px;margin-top:12px;border:1px solid rgba(255,255,255,0.03)}
+        .result-links a{display:block;color:#007aff;text-decoration:none;font-size:12px;font-weight:500;margin-bottom:4px;transition:0.2s}
+        .result-links a:hover{color:#66b0ff}
+        
+        .loading{color:#636366;font-size:12px;text-align:center;padding:12px;width:100%}
+        .error{color:#ff453a;font-size:12px;text-align:center;padding:12px}
+        
+        /* Alternatives */
+        .alt-wrap{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+        .alt-tag{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04);padding:2px 10px;border-radius:4px;font-size:10px;color:#86868b}
+        
         @media(max-width:1024px){.grid{grid-template-columns:1fr}}
-        @media(max-width:600px){.header{flex-direction:column;align-items:flex-start}.search-section{flex-direction:column}.hero h1{font-size:32px}.wrapper{padding:20px}}
+        @media(max-width:600px){.wrapper{padding:16px}.hero h1{font-size:32px}.search-section{flex-direction:column}}
     </style>
 </head>
 <body>
 <div class="wrapper">
 
-    <!-- Header with Logo & Platform Badges -->
+    <!-- Header -->
     <header class="header">
         <div class="logo-area">
-            <div class="logo-icon">⛭</div>
-            <div>
-                <div class="logo-text">Aribeth <span>Engine</span></div>
-                <span class="logo-sub">Suite · AI Automation Platform</span>
-            </div>
+            <div class="logo-icon">Aribeth <span>Engine</span><span class="logo-sub">Suite</span></div>
         </div>
         <div class="platform-badges">
-            <span class="platform-badge"><span class="dot dot-n8n"></span> n8n</span>
-            <span class="platform-badge"><span class="dot dot-make"></span> Make</span>
-            <span class="platform-badge"><span class="dot dot-zapier"></span> Zapier</span>
-            <span class="platform-badge"><span class="dot dot-pipedream"></span> Pipedream</span>
-            <span class="platform-badge"><span class="dot dot-nodered"></span> Node-RED</span>
-            <span class="platform-badge"><span class="dot dot-power"></span> Power Auto</span>
+            <span class="platform-badge"><span class="dot dot-n8n"></span>n8n</span>
+            <span class="platform-badge"><span class="dot dot-make"></span>Make</span>
+            <span class="platform-badge"><span class="dot dot-zapier"></span>Zapier</span>
+            <span class="platform-badge"><span class="dot dot-pipedream"></span>Pipedream</span>
+            <span class="platform-badge"><span class="dot dot-nodered"></span>Node-RED</span>
+            <span class="platform-badge"><span class="dot dot-power"></span>Power Auto</span>
         </div>
     </header>
 
@@ -130,37 +137,36 @@
         <button id="generateBtn">🚀 Generate</button>
     </div>
 
-    <!-- Suggestions -->
-    <div class="suggestions" id="suggestions"></div>
+    <!-- Suggestions with dropdown -->
+    <div class="suggestions-wrap">
+        <div class="suggestions" id="suggestions"></div>
+        <div class="suggestion-dropdown" id="subSuggestions"></div>
+    </div>
 
     <!-- Main Grid -->
     <div class="grid">
-        <!-- Left Panel -->
         <div class="panel">
             <label class="panel-label">📂 <span class="accent">Select Domain</span></label>
             <div class="domain-list" id="domainList"><div class="loading">Loading domains...</div></div>
 
-            <label class="panel-label" style="margin-top:14px;color:#3b82f6;">🎬 <span style="color:#94a3b8;">Select Media Type</span></label>
+            <label class="panel-label" style="margin-top:12px;color:#636366;">🎬 <span style="color:#86868b;">Media Type</span></label>
             <div class="media-list" id="mediaList"><div class="loading">Select a domain first</div></div>
 
-            <button class="generate-btn" id="generateBtn2">⚡ Generate Workflow</button>
+            <button class="generate-btn" id="generateBtn2">⚡ Generate</button>
         </div>
 
-        <!-- Right Panel -->
         <div class="panel">
-            <label class="panel-label">🗺️ <span class="accent">Workflow Node Map</span></label>
+            <label class="panel-label">🗺️ <span class="accent">Node Map</span></label>
             <div class="canvas-section"><div id="nodesCanvas"><div class="loading">Enter a request and click Generate...</div></div></div>
 
             <div class="result-links">
-                <label class="panel-label" style="font-size:12px;margin-bottom:6px;">🔗 Top Templates Found</label>
+                <label class="panel-label" style="font-size:11px;margin-bottom:4px;">🔗 Templates</label>
                 <div id="templateLinks"><span class="loading">No templates yet.</span></div>
             </div>
 
-            <div style="margin-top:12px;">
-                <label class="panel-label" style="font-size:12px;">🔄 Alternative Tools</label>
-                <div id="alternativesList" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;">
-                    <span class="loading">No alternatives yet.</span>
-                </div>
+            <div style="margin-top:10px;">
+                <label class="panel-label" style="font-size:11px;">🔄 Alternatives</label>
+                <div class="alt-wrap" id="alternativesList"><span class="loading">None yet.</span></div>
             </div>
         </div>
     </div>
@@ -169,40 +175,62 @@
 <script>
 const apiURL = "/api/proxy";
 
-// --- Suggestions from the 11,000 templates ---
-const suggestionProjects = [
-    "AI Video Generation & Publishing",
-    "WhatsApp Customer Support Bot",
-    "Social Media Content Creation",
-    "Email Marketing Automation",
-    "Lead Generation & CRM Sync",
-    "Document Extraction & Analysis",
-    "E-commerce Inventory Management",
-    "HR & Recruitment Automation",
-    "IT & Cloud Operations",
-    "Financial Reporting & Invoicing"
+// --- Project Suggestions ---
+const projects = [
+    { name: "AI Video Generation", sub: ["TikTok", "YouTube", "Instagram"] },
+    { name: "WhatsApp Bot", sub: ["Support", "Sales", "Notifications"] },
+    { name: "Email Marketing", sub: ["Automation", "Newsletters", "Drip Campaigns"] },
+    { name: "Lead Generation", sub: ["CRM Sync", "Scraping", "Enrichment"] },
+    { name: "Document Extraction", sub: ["Invoices", "Contracts", "PDF"] },
+    { name: "E-commerce", sub: ["Inventory", "Orders", "Products"] },
+    { name: "Social Media", sub: ["Content", "Scheduling", "Analytics"] },
+    { name: "HR Automation", sub: ["Recruitment", "Onboarding", "Payroll"] },
+    { name: "IT & Cloud", sub: ["Monitoring", "Deployment", "Security"] },
+    { name: "Financial Reporting", sub: ["Invoicing", "Expenses", "Forecasting"] }
 ];
 
 // --- Global Data ---
-let globalData = { domains: [], media: [], results: [], workflow: [], alternatives: [] };
+let globalData = { domains: [], results: [], workflow: [], alternatives: [] };
 let currentDomain = null;
-let currentMedia = null;
 
-// --- Render Suggestions ---
+// --- Render Suggestions with Dropdown ---
 function renderSuggestions() {
     const container = document.getElementById('suggestions');
-    container.innerHTML = suggestionProjects.map(p => 
-        `<button class="suggestion-btn" onclick="document.getElementById('userInput').value='${p}'; generateWorkflow();">${p}</button>`
+    container.innerHTML = projects.map(p => 
+        `<button class="suggestion-btn" data-project="${p.name}" onmouseenter="showSub('${p.name}')" onclick="setProject('${p.name}')">${p.name}</button>`
     ).join('');
 }
 
-// --- Main Generate Function ---
+function showSub(name) {
+    const project = projects.find(p => p.name === name);
+    const dropdown = document.getElementById('subSuggestions');
+    if (project) {
+        dropdown.innerHTML = project.sub.map(s => 
+            `<div class="sub-item" onclick="setProject('${name} ${s}')">${s}</div>`
+        ).join('');
+        dropdown.style.display = 'block';
+    }
+}
+
+// Hide dropdown when mouse leaves
+document.addEventListener('mouseover', (e) => {
+    if (!e.target.closest('.suggestions-wrap')) {
+        document.getElementById('subSuggestions').style.display = 'none';
+    }
+});
+
+function setProject(name) {
+    document.getElementById('userInput').value = name;
+    document.getElementById('subSuggestions').style.display = 'none';
+    generateWorkflow();
+}
+
+// --- Main Generate ---
 async function generateWorkflow() {
     const userInput = document.getElementById('userInput').value.trim();
     if (!userInput) { alert('Please describe your automation goal.'); return; }
 
-    // Show loading
-    document.getElementById('nodesCanvas').innerHTML = '<div class="loading">⏳ Generating workflow...</div>';
+    document.getElementById('nodesCanvas').innerHTML = '<div class="loading">⏳ Generating...</div>';
     document.getElementById('templateLinks').innerHTML = '<span class="loading">Loading...</span>';
     document.getElementById('alternativesList').innerHTML = '<span class="loading">Loading...</span>';
 
@@ -224,10 +252,11 @@ async function generateWorkflow() {
         renderDomains();
     } catch (error) {
         document.getElementById('nodesCanvas').innerHTML = `<div class="error">❌ ${error.message}</div>`;
+        document.getElementById('templateLinks').innerHTML = `<span class="error">${error.message}</span>`;
     }
 }
 
-// --- Render Domains (from data) ---
+// --- Render Domains ---
 function renderDomains() {
     const list = document.getElementById('domainList');
     list.innerHTML = '';
@@ -235,41 +264,17 @@ function renderDomains() {
         list.innerHTML = '<div class="loading">No domains found.</div>';
         return;
     }
-    globalData.domains.slice(0, 25).forEach(d => {
+    globalData.domains.slice(0, 50).forEach(d => {
         const btn = document.createElement('button');
         btn.className = 'domain-btn';
         btn.innerHTML = `${d.domain_name || 'General'} <span class="count">(${d.total_templates || 0})</span>`;
-        btn.onclick = () => selectDomain(d.domain_name);
+        btn.onclick = () => { currentDomain = d.domain_name; document.querySelectorAll('.domain-btn').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); };
         list.appendChild(btn);
     });
 }
 
-function selectDomain(name) {
-    currentDomain = name;
-    currentMedia = null;
-    document.querySelectorAll('.domain-btn').forEach(b => b.classList.toggle('selected', b.textContent.includes(name)));
-
-    const mediaList = document.getElementById('mediaList');
-    mediaList.innerHTML = '';
-    // Show media types from the results or fallback
-    const mediaTypes = ['Text & Writing', 'Voice & Audio', 'Image & Design', 'Video & Animation', 'Chat & Messaging', 'Data & Analytics'];
-    mediaTypes.forEach(m => {
-        const btn = document.createElement('button');
-        btn.className = 'media-btn';
-        btn.textContent = m;
-        btn.onclick = () => selectMedia(m);
-        mediaList.appendChild(btn);
-    });
-}
-
-function selectMedia(name) {
-    currentMedia = name;
-    document.querySelectorAll('.media-btn').forEach(b => b.classList.toggle('selected', b.textContent.includes(name)));
-}
-
 // --- Render Results ---
 function renderResults() {
-    // Templates
     const links = document.getElementById('templateLinks');
     links.innerHTML = '';
     if (globalData.results && globalData.results.length > 0) {
@@ -281,24 +286,22 @@ function renderResults() {
             links.appendChild(a);
         });
     } else {
-        links.innerHTML = '<span style="color:#64748b;font-size:13px;">No templates found.</span>';
+        links.innerHTML = '<span style="color:#636366;font-size:12px;">No templates found.</span>';
     }
 
-    // Alternatives
     const altList = document.getElementById('alternativesList');
     altList.innerHTML = '';
     if (globalData.alternatives && globalData.alternatives.length > 0) {
-        globalData.alternatives.slice(0, 8).forEach(t => {
+        globalData.alternatives.slice(0, 10).forEach(t => {
             const span = document.createElement('span');
-            span.style.cssText = 'background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.15);padding:3px 10px;border-radius:4px;font-size:11px;color:#f97316;';
+            span.className = 'alt-tag';
             span.textContent = t.platform || t;
             altList.appendChild(span);
         });
     } else {
-        altList.innerHTML = '<span style="color:#64748b;font-size:12px;">No alternatives.</span>';
+        altList.innerHTML = '<span style="color:#636366;font-size:11px;">No alternatives.</span>';
     }
 
-    // Workflow Map
     const canvas = document.getElementById('nodesCanvas');
     const workflow = globalData.workflow || {};
     if (!workflow.nodes || workflow.nodes.length === 0) {
@@ -306,13 +309,13 @@ function renderResults() {
         return;
     }
     let html = '';
-    workflow.nodes.forEach((n, i) => {
+    workflow.nodes.slice(0, 25).forEach((n, i) => {
         let icon = '⚙️', type = 'action';
         if (n.type && n.type.includes('webhook')) { icon = '⚡'; type = 'trigger'; }
         if (n.type && (n.type.includes('if') || n.type.includes('switch'))) { icon = '🔀'; type = 'logic'; }
         if (n.type && (n.type.includes('ai') || n.type.includes('llm'))) { icon = '🧠'; type = 'action'; }
         html += `<div class="node-card ${type}"><span class="node-icon">${icon}</span><div class="node-title">${n.name || 'Node'}</div><div class="node-sub">${n.type || ''}</div></div>`;
-        if (i < workflow.nodes.length - 1) html += `<span class="node-arrow">➔</span>`;
+        if (i < workflow.nodes.length - 1 && i < 24) html += `<span class="node-arrow">➔</span>`;
     });
     canvas.innerHTML = html;
 }
@@ -325,19 +328,15 @@ document.getElementById('userInput').onkeydown = (e) => { if (e.key === 'Enter')
 // --- Init ---
 renderSuggestions();
 
-// Auto-load initial data
 async function init() {
     try {
         const response = await fetch(apiURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
         const data = await response.json();
         globalData.domains = data.all_domains_menu || [];
-        globalData.media = data.all_media_types_menu || [];
         renderDomains();
     } catch (e) { console.error('Init error:', e); }
 }
 init();
-
-// Auto-generate on load with default value
 setTimeout(generateWorkflow, 600);
 </script>
 </body>
