@@ -3,191 +3,342 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aribeth Engine Suite</title>
+    <title>Aribeth Engine Suite · AI Automation Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
-        body{background:#05080f;font-family:'Inter',sans-serif;display:flex;justify-content:center;padding:24px;color:#f8fafc}
-        .wrapper{max-width:1500px;width:100%;background:linear-gradient(165deg,#0a0f1e,#070b16);border-radius:32px;padding:44px;border:1px solid rgba(30,41,59,0.6)}
-        .header{text-align:center;margin-bottom:24px}
-        .header-badge{display:inline-block;background:rgba(16,185,129,0.10);color:#10b981;font-size:11px;font-weight:700;padding:6px 20px;border-radius:30px;margin-bottom:14px}
-        .header h1{font-size:42px;font-weight:900;color:#fff;margin-bottom:8px}
-        .header h1 span{color:#f97316}
-        .header p{color:#94a3b8;font-size:16px}
-        .grid{display:grid;grid-template-columns:350px 1fr;gap:24px}
-        .panel{background:rgba(17,24,39,0.5);padding:22px;border-radius:16px;border:1px solid rgba(31,41,55,0.5)}
-        .panel-label{display:block;color:#fff;font-weight:700;font-size:15px;margin-bottom:12px}
-        .domain-list,.media-list{max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
-        .domain-list::-webkit-scrollbar,.media-list::-webkit-scrollbar{width:5px}
-        .domain-list::-webkit-scrollbar-thumb,.media-list::-webkit-scrollbar-thumb{background:#10b981;border-radius:10px}
-        .domain-btn,.media-btn{padding:10px 14px;border-radius:10px;border:1px solid rgba(55,65,81,0.5);background:rgba(255,255,255,0.03);color:#e2e8f0;font-size:13px;font-weight:600;text-align:left;cursor:pointer;width:100%}
-        .domain-btn:hover,.media-btn:hover{border-color:#10b981;color:#10b981}
-        .domain-btn.selected,.media-btn.selected{background:rgba(16,185,129,0.12);border-color:#10b981;color:#10b981}
-        .count{float:right;color:#64748b;font-size:11px}
-        .generate-btn{width:100%;padding:16px;background:linear-gradient(135deg,#10b981,#059669);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:16px;cursor:pointer;margin-top:16px}
-        .canvas-section{border:1px solid rgba(55,65,81,0.3);padding:24px;border-radius:14px;min-height:320px;overflow-x:auto;margin-bottom:20px}
-        #nodesCanvas{display:flex;align-items:center;gap:20px;min-height:260px}
-        .node-card{background:linear-gradient(145deg,#111827,#0d1422);border:2px solid #334155;border-radius:14px;padding:16px;width:170px;text-align:center;flex-shrink:0}
-        .node-card.trigger{border-color:#f97316}.node-card.logic{border-color:#3b82f6}.node-card.action{border-color:#10b981}
-        .node-icon{font-size:26px;margin-bottom:6px}
-        .node-title{font-weight:700;font-size:12px;color:#fff;word-break:break-word}
-        .node-sub{font-size:10px;color:#94a3b8;margin-top:4px}
-        .node-arrow{color:#64748b;font-size:24px}
-        .result-links{background:rgba(17,24,39,0.4);border:1px solid rgba(31,41,55,0.3);border-radius:12px;padding:16px;margin-top:16px}
-        .result-links a{display:block;color:#10b981;text-decoration:none;font-size:14px;font-weight:600;margin-bottom:8px}
-        .result-links a:hover{text-decoration:underline}
-        .loading{color:#64748b;font-size:14px;text-align:center;padding:20px;width:100%}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:#05080f;font-family:'Inter',sans-serif;color:#f8fafc;min-height:100vh;display:flex;justify-content:center;padding:20px}
+        .wrapper{max-width:1440px;width:100%;background:linear-gradient(165deg,#0a0f1e,#070b16);border-radius:32px;padding:36px 44px;border:1px solid rgba(249,115,22,0.15);position:relative;overflow:hidden}
+        .wrapper::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(249,115,22,0.04),transparent 70%);pointer-events:none}
+
+        /* Header with Logo */
+        .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:wrap;gap:16px}
+        .logo-area{display:flex;align-items:center;gap:14px}
+        .logo-icon{width:44px;height:44px;background:linear-gradient(135deg,#f97316,#fb923c);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;color:#fff;box-shadow:0 0 40px rgba(249,115,22,0.25)}
+        .logo-text{font-size:24px;font-weight:800;letter-spacing:-0.5px}
+        .logo-text span{color:#f97316}
+        .logo-sub{font-size:11px;color:#64748b;font-weight:400;letter-spacing:0.5px;display:block;margin-top:-2px}
+
+        .platform-badges{display:flex;gap:12px;flex-wrap:wrap}
+        .platform-badge{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:6px 14px;font-size:11px;color:#94a3b8;display:flex;align-items:center;gap:6px;font-weight:600;transition:all 0.2s}
+        .platform-badge:hover{border-color:#f97316;color:#f97316;background:rgba(249,115,22,0.05)}
+        .platform-badge .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+        .dot-n8n{background:#10b981}.dot-make{background:#3b82f6}.dot-zapier{background:#8b5cf6}.dot-pipedream{background:#f59e0b}.dot-nodered{background:#ef4444}.dot-power{background:#6366f1}
+
+        /* Hero */
+        .hero{text-align:center;padding:40px 20px 32px;position:relative}
+        .hero-badge{display:inline-block;background:rgba(249,115,22,0.10);color:#f97316;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;padding:6px 22px;border-radius:40px;border:1px solid rgba(249,115,22,0.15);margin-bottom:16px}
+        .hero h1{font-size:52px;font-weight:900;letter-spacing:-2px;line-height:1.1}
+        .hero h1 span{background:linear-gradient(135deg,#f97316,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero p{font-size:18px;color:#94a3b8;max-width:680px;margin:12px auto 0;line-height:1.8}
+
+        /* Search */
+        .search-section{max-width:780px;margin:24px auto 32px;display:flex;gap:12px}
+        .search-section input{flex:1;padding:16px 22px;border-radius:14px;border:1px solid rgba(55,65,81,0.5);background:rgba(255,255,255,0.04);color:#fff;font-size:15px;font-weight:400;transition:all 0.3s}
+        .search-section input:focus{outline:none;border-color:#f97316;box-shadow:0 0 0 3px rgba(249,115,22,0.15)}
+        .search-section input::placeholder{color:#475569}
+        .search-section button{padding:16px 36px;background:linear-gradient(135deg,#f97316,#ea580c);border:none;border-radius:14px;color:#fff;font-weight:700;font-size:15px;cursor:pointer;transition:all 0.3s;white-space:nowrap}
+        .search-section button:hover{transform:scale(1.02);box-shadow:0 0 40px rgba(249,115,22,0.3)}
+
+        /* Project Suggestions */
+        .suggestions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:32px}
+        .suggestion-btn{background:rgba(255,255,255,0.03);border:1px solid rgba(55,65,81,0.3);border-radius:20px;padding:6px 16px;font-size:12px;color:#94a3b8;cursor:pointer;transition:all 0.2s}
+        .suggestion-btn:hover{border-color:#f97316;color:#f97316;background:rgba(249,115,22,0.05)}
+
+        /* Main Grid */
+        .grid{display:grid;grid-template-columns:340px 1fr;gap:28px}
+
+        /* Left Panel */
+        .panel{background:rgba(17,24,39,0.5);padding:22px 24px;border-radius:18px;border:1px solid rgba(55,65,81,0.3);backdrop-filter:blur(8px)}
+        .panel-label{display:block;font-weight:700;color:#fff;font-size:14px;margin-bottom:12px;letter-spacing:0.3px}
+        .panel-label .accent{color:#f97316}
+
+        .domain-list{max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;padding-right:4px}
+        .domain-list::-webkit-scrollbar{width:4px}
+        .domain-list::-webkit-scrollbar-thumb{background:#f97316;border-radius:8px}
+        .domain-btn{padding:10px 14px;border-radius:10px;border:1px solid rgba(55,65,81,0.3);background:rgba(255,255,255,0.02);color:#e2e8f0;font-weight:600;font-size:13px;cursor:pointer;text-align:left;width:100%;transition:all 0.2s}
+        .domain-btn:hover{border-color:#f97316;color:#f97316;background:rgba(249,115,22,0.05)}
+        .domain-btn.selected{border-color:#f97316;color:#f97316;background:rgba(249,115,22,0.08)}
+        .domain-btn .count{float:right;font-size:10px;color:#64748b;font-weight:400}
+
+        .media-list{max-height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:4px;padding-right:4px;margin-top:8px;border-top:1px solid rgba(55,65,81,0.2);padding-top:12px}
+        .media-list::-webkit-scrollbar{width:4px}
+        .media-list::-webkit-scrollbar-thumb{background:#3b82f6;border-radius:8px}
+        .media-btn{padding:7px 12px;border-radius:8px;border:1px solid rgba(55,65,81,0.25);background:rgba(255,255,255,0.02);color:#94a3b8;font-weight:500;font-size:12px;cursor:pointer;text-align:left;width:100%;transition:all 0.2s}
+        .media-btn:hover{border-color:#3b82f6;color:#3b82f6;background:rgba(59,130,246,0.05)}
+        .media-btn.selected{border-color:#3b82f6;color:#3b82f6;background:rgba(59,130,246,0.08)}
+
+        .generate-btn{width:100%;margin-top:16px;padding:14px;background:linear-gradient(135deg,#f97316,#ea580c);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:15px;cursor:pointer;transition:all 0.3s}
+        .generate-btn:hover{transform:scale(1.01);box-shadow:0 0 30px rgba(249,115,22,0.25)}
+
+        /* Right Panel */
+        .canvas-section{background:rgba(3,7,18,0.4);border-radius:14px;padding:20px 18px;border:1px solid rgba(55,65,81,0.2);min-height:260px;overflow-x:auto}
+        #nodesCanvas{display:flex;align-items:center;gap:12px;min-height:200px;padding:8px 4px}
+        .node-card{background:linear-gradient(145deg,#111827,#0d1422);border:2px solid #334155;border-radius:12px;padding:12px 14px;min-width:130px;text-align:center;flex-shrink:0;transition:all 0.3s}
+        .node-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.4)}
+        .node-card.trigger{border-color:#f97316;background:linear-gradient(145deg,#1f1711,#16100b)}
+        .node-card.logic{border-color:#3b82f6;background:linear-gradient(145deg,#111d2e,#0d1728)}
+        .node-card.action{border-color:#10b981;background:linear-gradient(145deg,#11231c,#0d1d17)}
+        .node-icon{font-size:22px;display:block;margin-bottom:4px}
+        .node-title{font-weight:700;color:#fff;font-size:12px;word-break:break-word}
+        .node-sub{font-size:9px;color:#64748b;margin-top:2px}
+        .node-arrow{color:#475569;font-size:18px;flex-shrink:0}
+
+        .result-links{background:rgba(17,24,39,0.3);border-radius:12px;padding:14px 16px;margin-top:14px;border:1px solid rgba(55,65,81,0.15)}
+        .result-links a{display:block;color:#10b981;text-decoration:none;font-size:13px;font-weight:600;margin-bottom:6px;transition:0.2s}
+        .result-links a:hover{color:#34d399;text-decoration:underline}
+
+        .loading{color:#64748b;font-size:13px;text-align:center;padding:16px;width:100%}
+        .error{color:#f87171;font-size:13px;text-align:center;padding:16px}
+
+        @media(max-width:1024px){.grid{grid-template-columns:1fr}}
+        @media(max-width:600px){.header{flex-direction:column;align-items:flex-start}.search-section{flex-direction:column}.hero h1{font-size:32px}.wrapper{padding:20px}}
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <header class="header">
-            <div class="header-badge">&#9889; AI-Powered Automation Architecture</div>
-            <h1>Aribeth <span>Engine</span> Suite</h1>
-            <p>Select a domain, choose media type, and get real workflows.</p>
-        </header>
+<div class="wrapper">
 
-        <div class="grid">
-            <div class="panel">
-                <label class="panel-label">&#128194; Select Domain</label>
-                <div class="domain-list" id="domainList"><div class="loading">Loading...</div></div>
+    <!-- Header with Logo & Platform Badges -->
+    <header class="header">
+        <div class="logo-area">
+            <div class="logo-icon">⛭</div>
+            <div>
+                <div class="logo-text">Aribeth <span>Engine</span></div>
+                <span class="logo-sub">Suite · AI Automation Platform</span>
+            </div>
+        </div>
+        <div class="platform-badges">
+            <span class="platform-badge"><span class="dot dot-n8n"></span> n8n</span>
+            <span class="platform-badge"><span class="dot dot-make"></span> Make</span>
+            <span class="platform-badge"><span class="dot dot-zapier"></span> Zapier</span>
+            <span class="platform-badge"><span class="dot dot-pipedream"></span> Pipedream</span>
+            <span class="platform-badge"><span class="dot dot-nodered"></span> Node-RED</span>
+            <span class="platform-badge"><span class="dot dot-power"></span> Power Auto</span>
+        </div>
+    </header>
 
-                <label class="panel-label" style="color:#3b82f6;">&#127916; Select Media</label>
-                <div class="media-list" id="mediaList"><div class="loading">Select a domain first</div></div>
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-badge">⚡ 11,000+ Automation Workflows</div>
+        <h1>Design <span>Production-Ready</span><br />Automation Workflows</h1>
+        <p>Describe your automation goal or explore projects. AI generates complete node maps with real platforms, tools, and free alternatives.</p>
+    </div>
 
-                <button class="generate-btn" id="generateBtn">&#128640; Generate</button>
+    <!-- Search -->
+    <div class="search-section">
+        <input type="text" id="userInput" placeholder="e.g. WhatsApp chatbot with AI responses" value="WhatsApp chatbot with AI responses" />
+        <button id="generateBtn">🚀 Generate</button>
+    </div>
+
+    <!-- Suggestions -->
+    <div class="suggestions" id="suggestions"></div>
+
+    <!-- Main Grid -->
+    <div class="grid">
+        <!-- Left Panel -->
+        <div class="panel">
+            <label class="panel-label">📂 <span class="accent">Select Domain</span></label>
+            <div class="domain-list" id="domainList"><div class="loading">Loading domains...</div></div>
+
+            <label class="panel-label" style="margin-top:14px;color:#3b82f6;">🎬 <span style="color:#94a3b8;">Select Media Type</span></label>
+            <div class="media-list" id="mediaList"><div class="loading">Select a domain first</div></div>
+
+            <button class="generate-btn" id="generateBtn2">⚡ Generate Workflow</button>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="panel">
+            <label class="panel-label">🗺️ <span class="accent">Workflow Node Map</span></label>
+            <div class="canvas-section"><div id="nodesCanvas"><div class="loading">Enter a request and click Generate...</div></div></div>
+
+            <div class="result-links">
+                <label class="panel-label" style="font-size:12px;margin-bottom:6px;">🔗 Top Templates Found</label>
+                <div id="templateLinks"><span class="loading">No templates yet.</span></div>
             </div>
 
-            <div class="panel">
-                <label class="panel-label">&#128506;&#65039; Node Map</label>
-                <div class="canvas-section" id="canvasSection"><div id="nodesCanvas"><div class="loading">Waiting...</div></div></div>
-
-                <div class="result-links">
-                    <label class="panel-label" style="font-size:13px;">&#128279; Top Templates:</label>
-                    <div id="templateLinks">No templates selected yet.</div>
+            <div style="margin-top:12px;">
+                <label class="panel-label" style="font-size:12px;">🔄 Alternative Tools</label>
+                <div id="alternativesList" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;">
+                    <span class="loading">No alternatives yet.</span>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        // Connects to Vercel API (api/proxy.js) to avoid CORS issues
-        const apiURL = "/api/proxy"; 
+<script>
+const apiURL = "/api/proxy";
 
-        let globalData = { domains: [], media: [], results: [], workflow: [] };
-        let currentDomain = null;
-        let currentMedia = null;
+// --- Suggestions from the 11,000 templates ---
+const suggestionProjects = [
+    "AI Video Generation & Publishing",
+    "WhatsApp Customer Support Bot",
+    "Social Media Content Creation",
+    "Email Marketing Automation",
+    "Lead Generation & CRM Sync",
+    "Document Extraction & Analysis",
+    "E-commerce Inventory Management",
+    "HR & Recruitment Automation",
+    "IT & Cloud Operations",
+    "Financial Reporting & Invoicing"
+];
 
-        async function fetchData() {
-            try {
-                const response = await fetch(apiURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
-                const data = await response.json();
-                
-                globalData.domains = data.all_domains_menu || [];
-                globalData.media = data.all_media_types_menu || [];
-                globalData.results = data.top_results || [];
-                globalData.workflow = data.generated_workflow || {};
+// --- Global Data ---
+let globalData = { domains: [], media: [], results: [], workflow: [], alternatives: [] };
+let currentDomain = null;
+let currentMedia = null;
 
-                renderDomains();
-            } catch (error) {
-                document.getElementById('domainList').innerHTML = '<div style="color:#f87171;">Failed to connect to n8n via Vercel.</div>';
-            }
-        }
+// --- Render Suggestions ---
+function renderSuggestions() {
+    const container = document.getElementById('suggestions');
+    container.innerHTML = suggestionProjects.map(p => 
+        `<button class="suggestion-btn" onclick="document.getElementById('userInput').value='${p}'; generateWorkflow();">${p}</button>`
+    ).join('');
+}
 
-        function renderDomains() {
-            const list = document.getElementById('domainList');
-            list.innerHTML = '';
-            globalData.domains.forEach(d => {
-                const btn = document.createElement('button');
-                btn.className = 'domain-btn';
-                btn.innerHTML = `${d.domain_name} <span class="count">(${d.total_templates})</span>`;
-                btn.onclick = () => selectDomain(d.domain_name);
-                list.appendChild(btn);
-            });
-        }
+// --- Main Generate Function ---
+async function generateWorkflow() {
+    const userInput = document.getElementById('userInput').value.trim();
+    if (!userInput) { alert('Please describe your automation goal.'); return; }
 
-        function selectDomain(name) {
-            currentDomain = name;
-            currentMedia = null;
-            document.querySelectorAll('.domain-btn').forEach(b => b.classList.toggle('selected', b.textContent.includes(name)));
+    // Show loading
+    document.getElementById('nodesCanvas').innerHTML = '<div class="loading">⏳ Generating workflow...</div>';
+    document.getElementById('templateLinks').innerHTML = '<span class="loading">Loading...</span>';
+    document.getElementById('alternativesList').innerHTML = '<span class="loading">Loading...</span>';
 
-            const mediaList = document.getElementById('mediaList');
-            mediaList.innerHTML = '';
-            const mediaData = globalData.media.find(m => m.domain === name);
-            if (mediaData && mediaData.media.length > 0) {
-                mediaData.media.forEach(m => {
-                    const btn = document.createElement('button');
-                    btn.className = 'media-btn';
-                    btn.textContent = `${m.type} (${m.count})`;
-                    btn.onclick = () => selectMedia(m.type);
-                    mediaList.appendChild(btn);
-                });
-            } else {
-                mediaList.innerHTML = '<div class="loading">No media types found.</div>';
-            }
-        }
+    try {
+        const response = await fetch(apiURL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_input: userInput })
+        });
+        if (!response.ok) throw new Error('Failed to connect');
+        const data = await response.json();
+        
+        globalData.results = data.top_results || [];
+        globalData.workflow = data.generated_workflow || {};
+        globalData.alternatives = data.alternative_tools || [];
+        globalData.domains = data.all_domains_menu || [];
+        
+        renderResults();
+        renderDomains();
+    } catch (error) {
+        document.getElementById('nodesCanvas').innerHTML = `<div class="error">❌ ${error.message}</div>`;
+    }
+}
 
-        function selectMedia(name) {
-            currentMedia = name;
-            document.querySelectorAll('.media-btn').forEach(b => b.classList.toggle('selected', b.textContent.includes(name)));
-            renderResults();
-        }
+// --- Render Domains (from data) ---
+function renderDomains() {
+    const list = document.getElementById('domainList');
+    list.innerHTML = '';
+    if (!globalData.domains || globalData.domains.length === 0) {
+        list.innerHTML = '<div class="loading">No domains found.</div>';
+        return;
+    }
+    globalData.domains.slice(0, 25).forEach(d => {
+        const btn = document.createElement('button');
+        btn.className = 'domain-btn';
+        btn.innerHTML = `${d.domain_name || 'General'} <span class="count">(${d.total_templates || 0})</span>`;
+        btn.onclick = () => selectDomain(d.domain_name);
+        list.appendChild(btn);
+    });
+}
 
-        function renderResults() {
-            const links = document.getElementById('templateLinks');
-            links.innerHTML = '';
-            
-            if (globalData.results.length > 0) {
-                globalData.results.forEach(t => {
-                    const a = document.createElement('a');
-                    a.href = t.url;
-                    a.target = "_blank";
-                    a.textContent = `&#128279; ${t.title}`;
-                    links.appendChild(a);
-                });
-            } else {
-                links.innerHTML = '<span style="color:#64748b;">No results found.</span>';
-            }
+function selectDomain(name) {
+    currentDomain = name;
+    currentMedia = null;
+    document.querySelectorAll('.domain-btn').forEach(b => b.classList.toggle('selected', b.textContent.includes(name)));
 
-            const canvas = document.getElementById('nodesCanvas');
-            if (!globalData.workflow.nodes || globalData.workflow.nodes.length === 0) {
-                canvas.innerHTML = '<div class="loading">Workflow not generated yet.</div>';
-                return;
-            }
-            
-            let html = '';
-            globalData.workflow.nodes.forEach((n, i) => {
-                let icon = '&#9881;&#65039;', type = 'action';
-                if (n.type.includes('webhook')) { icon = '&#9889;'; type = 'trigger'; }
-                if (n.type.includes('if') || n.type.includes('switch')) { icon = '&#128257;'; type = 'logic'; }
-                
-                html += `<div class="node-card ${type}"><span class="node-icon">${icon}</span><div class="node-title">${n.name}</div><div class="node-sub">${n.type}</div></div>`;
-                if (i < globalData.workflow.nodes.length - 1) html += `<span class="node-arrow">&#10132;</span>`;
-            });
-            canvas.innerHTML = html;
-        }
+    const mediaList = document.getElementById('mediaList');
+    mediaList.innerHTML = '';
+    // Show media types from the results or fallback
+    const mediaTypes = ['Text & Writing', 'Voice & Audio', 'Image & Design', 'Video & Animation', 'Chat & Messaging', 'Data & Analytics'];
+    mediaTypes.forEach(m => {
+        const btn = document.createElement('button');
+        btn.className = 'media-btn';
+        btn.textContent = m;
+        btn.onclick = () => selectMedia(m);
+        mediaList.appendChild(btn);
+    });
+}
 
-        document.getElementById('generateBtn').onclick = async () => {
-            if (!currentDomain || !currentMedia) {
-                alert("Please select Domain and Media.");
-                return;
-            }
-            
-            document.getElementById('generateBtn').textContent = 'Generating...';
-            try {
-                const response = await fetch(apiURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ domain: currentDomain, media: currentMedia }) });
-                const data = await response.json();
-                
-                globalData.results = data.top_results || [];
-                globalData.workflow = data.generated_workflow || {};
-                renderResults();
-                document.getElementById('generateBtn').textContent = '&#128640; Generate';
-            } catch (error) {
-                alert("Error generating.");
-                document.getElementById('generateBtn').textContent = '&#128640; Generate';
-            }
-        };
+function selectMedia(name) {
+    currentMedia = name;
+    document.querySelectorAll('.media-btn').forEach(b => b.classList.toggle('selected', b.textContent.includes(name)));
+}
 
-        fetchData();
-    </script>
+// --- Render Results ---
+function renderResults() {
+    // Templates
+    const links = document.getElementById('templateLinks');
+    links.innerHTML = '';
+    if (globalData.results && globalData.results.length > 0) {
+        globalData.results.slice(0, 5).forEach(t => {
+            const a = document.createElement('a');
+            a.href = t.url || '#';
+            a.target = '_blank';
+            a.textContent = `🔗 ${t.title || 'Untitled'}`;
+            links.appendChild(a);
+        });
+    } else {
+        links.innerHTML = '<span style="color:#64748b;font-size:13px;">No templates found.</span>';
+    }
+
+    // Alternatives
+    const altList = document.getElementById('alternativesList');
+    altList.innerHTML = '';
+    if (globalData.alternatives && globalData.alternatives.length > 0) {
+        globalData.alternatives.slice(0, 8).forEach(t => {
+            const span = document.createElement('span');
+            span.style.cssText = 'background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.15);padding:3px 10px;border-radius:4px;font-size:11px;color:#f97316;';
+            span.textContent = t.platform || t;
+            altList.appendChild(span);
+        });
+    } else {
+        altList.innerHTML = '<span style="color:#64748b;font-size:12px;">No alternatives.</span>';
+    }
+
+    // Workflow Map
+    const canvas = document.getElementById('nodesCanvas');
+    const workflow = globalData.workflow || {};
+    if (!workflow.nodes || workflow.nodes.length === 0) {
+        canvas.innerHTML = '<div class="loading">No workflow generated.</div>';
+        return;
+    }
+    let html = '';
+    workflow.nodes.forEach((n, i) => {
+        let icon = '⚙️', type = 'action';
+        if (n.type && n.type.includes('webhook')) { icon = '⚡'; type = 'trigger'; }
+        if (n.type && (n.type.includes('if') || n.type.includes('switch'))) { icon = '🔀'; type = 'logic'; }
+        if (n.type && (n.type.includes('ai') || n.type.includes('llm'))) { icon = '🧠'; type = 'action'; }
+        html += `<div class="node-card ${type}"><span class="node-icon">${icon}</span><div class="node-title">${n.name || 'Node'}</div><div class="node-sub">${n.type || ''}</div></div>`;
+        if (i < workflow.nodes.length - 1) html += `<span class="node-arrow">➔</span>`;
+    });
+    canvas.innerHTML = html;
+}
+
+// --- Event Listeners ---
+document.getElementById('generateBtn').onclick = generateWorkflow;
+document.getElementById('generateBtn2').onclick = generateWorkflow;
+document.getElementById('userInput').onkeydown = (e) => { if (e.key === 'Enter') generateWorkflow(); };
+
+// --- Init ---
+renderSuggestions();
+
+// Auto-load initial data
+async function init() {
+    try {
+        const response = await fetch(apiURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
+        const data = await response.json();
+        globalData.domains = data.all_domains_menu || [];
+        globalData.media = data.all_media_types_menu || [];
+        renderDomains();
+    } catch (e) { console.error('Init error:', e); }
+}
+init();
+
+// Auto-generate on load with default value
+setTimeout(generateWorkflow, 600);
+</script>
 </body>
 </html>
