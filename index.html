@@ -8,90 +8,86 @@
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{background:#f5f5f7;font-family:'Inter',sans-serif;color:#1d1d1f;display:flex;justify-content:center;min-height:100vh}
-        .wrapper{max-width:1200px;width:100%;padding:40px 20px}
+        .wrapper{max-width:1200px;width:100%;padding:32px 20px}
         
-        /* Header - like Apple */
+        /* Header */
         .header{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid #d2d2d7;flex-wrap:wrap;gap:12px}
-        .logo{font-size:26px;font-weight:700;color:#1d1d1f;letter-spacing:-0.5px}
-        .logo span{color:#007aff}
-        .logo-sub{font-size:13px;color:#86868b;font-weight:400;margin-left:6px}
+        .logo{font-size:15px;font-weight:600;color:#1d1d1f;letter-spacing:-0.3px}
+        .logo .netregent{color:#007aff;font-weight:700}
+        .logo-sub{font-size:12px;color:#86868b;font-weight:400;margin-left:4px}
         .platforms{display:flex;gap:6px;flex-wrap:wrap}
         .platform{background:transparent;border:1px solid #d2d2d7;border-radius:20px;padding:4px 14px;font-size:11px;color:#86868b;font-weight:500}
         .platform .dot{width:5px;height:5px;border-radius:50%;display:inline-block;margin-right:4px}
         .dot-n8n{background:#10b981}.dot-make{background:#3b82f6}.dot-zapier{background:#8b5cf6}.dot-pipedream{background:#f59e0b}.dot-nodered{background:#ef4444}.dot-power{background:#6366f1}
         
-        /* Hero - like Apple */
-        .hero{padding:48px 0 32px;text-align:center}
-        .hero-badge{display:inline-block;background:#e8e8ed;color:#86868b;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:4px 14px;border-radius:16px;margin-bottom:10px}
-        .hero h1{font-size:48px;font-weight:800;letter-spacing:-2px;color:#1d1d1f;line-height:1.1}
-        .hero h1 span{color:#007aff}
-        .hero p{font-size:17px;color:#86868b;max-width:560px;margin:8px auto 0;line-height:1.6}
+        /* Hero - بدون "Design Production-Ready" */
+        .hero{padding:30px 0 20px;text-align:center}
+        .hero-badge{display:inline-block;background:#e8e8ed;color:#86868b;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:4px 14px;border-radius:16px;margin-bottom:8px}
+        .hero p{font-size:16px;color:#86868b;max-width:560px;margin:0 auto;line-height:1.6}
         
-        /* Search - like Apple */
+        /* Search - مكان للذكاء الاصطناعي */
         .search{max-width:640px;margin:0 auto 24px;display:flex;gap:10px}
         .search input{flex:1;padding:14px 18px;border-radius:12px;border:1px solid #d2d2d7;background:#fff;color:#1d1d1f;font-size:15px;outline:none;transition:0.2s}
-        .search input:focus{border-color:#007aff;box-shadow:0 0 0 3px rgba(0,122,255,0.12)}
+        .search input:focus{border-color:#1d1d1f;box-shadow:0 0 0 3px rgba(0,0,0,0.05)}
         .search input::placeholder{color:#aeaeb2}
-        .search button{padding:14px 28px;background:#007aff;border:none;border-radius:12px;color:#fff;font-weight:600;font-size:15px;cursor:pointer;transition:0.2s}
-        .search button:hover{background:#0066d9}
+        .search button{padding:14px 28px;background:#1d1d1f;border:none;border-radius:12px;color:#fff;font-weight:600;font-size:15px;cursor:pointer;transition:0.2s}
+        .search button:hover{background:#333}
         
-        /* Grid - like Apple Support */
-        .grid{display:grid;grid-template-columns:280px 1fr;gap:24px;margin-top:8px}
-        
-        /* Left Panel - like Apple sidebar */
-        .panel{background:#fff;border-radius:16px;padding:20px 20px;border:1px solid #d2d2d7}
-        .panel-label{font-weight:600;color:#1d1d1f;font-size:13px;margin-bottom:12px;display:block}
-        .panel-label .accent{color:#007aff}
-        
-        /* Domain list - clean */
-        .domain-list{max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
-        .domain-list::-webkit-scrollbar{width:3px}
-        .domain-list::-webkit-scrollbar-thumb{background:#d2d2d7;border-radius:4px}
-        .domain-btn{padding:8px 12px;border-radius:8px;border:none;background:transparent;color:#1d1d1f;font-size:13px;font-weight:500;cursor:pointer;text-align:left;width:100%;transition:0.1s}
-        .domain-btn:hover{background:#f5f5f7}
-        .domain-btn.selected{background:#e8e8ed;color:#007aff}
-        .domain-btn .count{float:right;font-size:11px;color:#aeaeb2;font-weight:400}
-        
-        .media-list{max-height:150px;overflow-y:auto;display:flex;flex-direction:column;gap:2px;padding-top:12px;margin-top:12px;border-top:1px solid #d2d2d7}
-        .media-btn{padding:6px 12px;border-radius:6px;border:none;background:transparent;color:#86868b;font-size:12px;font-weight:500;cursor:pointer;text-align:left;width:100%;transition:0.1s}
-        .media-btn:hover{background:#f5f5f7;color:#1d1d1f}
-        .media-btn.selected{background:#e8e8ed;color:#007aff}
-        
-        .generate-btn{width:100%;margin-top:16px;padding:12px;background:#007aff;border:none;border-radius:10px;color:#fff;font-weight:600;font-size:14px;cursor:pointer;transition:0.2s}
-        .generate-btn:hover{background:#0066d9}
-        
-        /* Right Panel - Canvas */
-        .canvas{background:#fafafc;border-radius:14px;padding:16px;border:1px solid #d2d2d7;min-height:240px;overflow-x:auto}
-        #nodesCanvas{display:flex;align-items:center;gap:8px;min-height:160px}
-        .node-card{background:#fff;border:1px solid #d2d2d7;border-radius:10px;padding:10px 14px;min-width:80px;text-align:center;flex-shrink:0}
-        .node-card.trigger{border-color:#007aff;background:#f0f7ff}
-        .node-card.logic{border-color:#8b5cf6;background:#f5f0ff}
-        .node-card.action{border-color:#10b981;background:#f0faf5}
-        .node-icon{font-size:18px;display:block;margin-bottom:2px}
-        .node-title{font-weight:600;color:#1d1d1f;font-size:11px}
-        .node-sub{font-size:9px;color:#aeaeb2}
-        .node-arrow{color:#d2d2d7;font-size:14px;flex-shrink:0}
-        
-        .result-links{background:#fafafc;border-radius:10px;padding:10px 14px;margin-top:12px;border:1px solid #d2d2d7}
-        .result-links a{display:block;color:#1d1d1f;text-decoration:none;font-size:13px;font-weight:500;padding:3px 0;transition:0.15s}
-        .result-links a:hover{color:#007aff}
-        
-        .loading{color:#aeaeb2;font-size:13px;text-align:center;padding:12px}
-        .error{color:#ff3b30;font-size:13px;text-align:center;padding:12px}
-        
-        .alt-wrap{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
-        .alt-tag{background:#f5f5f7;border:1px solid #d2d2d7;padding:2px 10px;border-radius:4px;font-size:11px;color:#86868b}
-        
-        /* Suggestions - clean horizontal */
-        .suggestions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:20px}
-        .suggestion{background:#f5f5f7;border:1px solid #d2d2d7;border-radius:20px;padding:6px 18px;font-size:13px;font-weight:500;color:#1d1d1f;cursor:pointer;transition:0.15s;position:relative}
+        /* Suggestions - منظمة ومتناسقة */
+        .suggestions{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:20px}
+        .suggestion-wrap{position:relative;display:inline-block}
+        .suggestion{background:#f5f5f7;border:1px solid #d2d2d7;border-radius:20px;padding:6px 16px;font-size:12px;font-weight:500;color:#1d1d1f;cursor:pointer;transition:0.15s;display:block}
         .suggestion:hover{background:#e8e8ed;border-color:#b0b0b8}
         
-        /* Dropdown - clean Apple style */
-        .dropdown{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:#fff;border:1px solid #d2d2d7;border-radius:12px;padding:6px 0;min-width:140px;z-index:10;margin-top:4px;box-shadow:0 8px 30px rgba(0,0,0,0.06)}
-        .suggestion:hover .dropdown{display:block}
-        .dropdown-item{padding:6px 16px;font-size:12px;color:#1d1d1f;cursor:pointer;transition:0.1s}
-        .dropdown-item:hover{background:#f5f5f7;color:#007aff}
+        .dropdown{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #d2d2d7;border-radius:10px;padding:4px 0;min-width:140px;z-index:10;margin-top:4px;box-shadow:0 8px 30px rgba(0,0,0,0.06)}
+        .suggestion-wrap:hover .dropdown{display:block}
+        .dropdown-item{padding:5px 14px;font-size:12px;color:#1d1d1f;cursor:pointer;transition:0.1s}
+        .dropdown-item:hover{background:#f5f5f7;color:#1d1d1f}
+        
+        /* Grid */
+        .grid{display:grid;grid-template-columns:280px 1fr;gap:24px;margin-top:8px}
+        
+        /* Panels */
+        .panel{background:#fff;border-radius:16px;padding:18px 20px;border:1px solid #d2d2d7}
+        .panel-label{font-weight:600;color:#1d1d1f;font-size:13px;margin-bottom:10px;display:block}
+        
+        .domain-list{max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
+        .domain-list::-webkit-scrollbar{width:3px}
+        .domain-list::-webkit-scrollbar-thumb{background:#d2d2d7;border-radius:4px}
+        .domain-btn{padding:7px 12px;border-radius:8px;border:none;background:transparent;color:#1d1d1f;font-size:12px;font-weight:500;cursor:pointer;text-align:left;width:100%;transition:0.1s}
+        .domain-btn:hover{background:#f5f5f7}
+        .domain-btn.selected{background:#e8e8ed}
+        .domain-btn .count{float:right;font-size:10px;color:#aeaeb2;font-weight:400}
+        
+        .media-list{max-height:140px;overflow-y:auto;display:flex;flex-direction:column;gap:2px;padding-top:10px;margin-top:10px;border-top:1px solid #d2d2d7}
+        .media-btn{padding:5px 12px;border-radius:6px;border:none;background:transparent;color:#86868b;font-size:11px;font-weight:500;cursor:pointer;text-align:left;width:100%;transition:0.1s}
+        .media-btn:hover{background:#f5f5f7;color:#1d1d1f}
+        .media-btn.selected{background:#e8e8ed}
+        
+        .generate-btn{width:100%;margin-top:14px;padding:11px;background:#1d1d1f;border:none;border-radius:10px;color:#fff;font-weight:600;font-size:14px;cursor:pointer;transition:0.2s}
+        .generate-btn:hover{background:#333}
+        
+        /* Canvas */
+        .canvas{background:#fafafc;border-radius:14px;padding:14px;border:1px solid #d2d2d7;min-height:220px;overflow-x:auto}
+        #nodesCanvas{display:flex;align-items:center;gap:8px;min-height:140px}
+        .node-card{background:#fff;border:1px solid #d2d2d7;border-radius:10px;padding:8px 12px;min-width:70px;text-align:center;flex-shrink:0}
+        .node-card.trigger{border-color:#1d1d1f;background:#f5f5f7}
+        .node-card.logic{border-color:#8b5cf6;background:#f5f0ff}
+        .node-card.action{border-color:#10b981;background:#f0faf5}
+        .node-icon{font-size:16px;display:block;margin-bottom:2px}
+        .node-title{font-weight:600;color:#1d1d1f;font-size:10px}
+        .node-sub{font-size:8px;color:#aeaeb2}
+        .node-arrow{color:#d2d2d7;font-size:12px;flex-shrink:0}
+        
+        .result-links{background:#fafafc;border-radius:10px;padding:8px 12px;margin-top:10px;border:1px solid #d2d2d7}
+        .result-links a{display:block;color:#1d1d1f;text-decoration:none;font-size:12px;font-weight:500;padding:2px 0;transition:0.15s}
+        .result-links a:hover{color:#1d1d1f;text-decoration:underline}
+        
+        .loading{color:#aeaeb2;font-size:12px;text-align:center;padding:10px}
+        .error{color:#ff3b30;font-size:12px;text-align:center;padding:10px}
+        
+        .alt-wrap{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+        .alt-tag{background:#f5f5f7;border:1px solid #d2d2d7;padding:2px 8px;border-radius:4px;font-size:10px;color:#86868b}
         
         @media(max-width:1024px){.grid{grid-template-columns:1fr}}
         @media(max-width:600px){.hero h1{font-size:32px}.search{flex-direction:column}}
@@ -102,7 +98,10 @@
 
     <!-- Header -->
     <header class="header">
-        <div class="logo">Aribeth <span>Engine</span><span class="logo-sub">Suite</span></div>
+        <div class="logo">
+            <span class="netregent">netregent</span>
+            <span class="logo-sub">Aribeth Engine Suite</span>
+        </div>
         <div class="platforms">
             <span class="platform"><span class="dot dot-n8n"></span>n8n</span>
             <span class="platform"><span class="dot dot-make"></span>Make</span>
@@ -115,43 +114,42 @@
 
     <!-- Hero -->
     <div class="hero">
-        <div class="hero-badge">⚡ 11,000+ Automation Workflows</div>
-        <h1>Design <span>Production-Ready</span><br />Automation Workflows</h1>
-        <p>Describe your automation goal or explore projects. AI generates complete node maps with real platforms, tools, and free alternatives.</p>
+        <div class="hero-badge">⚡ 11,000+ Workflows</div>
+        <p>Describe your automation goal. AI generates complete node maps with platforms, tools, and free alternatives.</p>
     </div>
 
-    <!-- Search -->
+    <!-- Search - AI Input -->
     <div class="search">
-        <input type="text" id="userInput" placeholder="WhatsApp chatbot with AI responses" value="WhatsApp chatbot with AI responses" />
+        <input type="text" id="userInput" placeholder="e.g. WhatsApp chatbot with AI responses" value="WhatsApp chatbot with AI responses" />
         <button id="generateBtn">Generate</button>
     </div>
 
-    <!-- Suggestions -->
+    <!-- Suggestions - منظمة ومتناسقة -->
     <div class="suggestions" id="suggestions"></div>
 
     <!-- Grid -->
     <div class="grid">
         <div class="panel">
-            <label class="panel-label">📂 <span class="accent">Select Domain</span></label>
-            <div class="domain-list" id="domainList"><div class="loading">Loading domains...</div></div>
+            <label class="panel-label">📂 Select Domain</label>
+            <div class="domain-list" id="domainList"><div class="loading">Loading...</div></div>
 
-            <label class="panel-label" style="margin-top:12px;color:#86868b;font-size:12px;">🎬 Media Type</label>
+            <label class="panel-label" style="margin-top:10px;color:#86868b;font-size:12px;">🎬 Media Type</label>
             <div class="media-list" id="mediaList"><div class="loading">Select a domain first</div></div>
 
             <button class="generate-btn" id="generateBtn2">Generate</button>
         </div>
 
         <div class="panel">
-            <label class="panel-label">🗺️ <span class="accent">Node Map</span></label>
+            <label class="panel-label">🗺️ Node Map</label>
             <div class="canvas"><div id="nodesCanvas"><div class="loading">Enter a request and click Generate...</div></div></div>
 
             <div class="result-links">
-                <label class="panel-label" style="font-size:12px;margin-bottom:4px;">🔗 Templates</label>
+                <label class="panel-label" style="font-size:11px;margin-bottom:4px;">🔗 Templates</label>
                 <div id="templateLinks"><span class="loading">No templates yet.</span></div>
             </div>
 
-            <div style="margin-top:12px;">
-                <label class="panel-label" style="font-size:12px;">🔄 Alternatives</label>
+            <div style="margin-top:10px;">
+                <label class="panel-label" style="font-size:11px;">🔄 Alternatives</label>
                 <div class="alt-wrap" id="alternativesList"><span class="loading">None yet.</span></div>
             </div>
         </div>
@@ -163,16 +161,16 @@ const apiURL = "/api/proxy";
 
 // --- Projects ---
 const projects = [
-    { name: "AI Video Generation", subs: ["TikTok", "YouTube", "Instagram", "Shorts"] },
-    { name: "WhatsApp Bot", subs: ["Support", "Sales", "Notifications", "Booking"] },
-    { name: "Email Marketing", subs: ["Automation", "Newsletters", "Drip", "Templates"] },
-    { name: "Lead Generation", subs: ["CRM Sync", "Scraping", "Enrichment", "Outreach"] },
-    { name: "Document Extraction", subs: ["Invoices", "Contracts", "PDF", "OCR"] },
-    { name: "E-commerce", subs: ["Inventory", "Orders", "Products", "Sync"] },
-    { name: "Social Media", subs: ["Content", "Scheduling", "Analytics", "Ads"] },
-    { name: "HR Automation", subs: ["Recruitment", "Onboarding", "Payroll", "Screening"] },
-    { name: "IT & Cloud", subs: ["Monitoring", "Deployment", "Security", "Backup"] },
-    { name: "Financial Reporting", subs: ["Invoicing", "Expenses", "Forecasting", "Tax"] }
+    { name: "AI Video Generation", subs: ["TikTok", "YouTube", "Instagram"] },
+    { name: "WhatsApp Bot", subs: ["Support", "Sales", "Notifications"] },
+    { name: "Email Marketing", subs: ["Automation", "Newsletters", "Drip"] },
+    { name: "Lead Generation", subs: ["CRM Sync", "Scraping", "Enrichment"] },
+    { name: "Document Extraction", subs: ["Invoices", "Contracts", "PDF"] },
+    { name: "E-commerce", subs: ["Inventory", "Orders", "Products"] },
+    { name: "Social Media", subs: ["Content", "Scheduling", "Analytics"] },
+    { name: "HR Automation", subs: ["Recruitment", "Onboarding", "Payroll"] },
+    { name: "IT & Cloud", subs: ["Monitoring", "Deployment", "Security"] },
+    { name: "Financial Reporting", subs: ["Invoicing", "Expenses", "Forecasting"] }
 ];
 
 // --- Global ---
@@ -182,8 +180,8 @@ let globalData = { domains: [], results: [], workflow: [], alternatives: [] };
 function renderSuggestions() {
     const container = document.getElementById('suggestions');
     container.innerHTML = projects.map(p => `
-        <div class="suggestion">
-            ${p.name}
+        <div class="suggestion-wrap">
+            <span class="suggestion">${p.name}</span>
             <div class="dropdown">
                 ${p.subs.map(s => `<div class="dropdown-item" onclick="setProject('${p.name} ${s}')">${s}</div>`).join('')}
             </div>
