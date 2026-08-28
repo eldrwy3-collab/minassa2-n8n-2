@@ -1,7 +1,0 @@
-'use strict';
-const {arr}=require('../lib/engine');
-let cache=null,loadedAt=0;
-const SOURCE=process.env.CATALOG_URL||'https://raw.githubusercontent.com/eldrwy3-collab/maktaba-data/main/ultimate_6_platforms_database_ultimate.json';
-async function load(){if(cache&&Date.now()-loadedAt<300000)return cache;const r=await fetch(SOURCE,{headers:{accept:'application/json'},cache:'no-store'});if(!r.ok)throw new Error(`Catalog source HTTP ${r.status}`);const data=await r.json();if(!Array.isArray(data))throw new Error('Catalog source is not an array');cache=data;loadedAt=Date.now();return cache;}
-function tree(records){const map=new Map();for(const r of records){const d=r.domain||'General_Automation',s=r.sub_domain||r.subdomain||d;if(!map.has(d))map.set(d,new Map());if(!map.get(d).has(s))map.get(d).set(s,[]);map.get(d).get(s).push(r);}return [...map].map(([name,subs])=>({name,count:[...subs.values()].reduce((n,a)=>n+a.length,0),subdomains:[...subs].map(([name,items])=>({name,count:items.length,items}))}));}
-module.exports=async(req,res)=>{res.setHeader('Cache-Control','s-maxage=300, stale-while-revalidate=3600');res.setHeader('X-Content-Type-Options','nosniff');try{const records=await load();const q=String(req.query?.q||'').toLowerCase().trim();const limited=q?records.filter(r=>JSON.stringify(r).toLowerCase().includes(q)).slice(0,3000):records;res.status(200).json({source:SOURCE,records:records.length,domains:tree(limited)});}catch(e){res.status(502).json({error:'Catalog unavailable',detail:process.env.NODE_ENV==='development'?e.message:undefined});}};
