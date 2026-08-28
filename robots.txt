@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /api/
-Sitemap: https://minassa2-n8n-2.vercel.app/sitemap.xml
