@@ -1,1 +1,0 @@
-{"name":"netregent","version":"1.0.0","private":true,"description":"netregent AI Automation Architecture — native workflow planning without n8n","scripts":{"dev":"vercel dev","start":"vercel dev"},"engines":{"node":">=20"}}
