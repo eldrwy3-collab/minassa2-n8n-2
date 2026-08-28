@@ -1,0 +1,1 @@
+window.NETREGENT_CONFIG={brand:'netregent',dataUrl:'https://raw.githubusercontent.com/eldrwy3-collab/maktaba-data/refs/heads/main/ultimate_6_platforms_database_ultimate.json',siteUrl:'https://minassa2-n8n-2.vercel.app/',demoMode:true,maxRecords:120};
