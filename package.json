@@ -1,0 +1,1 @@
+{"name":"netregent","version":"1.0.0","private":true,"engines":{"node":">=20"},"scripts":{"dev":"vercel dev","check":"node --check api/catalog.js && node --check api/compose.js && node --check api/contact.js && node --check api/auth.js && node --check lib/engine.js"}}
