@@ -1,13 +1,178 @@
-(()=>{'use strict';const C=window.NETREGENT_CONFIG,S={data:[],filtered:[],q:'',p:'',d:''},$=x=>document.querySelector(x),E=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const FALL=[['Lead capture and routing','Sales','Zapier','Capture, qualify and route new leads.',['New lead trigger','Validate data','Qualify lead','Create CRM record','Notify sales'],['Make.com','Power Automate','Pipedream']],['Customer support triage','Support','Make.com','Classify incoming support requests and route them.',['New ticket','Normalize request','Classify intent','Route team','Update ticket'],['Zapier','n8n','Node-RED']],['Order processing','E-Commerce','Power Automate','Process a new order and update business systems.',['New order','Validate','Update CRM/inventory','Create fulfillment task','Send confirmation'],['Make.com','Pipedream','Zapier']],['Employee onboarding','HR','Power Automate','Coordinate onboarding tasks and notifications.',['Employee trigger','Create tasks','Provision access','Notify stakeholders','Track completion'],['Make.com','Zapier','Node-RED']],['Content publishing','Content','Pipedream','Move approved content through transformation and publishing.',['Content approved','Transform','Publish','Record URL','Notify team'],['Make.com','Zapier','n8n']],['Invoice workflow','Finance','Make.com','Capture, validate and route invoice information.',['Invoice received','Extract data','Validate','Store','Notify approver'],['Power Automate','Zapier','Pipedream']],['Property lead follow-up','Real Estate','Zapier','Capture property enquiries and schedule follow-up.',['Enquiry','Create contact','Assign agent','Schedule follow-up','Notify agent'],['Make.com','Power Automate']],['IT incident routing','IT','Node-RED','Classify and route incidents to the right response path.',['Incident','Normalize','Classify severity','Route','Log outcome'],['Pipedream','Power Automate','n8n']],['Patient appointment reminder','Healthcare','Power Automate','Coordinate appointment reminders with privacy-aware handling.',['Appointment','Validate','Prepare reminder','Send','Log delivery'],['Make.com','Pipedream']],['Student enrollment','Education','Make.com','Coordinate enrollment information, tasks and notifications.',['Enrollment','Validate','Create record','Assign tasks','Notify'],['Power Automate','Zapier']]];
-const fallback=FALL.map(x=>({title:x[0],domain:x[1],platform:x[2],description:x[3],steps:x[4],alternatives:x[5],subdomain:''}));
-function norm(r,i){if(!r||typeof r!=='object')return null;let t=r.title||r.name||r.workflow_name||r.template||r.workflow||r.label||r.use_case||`Automation pattern ${i+1}`,d=r.domain||r.category||r.industry||'General',p=r.platform||r.tool||r.automation_platform||(Array.isArray(r.platforms)?r.platforms[0]:'')||'Multi-platform',sd=r.subdomain||r.sub_domain||r.subCategory||'',desc=r.description||r.summary||r.explanation||r.problem||'',st=r.steps||r.nodes||r.workflow_steps||r.actions||r.sequence||[];if(!Array.isArray(st))st=Object.values(st||{});st=st.map(x=>typeof x==='string'?x:x?.name||x?.label||x?.title||x?.type||JSON.stringify(x)).filter(Boolean).slice(0,18);let a=r.alternatives||r.alternative_tools||r.open_alternatives||[];if(!Array.isArray(a))a=[a];return{title:String(t),domain:String(d),platform:String(p),subdomain:String(sd),description:String(desc),steps:st,alternatives:a.map(String)}}
-function flat(o){let out=[];function walk(x){if(!x||typeof x!=='object')return;if(Array.isArray(x)){x.forEach(walk);return}let k=Object.keys(x),likely=k.some(z=>/title|name|workflow|template|use.?case|description|steps|nodes|platform|domain/i.test(z));if(likely){let n=norm(x,out.length);if(n)out.push(n)}Object.values(x).forEach(v=>walk(v))}walk(o);let seen=new Set;return out.filter(x=>{let k=x.title+'|'+x.domain+'|'+x.platform;if(seen.has(k))return false;seen.add(k);return true})}
-async function load(){try{let r=await fetch(C.dataUrl,{cache:'no-store'});if(!r.ok)throw 0;let j=await r.json();S.data=flat(j);if(!S.data.length)throw 0;$('#status').textContent=`${S.data.length.toLocaleString()} records loaded`}catch(e){S.data=fallback;$('#status').textContent='Fallback catalog active'}filters();apply()}
-function vals(k){return [...new Set(S.data.map(x=>x[k]).filter(Boolean))].sort()}
-function filters(){let ps=vals('platform').slice(0,30),ds=vals('domain').slice(0,30);$('#platforms').innerHTML='<button data-p="">All platforms</button>'+ps.map(x=>`<button data-p="${E(x)}">${E(x)}</button>`).join('');$('#domains').innerHTML='<button data-d="">All domains</button>'+ds.map(x=>`<button data-d="${E(x)}">${E(x)}</button>`).join('');document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{S.p=b.dataset.p;apply()});document.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{S.d=b.dataset.d;apply()})}
-function apply(){let q=S.q.toLowerCase();S.filtered=S.data.filter(x=>(!S.p||x.platform===S.p)&&(!S.d||x.domain===S.d)&&(!q||[x.title,x.domain,x.subdomain,x.platform,x.description,...x.steps].join(' ').toLowerCase().includes(q)));$('#count').textContent=`${S.filtered.length.toLocaleString()} matching patterns`;$('#cards').innerHTML=S.filtered.slice(0,C.maxRecords).map((x,i)=>`<article class="card" data-i="${i}"><small>${E(x.domain)} · ${E(x.platform)}</small><h3>${E(x.title)}</h3><p>${E(x.description||'Reusable workflow pattern.')}</p><div>${x.steps.slice(0,4).map((s,n)=>`<span>${n+1}. ${E(s)}</span>`).join('')}</div><button>Use this pattern →</button></article>`).join('')||'<p>No matching patterns.</p>';document.querySelectorAll('.card').forEach(c=>c.onclick=()=>build(S.filtered[+c.dataset.i]))}
-function score(x,q){let ws=q.toLowerCase().split(/\s+/).filter(w=>w.length>2),h=[x.title,x.domain,x.subdomain,x.platform,x.description,...x.steps].join(' ').toLowerCase();return ws.reduce((n,w)=>n+(h.includes(w)?1:0)+(x.title.toLowerCase().includes(w)?2:0)+(x.domain.toLowerCase().includes(w)?2:0),0)}
-function build(seed){let q=seed?[seed.title,seed.domain,seed.description].join(' '):$('#request').value.trim();if(!q){$('#request').focus();return}let rank=S.data.map(x=>[x,score(x,q)]).sort((a,b)=>b[1]-a[1]),b=seed||rank[0]?.[0]||fallback[0],rel=rank.filter(x=>x[0]!==b).slice(0,4).map(x=>x[0]),steps=b.steps.length?b.steps:['Receive trigger','Validate and normalize input','Apply business rule','Perform requested action','Record result / notify'];$('#workspace').classList.remove('hidden');$('#title').textContent=b.title;$('#summary').textContent=b.description||q;$('#info').innerHTML=`<p><b>Request:</b> ${E(q)}</p><p><b>Platform:</b> ${E(b.platform)}</p><p><b>Domain:</b> ${E(b.domain)}${b.subdomain?' · '+E(b.subdomain):''}</p><p class="muted">Knowledge recommendation only. Review permissions, credentials, privacy and provider limits before implementation.</p>`;let al=[...(b.alternatives||[]),...rel.map(x=>x.platform)];$('#alts').innerHTML=[...new Set(al)].slice(0,8).map(x=>`<span class="alt">${E(x)}</span>`).join('');draw(steps);$('#workspace').scrollIntoView({behavior:'smooth'})}
-function draw(steps){let w=Math.max(1100,steps.length*245),g=w/(steps.length+1);$('#map').innerHTML=`<svg viewBox="0 0 ${w} 430" preserveAspectRatio="xMinYMid meet"><defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3z"/></marker></defs>${steps.slice(0,-1).map((s,i)=>{let x=g*(i+1)-88;return`<line x1="${x+176}" y1="218" x2="${g*(i+2)-88}" y2="218" class="edge" marker-end="url(#a)"/>`}).join('')}${steps.map((s,i)=>{let x=g*(i+1)-88;return`<g><rect x="${x}" y="175" width="176" height="86" rx="14"/><text x="${x+14}" y="200" class="num">STEP ${i+1}</text><foreignObject x="${x+12}" y="210" width="152" height="44"><div xmlns="http://www.w3.org/1999/xhtml" class="node">${E(s)}</div></foreignObject></g>`}).join('')}</svg>`}
-$('#build').onclick=()=>build();$('#search').oninput=e=>{S.q=e.target.value;apply()};document.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>{$('#request').value=b.dataset.x});$('#save').onclick=()=>{localStorage.setItem('netregent_last',JSON.stringify({title:$('#title').textContent,summary:$('#summary').textContent,savedAt:new Date().toISOString()}));$('#save').textContent='Saved ✓'};$('#feedback').onsubmit=e=>{e.preventDefault();let a=JSON.parse(localStorage.getItem('netregent_feedback')||'[]');a.push({type:$('#ft').value,email:$('#fe').value,message:$('#fm').value,date:new Date().toISOString()});localStorage.setItem('netregent_feedback',JSON.stringify(a));$('#fs').textContent='Saved locally. Production delivery requires a protected backend/email service.';e.target.reset()};$('#accountBtn').onclick=()=>$('#account').classList.toggle('hidden');$('#forgotBtn').onclick=()=>{ $('#as').textContent='Password recovery requires a protected authentication backend and email service; no password is stored by this demo.' };$('#contactDirect').onsubmit=e=>{e.preventDefault();let a=JSON.parse(localStorage.getItem('netregent_contact')||'[]');a.push({email:$('#ce').value,type:$('#ct').value,message:$('#cm').value,date:new Date().toISOString()});localStorage.setItem('netregent_contact',JSON.stringify(a));$('#cs').textContent='Message saved locally in this demo.';e.target.reset()};$('#acct').onsubmit=e=>{e.preventDefault();let u=JSON.parse(localStorage.getItem('netregent_users')||'{}'),em=$('#ae').value.toLowerCase();u[em]={name:$('#an').value,email:em};localStorage.setItem('netregent_users',JSON.stringify(u));$('#as').textContent='Local demo account saved. No password is stored in this static build.'};load()})();
+(() => {
+  const C = window.NETREGENT_CONFIG || {};
+  const $ = (s) => document.querySelector(s);
+  const E = (x) => String(x ?? "").replace(/[&<>"']/g, (c) => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+
+  const DEFAULT_STEPS = [
+    "Receive trigger",
+    "Validate and normalize input",
+    "Apply business rule",
+    "Perform requested action",
+    "Record result / notify"
+  ];
+
+  const S = { data: [], filtered: [], q: "", p: "", d: "" };
+
+  function stepsOf(r) {
+    const raw = r && (
+      r.steps || r.flow_steps || r.nodes || r.workflow_steps ||
+      r.actions || r.sequence || []
+    );
+    const arr = Array.isArray(raw) ? raw : Object.values(raw || {});
+    const out = arr.map((x) => (
+      typeof x === "string" ? x : x?.name || x?.label || x?.title || x?.step || ""
+    )).map((x) => String(x).trim()).filter(Boolean).slice(0, 10);
+    return out.length ? out : DEFAULT_STEPS.slice();
+  }
+
+  function niceTitle(r) {
+    const t = String(r.title || r.name || "").trim();
+    if (t && t.toLowerCase() !== "no title") return t;
+    const d = String(r.description || "").replace(/\s+/g, " ").trim();
+    return d ? d.slice(0, 90) : "Automation pattern";
+  }
+
+  function niceDomain(d) {
+    return String(d || "General").replace(/_/g, " ");
+  }
+
+  function record(r, platform, steps) {
+    return {
+      title: niceTitle(r),
+      domain: niceDomain(r.domain || r.category || "General"),
+      platform: platform || "Multi-platform",
+      subdomain: niceDomain(r.sub_domain || r.subdomain || ""),
+      description: String(r.description || "").slice(0, 400),
+      steps: stepsOf({ steps }),
+      alternatives: Object.keys(r.blueprints || {}).filter((k) => k !== platform)
+    };
+  }
+
+  function flat(json) {
+    const rows = Array.isArray(json) ? json : (json?.items || json?.workflows || []);
+    const out = [];
+    rows.forEach((r) => {
+      if (!r || typeof r !== "object") return;
+      const prints = r.blueprints && typeof r.blueprints === "object" ? r.blueprints : null;
+      if (prints) {
+        Object.keys(prints).forEach((name) => {
+          const bp = prints[name] || {};
+          out.push(record(r, bp.platform || name, bp.flow_steps || bp.steps));
+        });
+      } else {
+        out.push(record(r, r.platform, r.flow_steps || r.steps));
+      }
+    });
+    return out;
+  }
+
+  function score(x, q) {
+    const w = q.toLowerCase().split(/\s+/).filter((t) => t.length > 2);
+    const h = [x.title, x.domain, x.platform, x.description, x.steps.join(" ")].join(" ").toLowerCase();
+    return w.reduce((n, t) => n + (h.includes(t) ? 2 : 0), h.includes(q.toLowerCase()) ? 3 : 0);
+  }
+
+  function draw(steps) {
+    const list = (steps && steps.length ? steps : DEFAULT_STEPS).slice(0, 8);
+    const w = Math.max(1100, list.length * 245);
+    const g = w / (list.length + 1);
+    const lines = list.slice(0, -1).map((_, i) => {
+      const x1 = g * (i + 1) - 88;
+      const x2 = g * (i + 2) - 88;
+      return `<line x1="${x1 + 176}" y1="218" x2="${x2}" y2="218" class="edge" marker-end="url(#a)"/>`;
+    }).join("");
+    const nodes = list.map((s, i) => {
+      const x = g * (i + 1) - 88;
+      return `<g>
+        <rect x="${x}" y="175" width="176" height="86" rx="14"></rect>
+        <text x="${x + 14}" y="200" class="num">STEP ${i + 1}</text>
+        <foreignObject x="${x + 12}" y="210" width="152" height="44">
+          <div xmlns="http://www.w3.org/1999/xhtml" style="color:#eaf2fb;font:600 13px/1.25 system-ui">${E(s)}</div>
+        </foreignObject>
+      </g>`;
+    }).join("");
+    $("#map").innerHTML = `<svg viewBox="0 0 ${w} 430" preserveAspectRatio="xMinYMid meet">
+      <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L9,3z"></path></marker></defs>${lines}${nodes}</svg>`;
+  }
+
+  function build(seed) {
+    const q = seed ? [seed.title, seed.domain, seed.description].join(" ") : $("#request").value.trim();
+    if (!q) { $("#request").focus(); return; }
+    const rank = S.data.map((x) => [x, score(x, q)]).sort((a, b) => b[1] - a[1]);
+    const b = seed || rank[0]?.[0] || record({ title: q, description: q, domain: "General" }, "Multi-platform", DEFAULT_STEPS);
+    const steps = stepsOf(b);
+    $("#workspace").classList.remove("hidden");
+    $("#title").textContent = b.title;
+    $("#summary").textContent = b.description || q;
+    $("#info").innerHTML = `<p><b>Request:</b> ${E(q)}</p>
+      <p><b>Platform:</b> ${E(b.platform)}</p>
+      <p><b>Domain:</b> ${E(b.domain)}${b.subdomain ? " · " + E(b.subdomain) : ""}</p>
+      <p><b>Steps:</b> ${E(steps.join(" → "))}</p>
+      <p class="muted">Knowledge recommendation only. Review permissions and limits before implementation.</p>`;
+    const al = [...(b.alternatives || []), ...rank.slice(1, 5).map((x) => x[0].platform)];
+    $("#alts").innerHTML = [...new Set(al)].filter(Boolean).slice(0, 8)
+      .map((x) => `<span class="alt">${E(x)}</span>`).join("") || "<span class='muted'>No alternatives</span>";
+    draw(steps);
+    $("#workspace").scrollIntoView({ behavior: "smooth" });
+  }
+
+  function apply() {
+    const q = S.q.toLowerCase();
+    S.filtered = S.data.filter((x) =>
+      (!S.p || x.platform === S.p) &&
+      (!S.d || x.domain === S.d) &&
+      (!q || [x.title, x.domain, x.platform, x.description, x.steps.join(" ")].join(" ").toLowerCase().includes(q))
+    );
+    $("#count").textContent = `${S.filtered.length.toLocaleString()} matching patterns`;
+    const max = C.maxRecords || 120;
+    $("#cards").innerHTML = S.filtered.slice(0, max).map((x, i) =>
+      `<article class="card" data-i="${i}">
+        <small>${E(x.domain)} · ${E(x.platform)}</small>
+        <h3>${E(x.title)}</h3>
+        <p>${E(x.description || "Reusable workflow pattern.")}</p>
+        <div>${x.steps.slice(0, 4).map((s) => `<span class="alt">${E(s)}</span>`).join("")}</div>
+        <button>Use this pattern →</button>
+      </article>`
+    ).join("") || "<p>No matching patterns. Click All platforms.</p>";
+    document.querySelectorAll("#cards .card").forEach((c) => {
+      c.onclick = () => build(S.filtered[+c.dataset.i]);
+    });
+  }
+
+  function filters() {
+    const ps = [...new Set(S.data.map((x) => x.platform).filter(Boolean))].sort();
+    const ds = [...new Set(S.data.map((x) => x.domain).filter(Boolean))].sort();
+    $("#platforms").innerHTML = `<button data-p="">All platforms</button>` +
+      ps.map((x) => `<button data-p="${E(x)}">${E(x)}</button>`).join("");
+    $("#domains").innerHTML = `<button data-d="">All domains</button>` +
+      ds.map((x) => `<button data-d="${E(x)}">${E(x)}</button>`).join("");
+    document.querySelectorAll("[data-p]").forEach((b) => b.onclick = () => { S.p = b.dataset.p; apply(); });
+    document.querySelectorAll("[data-d]").forEach((b) => b.onclick = () => { S.d = b.dataset.d; apply(); });
+  }
+
+  async function load() {
+    try {
+      const r = await fetch(C.dataUrl, { cache: "no-store" });
+      if (!r.ok) throw 0;
+      const j = await r.json();
+      S.data = flat(j);
+      if (!S.data.length) throw 0;
+      $("#status").textContent = `${S.data.length.toLocaleString()} records loaded`;
+    } catch (e) {
+      S.data = [record({ title: "Lead routing", domain: "Sales", description: "Capture and route new leads." }, "Zapier", DEFAULT_STEPS)];
+      $("#status").textContent = "Fallback catalog active";
+    }
+    filters();
+    apply();
+  }
+
+  $("#build").onclick = () => build();
+  $("#search").oninput = (e) => { S.q = e.target.value; apply(); };
+  document.querySelectorAll("[data-x]").forEach((b) => b.onclick = () => { $("#request").value = b.dataset.x; build(); });
+  $("#save").onclick = () => { $("#save").textContent = "Saved ✓"; };
+  $("#accountBtn").onclick = () => $("#account").classList.toggle("hidden");
+  load();
+})();
